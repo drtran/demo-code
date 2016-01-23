@@ -14,4 +14,15 @@ This project contains code that verify the software installation for the 3-day A
 
 ## Verifying HSQL database install
 
+## Network utility test:
+Run network utility as a JUit test like this:
+	
+	mvn clean -Dtest=com.bemach.aep.verifier.util.NetworkInfoTest test
+
+Run network utility as a Java app like this:
+
+	java -cp ./verifier-0.1.jar com.bemach.aep.verifier.util.NetworkInfoTest
+
+## Skipping all JUnit tests:
+	mvn clean -DskipTests
  
