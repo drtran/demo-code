@@ -39,7 +39,15 @@ public class NetworkInfo {
 		return ips;
 	}
 
+	/**
+	 * Runs like this:
+	 * 
+	 * 	java -cp ./verifier-0.1.jar com.bemach.aep.verifier.util.NetworkInfo
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
+		
 		NetworkInfo ni = new NetworkInfo();
 		List<String> ips = ni.getIpAddresses();
 		for (String ip: ips) {

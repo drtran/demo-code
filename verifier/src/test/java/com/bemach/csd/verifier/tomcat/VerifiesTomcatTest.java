@@ -1,19 +1,21 @@
 package com.bemach.csd.verifier.tomcat;
 
-import org.junit.*;
-import static org.junit.Assert.*;
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertTrue;
 
-import org.hamcrest.CoreMatchers;
-import org.mockito.Mockito;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.runners.MockitoJUnitRunner;
 
+/**
+ * NOTES: 
+ * 
+ * Do not use CDI Unit test along with Selenium related tests because of some conflict.
+ * Web driver cannot launch ...
+ * 
+ * @author ktran
+ *
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class VerifiesTomcatTest {
 

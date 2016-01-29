@@ -1,20 +1,21 @@
 package com.bemach.aep.verifier.util;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import org.fest.assertions.*;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 
-import javax.inject.Inject;
-
-import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 
-@RunWith(CdiRunner.class)
+
+
 public class NetworkInfoTest {
 
-	@Inject
-	private NetworkInfo target;
+	@InjectMocks
+	private NetworkInfo target = new NetworkInfo();
 	
 	@Test
 	public void shouldGetIpAddress() {
@@ -24,7 +25,20 @@ public class NetworkInfoTest {
 	@Test
 	public void shouldHaveAtLeastOneIpAddresses() {
 		List<String> ips = target.getIpAddresses();
-		Assertions.assertThat(ips).isNotEmpty();
+		assertFalse(ips.isEmpty());
+	}
+	
+	@Test
+	public void getIpByHostName() throws UnknownHostException {
+		InetAddress ia = InetAddress.getByName("Linksys35327");
+		System.out.println("IP: " + ia.getHostAddress());
+		
+		ia = InetAddress.getByName("PiDev4");
+		System.out.println("IP: " + ia.getHostAddress());
+
+		ia = InetAddress.getByName("PiAlarm01");
+		System.out.println("IP: " + ia.getHostAddress());
+
 	}
 	
 }

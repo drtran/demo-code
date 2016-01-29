@@ -1,6 +1,8 @@
 # Verifying the installation
 This project contains code that verify the software installation for the 3-day AEP class.
 
+Linksys: Linksys35327
+
 ## Verifying Tomcat 8 installation
 
 ### Verifying Jenkins-CI
@@ -25,4 +27,6 @@ Run network utility as a Java app like this:
 
 ## Skipping all JUnit tests:
 	mvn clean -DskipTests
- 
+
+## NOTES:
+- Problem of using CDI-Unit along with using selenium webdriver.
