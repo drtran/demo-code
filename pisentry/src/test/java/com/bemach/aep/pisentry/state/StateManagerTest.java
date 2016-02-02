@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 
 import com.bemach.aep.pisentry.vos.Event;
 import com.bemach.aep.pisentry.vos.EventType;
+import com.bemach.aep.pisentry.vos.Notification;
 import com.bemach.aep.pisentry.vos.State;
 
 public class StateManagerTest {
@@ -21,7 +22,10 @@ public class StateManagerTest {
 
 	@Before
 	public void setUp() {
-		target = new StateManagerImpl();
+		NotificationManager notifier = Mockito.mock(NotificationManager.class);
+		Notification msg = Mockito.mock(Notification.class);
+//		Mockito.doNothing().when(notifier).notify(Mockito.any(Notification.class)); by default mock is to do nothing.
+		target = new StateManagerImpl(notifier);
 	}
 	
 	@Test
