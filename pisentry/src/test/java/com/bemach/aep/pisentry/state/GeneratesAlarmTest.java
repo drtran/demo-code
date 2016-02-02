@@ -21,7 +21,7 @@ public class GeneratesAlarmTest {
 	@Test
 	public void shouldGeneratesAlarmWhenArmedAndReceivedFaultEvent() {
 		target.process(fault);
-		State state = target.getState();
+		State state = target.getState(); 
 		assertEquals(State.ALARMED, state);
 	}
 }
