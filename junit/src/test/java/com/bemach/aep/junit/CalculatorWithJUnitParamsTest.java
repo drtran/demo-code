@@ -23,4 +23,14 @@ public class CalculatorWithJUnitParamsTest {
 		int result = calculator.add (value1, value2);
 		assertEquals(expected, result);
 	}
+	
+	@Test 
+	public void shouldDivideTwoIntegers() {
+		Calculator cal = new Calculator();
+		
+		int result = cal.divide(100, 20);
+		int expected = 5;
+		
+		assertEquals(expected, result);
+	}
 }

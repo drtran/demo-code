@@ -24,6 +24,16 @@ public class CalculatorTest {
 		
 	}
 	
+	@Test 
+	public void shouldDivideTwoIntegers() {
+		Calculator cal = new Calculator();
+		
+		int result = cal.divide(100, 20);
+		int expected = 5;
+		
+		assertEquals(expected, result);
+	}
+	
 	@Parameters
 	public static Collection<Integer[]> getTestParameters() {
 		return Arrays.asList(new Integer[][] {

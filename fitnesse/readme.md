@@ -5,7 +5,7 @@ This is a demo project for FitNesse framework
 ```
 @jtrac-login-scenario
 Scenario: Logging into jtrac application
-	Given I am at the website "http://192.168.1.172:8080/jtrac/app/login"
+	Given I am at the website "http://pidev4:8080/jtrac/app/login"
 	When I enter user id "admin" and password "admin"
 	And I click on the Submit button
 	Then I should see a main page display "DASHBOARD" as a part of the 
