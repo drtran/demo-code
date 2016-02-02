@@ -15,6 +15,8 @@ public class StateManagerImpl implements StateManager {
 			}
 		} else if (event.getType() == EventType.ARM_AWAY) {
 			state = State.ARMED_AWAY;
+		} else if (event.getType() == EventType.DISARM) {
+			state = State.UNARMED;
 		}
 	}
 

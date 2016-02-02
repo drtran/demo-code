@@ -36,7 +36,7 @@ public class StateManagerTest {
 	}
 	
 	@Test
-	public void should_become_alarmed_when_armed_and_get_fault_event() {
+	public void should_become_alarmed_when_armed_away_and_get_fault_event() {
 		Event fault = Mockito.mock(Event.class);
 		Event arm = Mockito.mock(Event.class);
 		Mockito.when(arm.getType()).thenReturn(EventType.ARM_AWAY);
@@ -50,7 +50,16 @@ public class StateManagerTest {
 	}
 	
 	@Test 
-	public void should_become_unarmed_when_armed_and_get_disarm_event() {
+	public void should_become_unarmed_when_armed_away_and_get_disarm_event() {
+		Event disarm = Mockito.mock(Event.class);
+		Event arm = Mockito.mock(Event.class);
+		Mockito.when(arm.getType()).thenReturn(EventType.ARM_AWAY);
+		Mockito.when(disarm.getType()).thenReturn(EventType.DISARM);
+		target.process(arm);
 		
+		target.process(disarm);
+		
+		State state = target.getState(); 
+		assertEquals(State.UNARMED, state);
 	}
 }
