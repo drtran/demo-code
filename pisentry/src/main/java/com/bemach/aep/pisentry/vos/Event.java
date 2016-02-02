@@ -1,11 +1,10 @@
 package com.bemach.aep.pisentry.vos;
 
 public class Event {
-	public enum EVENT_TYPE {ZONE_EVENT, USER_EVENT, ADMIN_EVENT, NOTIFICATION_EVENT}
 	private String id;
 	private String name;
 	private String description;
-	private EVENT_TYPE type;
+	private EventType type;
 	private String message; // USER_TOKEN:EVENT_TYPE:EVENT_DATA
 	
 	public String getId() {
@@ -26,10 +25,10 @@ public class Event {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public EVENT_TYPE getType() {
+	public EventType getType() {
 		return type;
 	}
-	public void setType(EVENT_TYPE type) {
+	public void setType(EventType type) {
 		this.type = type;
 	}
 	public String getMessage() {
