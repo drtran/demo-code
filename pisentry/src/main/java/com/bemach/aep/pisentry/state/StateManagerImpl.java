@@ -19,12 +19,24 @@ public class StateManagerImpl implements StateManager {
 			if (state == State.ARMED_AWAY) {
 				state = state.ALARMED;
 			}
-			notify(State.ARMED_AWAY.toString(), State.ALARMED.toString());
+			notify(State.ARMED_AWAY, State.ALARMED);
 			break;
 		case ARM_AWAY:
+			if (state != State.ARMED_AWAY) {
+				notify(state, State.ARMED_AWAY);
+			}
 			state = State.ARMED_AWAY;
 			break;
+		case ARM_HOME:
+			if (state != State.ARMED_HOME) {
+				notify(state, State.ARMED_HOME);
+			}
+			state = State.ARMED_HOME;
+			break;
 		case DISARM:
+			if (state != State.UNARMED) {
+				notify(state, State.UNARMED);
+			}
 			state = State.UNARMED;
 			break;
 		default:
@@ -32,7 +44,7 @@ public class StateManagerImpl implements StateManager {
 		}
 	}
 
-	private void notify(String armedAway, String alarmed) {
+	private void notify(State armedAway, State alarmed) {
 		notifier.notify(new Notification());
 	}
 

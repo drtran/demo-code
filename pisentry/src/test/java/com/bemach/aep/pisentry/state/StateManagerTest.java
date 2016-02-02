@@ -3,8 +3,10 @@ package com.bemach.aep.pisentry.state;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.Mockito.*;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
@@ -20,10 +22,14 @@ public class StateManagerTest {
 	@Mock
 	private Event arm;
 
+	private NotificationManager notifier;
+
+	private Notification msg;
+
 	@Before
 	public void setUp() {
-		NotificationManager notifier = Mockito.mock(NotificationManager.class);
-		Notification msg = Mockito.mock(Notification.class);
+		notifier = Mockito.mock(NotificationManager.class);
+		msg = Mockito.mock(Notification.class);
 //		Mockito.doNothing().when(notifier).notify(Mockito.any(Notification.class)); by default mock is to do nothing.
 		target = new StateManagerImpl(notifier);
 	}
@@ -65,5 +71,17 @@ public class StateManagerTest {
 		
 		State state = target.getState(); 
 		assertEquals(State.UNARMED, state);
+	}
+	
+	@Test
+	public void should_notify_when_state_changes() {
+		Event disarm = mock(Event.class);
+		Event arm = mock(Event.class);
+		when(arm.getType()).thenReturn(EventType.ARM_AWAY);
+		when(disarm.getType()).thenReturn(EventType.DISARM);
+
+		target.process(arm);
+		
+		verify(notifier, times(1)).notify(any(Notification.class));
 	}
 }
