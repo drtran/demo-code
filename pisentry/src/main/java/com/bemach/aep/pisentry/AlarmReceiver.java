@@ -23,7 +23,8 @@ public class AlarmReceiver {
 		for (;;) {
 			System.out.print("Receiving .... ");
 			datagramSocket.receive(packet);
-			String alarmMsg = new String (packet.getData());
+			
+			String alarmMsg = new String (packet.getData(), 0, packet.getLength());
 			if (alarmMsg.equals(previousAlarmMsg)) {
 				System.out.println("");
 				continue;

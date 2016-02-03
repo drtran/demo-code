@@ -1,4 +1,4 @@
-# Module 5 - Acceptance Tests with FitNesse
+# Module 6 - Acceptance Tests with FitNesse
 This is a demo project for FitNesse framework
 
 
