@@ -15,15 +15,17 @@ public class UdpEventReceiver implements EventReceiver {
 		String msg = udpReceiver.receive();
 		StringTokenizer st = new StringTokenizer(msg, ":");
 
-		// USER_TOKEN:EVENT_TYPE:EVENT_DATA
-		String userToken = st.nextToken();
-		String eventType = st.nextToken();
-		String message = st.nextToken();
-		
 		Event event = new Event();
-		event.setType(EventType.valueOf(eventType));
-		event.setId(userToken);
-		event.setMessage(message);
+		// USER_TOKEN:EVENT_TYPE:EVENT_DATA
+		if (st.countTokens() == 3) {
+			String userToken = st.nextToken();
+			String eventType = st.nextToken();
+			String message = st.nextToken();
+			
+			event.setType(EventType.valueOf(eventType));
+			event.setId(userToken);
+			event.setMessage(message);
+		}
 		
 		return event;
 	}
