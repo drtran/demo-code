@@ -19,6 +19,8 @@ import com.bemach.aep.pisentry.vos.EventType;
 import com.bemach.aep.pisentry.vos.Notification;
 import com.bemach.aep.pisentry.vos.State;
 
+import junitparams.Parameters;
+
 @RunWith(MockitoJUnitRunner.class)
 public class StateManagerTest {
 	
@@ -73,7 +75,7 @@ public class StateManagerTest {
 		State state = target.getState(); 
 		assertEquals(State.UNARMED, state);
 	}
-	
+
 	@Test
 	public void should_notify_when_state_changes() {
 		when(arm.getType()).thenReturn(EventType.ARM_AWAY);
