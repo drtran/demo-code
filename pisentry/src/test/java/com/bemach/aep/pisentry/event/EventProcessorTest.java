@@ -1,6 +1,7 @@
 package com.bemach.aep.pisentry.event;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import javax.inject.Inject;
@@ -12,7 +13,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 
 import com.bemach.aep.pisentry.state.MockStateManager;
+import com.bemach.aep.pisentry.utils.TestUtis;
 import com.bemach.aep.pisentry.vos.Event;
+import com.bemach.aep.pisentry.vos.EventType;
 import com.bemach.aep.pisentry.vos.State;
 
 
@@ -24,6 +27,21 @@ public class EventProcessorTest {
 
 	@Mock private Event event;
 
+	@Test
+	public void should_receive_an_event() {
+		TestUtis.put("MOCKEVENTRECEIVER", event);
+		target.process();
+		assertNotNull(target.getEvent());
+	}
+	
+	@Test
+	public void should_receive_a_fault_event() {
+		when(event.getType()).thenReturn(EventType.FAULT);
+		TestUtis.put("MOCKEVENTRECEIVER", event);
+		target.process();
+		assertEquals(EventType.FAULT, target.getEvent().getType());
+	}
+	
 	@Test
 	public void should_process_an_event() {
 		System.setProperty("MOCKSTATEMANAGER", State.ALARMED.toString());
