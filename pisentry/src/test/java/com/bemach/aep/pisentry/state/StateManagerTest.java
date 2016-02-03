@@ -19,8 +19,6 @@ import com.bemach.aep.pisentry.vos.EventType;
 import com.bemach.aep.pisentry.vos.Notification;
 import com.bemach.aep.pisentry.vos.State;
 
-import junitparams.Parameters;
-
 @RunWith(MockitoJUnitRunner.class)
 public class StateManagerTest {
 	
