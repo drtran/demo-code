@@ -16,7 +16,7 @@ import javax.mail.internet.MimeMessage;
 public class AlarmReceiver {
 	public static void main(String[] args) throws Exception {
 		DatagramSocket datagramSocket = new DatagramSocket(9999);
-		byte[] buffer = new byte[12];
+		byte[] buffer = new byte[1024];
 		DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 		String previousAlarmMsg = "";
 		
