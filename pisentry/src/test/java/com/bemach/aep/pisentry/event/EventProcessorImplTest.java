@@ -21,7 +21,7 @@ import com.bemach.aep.pisentry.vos.State;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({MockStateManager.class, MockEventReceiver.class})
-public class EventProcessorTest {
+public class EventProcessorImplTest {
 
 	@Inject private EventProcessorImpl target;
 

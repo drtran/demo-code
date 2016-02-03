@@ -20,7 +20,7 @@ import com.bemach.aep.pisentry.vos.Notification;
 import com.bemach.aep.pisentry.vos.State;
 
 @RunWith(MockitoJUnitRunner.class)
-public class StateManagerTest {
+public class StateManagerImplTest {
 	
 	private StateManager target;
 	
