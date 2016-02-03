@@ -13,7 +13,7 @@ public class MockStateManager implements StateManager {
 	}
 
 	public State getState() {
-		return State.ALARMED;
+		return State.valueOf(System.getProperty("MOCKSTATEMANAGER"));
 	}
 
 }

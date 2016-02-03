@@ -17,19 +17,24 @@ import com.bemach.aep.pisentry.vos.State;
 
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives(MockStateManager.class)
+@ActivatedAlternatives({MockStateManager.class, MockEventReceiver.class})
 public class EventProcessorTest {
 
 	@Inject private EventProcessorImpl target;
 
-	@Mock private EventReceiver receiver;
-	
 	@Mock private Event event;
 
 	@Test
 	public void should_process_an_event() {
-		when(receiver.receive()).thenReturn(event);
+		System.setProperty("MOCKSTATEMANAGER", State.ALARMED.toString());
 		target.process();
 		assertEquals(State.ALARMED, target.getStateManager().getState());
+	}
+	
+	@Test
+	public void should_process_an_arm_away_event() {
+		System.setProperty("MOCKSTATEMANAGER", State.ARMED_AWAY.toString());
+		target.process();
+		assertEquals(State.ARMED_AWAY, target.getStateManager().getState());
 	}
 }
