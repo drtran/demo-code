@@ -29,6 +29,7 @@ public class EventProcessorTest {
 
 	@Test
 	public void should_receive_an_event() {
+		when(event.getType()).thenReturn(EventType.FAULT);
 		TestUtis.put("MOCKEVENTRECEIVER", event);
 		target.process();
 		assertNotNull(target.getEvent());
@@ -44,6 +45,8 @@ public class EventProcessorTest {
 	
 	@Test
 	public void should_process_an_event() {
+		when(event.getType()).thenReturn(EventType.FAULT);
+		TestUtis.put("MOCKEVENTRECEIVER", event);
 		System.setProperty("MOCKSTATEMANAGER", State.ALARMED.toString());
 		target.process();
 		assertEquals(State.ALARMED, target.getStateManager().getState());
@@ -51,6 +54,8 @@ public class EventProcessorTest {
 	
 	@Test
 	public void should_process_an_arm_away_event() {
+		when(event.getType()).thenReturn(EventType.FAULT);
+		TestUtis.put("MOCKEVENTRECEIVER", event);
 		System.setProperty("MOCKSTATEMANAGER", State.ARMED_AWAY.toString());
 		target.process();
 		assertEquals(State.ARMED_AWAY, target.getStateManager().getState());
