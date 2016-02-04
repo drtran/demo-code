@@ -18,46 +18,47 @@ import com.bemach.aep.pisentry.vos.Event;
 import com.bemach.aep.pisentry.vos.EventType;
 import com.bemach.aep.pisentry.vos.State;
 
-
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({MockStateManager.class, MockEventReceiver.class})
+@ActivatedAlternatives({ MockStateManager.class, MockEventReceiver.class })
 public class EventProcessorImplTest {
 
-	@Inject private EventProcessorImpl target;
+	@Inject
+	private EventProcessorImpl target;
 
-	@Mock private Event event;
+	@Mock
+	private Event event;
 
 	@Test
 	public void should_receive_an_event() {
 		when(event.getType()).thenReturn(EventType.FAULT);
 		TestUtis.put("MOCKEVENTRECEIVER", event);
-		target.process();
+		target.process(event);
 		assertNotNull(target.getEvent());
 	}
-	
+
 	@Test
 	public void should_receive_a_fault_event() {
 		when(event.getType()).thenReturn(EventType.FAULT);
 		TestUtis.put("MOCKEVENTRECEIVER", event);
-		target.process();
+		target.process(event);
 		assertEquals(EventType.FAULT, target.getEvent().getType());
 	}
-	
+
 	@Test
 	public void should_process_an_event() {
 		when(event.getType()).thenReturn(EventType.FAULT);
 		TestUtis.put("MOCKEVENTRECEIVER", event);
 		System.setProperty("MOCKSTATEMANAGER", State.ALARMED.toString());
-		target.process();
+		target.process(event);
 		assertEquals(State.ALARMED, target.getStateManager().getState());
 	}
-	
+
 	@Test
 	public void should_process_an_arm_away_event() {
 		when(event.getType()).thenReturn(EventType.FAULT);
 		TestUtis.put("MOCKEVENTRECEIVER", event);
 		System.setProperty("MOCKSTATEMANAGER", State.ARMED_AWAY.toString());
-		target.process();
+		target.process(event);
 		assertEquals(State.ARMED_AWAY, target.getStateManager().getState());
 	}
 }

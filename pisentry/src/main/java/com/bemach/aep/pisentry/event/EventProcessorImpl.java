@@ -10,12 +10,12 @@ public class EventProcessorImpl implements EventProcessor {
 
 	@Inject private StateManager stateMgr;
 	
-	@Inject private EventReceiver eventRcvr;
+	//	@Inject private EventReceiver eventRcvr;
 
 	private Event event;
 	
-	public void process() {
-		event = eventRcvr.receive();
+	public void process(Event event) {
+		this.event = event;
 		if (event.getType() == EventType.FAULT ||
 			event.getType() == EventType.ARM_AWAY ||
 			event.getType() == EventType.ARM_HOME ||
