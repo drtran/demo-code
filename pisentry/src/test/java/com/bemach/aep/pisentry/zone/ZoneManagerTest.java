@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.bemach.aep.pisentry.vos.Zone;
+import com.bemach.aep.pisentry.vos.ZoneType;
 
 public class ZoneManagerTest {
 	@Test
@@ -29,10 +30,12 @@ public class ZoneManagerTest {
 	@Test
 	public void shouldLoadOneItemZoneFromInputStream() throws IOException {
 		ZoneManager target = new ZoneManagerImpl();
-		ByteArrayInputStream bais = new ByteArrayInputStream("57,Garrage-Left,REED,Left Garage Door".getBytes());
+		ByteArrayInputStream bais = new ByteArrayInputStream(
+				"57,Garrage-Left,REED,Left Garage Door,06-FEB-2016".getBytes());
 		target.load(bais);
 		bais.close();
 		List<Zone> zoneList = target.getZoneList();
 		assertEquals(1, zoneList.size());
+		assertEquals("57,Garrage-Left,REED,Left Garage Door,06-FEB-2016", zoneList.get(0).toString());
 	}
 }
