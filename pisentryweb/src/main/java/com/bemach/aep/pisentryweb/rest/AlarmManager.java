@@ -3,9 +3,9 @@ package com.bemach.aep.pisentryweb.rest;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
+import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
 
@@ -22,16 +22,17 @@ public class AlarmManager extends Application {
 	private StateManager stateManager = StateManagerImpl.getInstance();
 
 	@GET
-	@Path("/status/{name}")
-	@Produces("text/plain")
-	public String getStatus(@PathParam("name") String name) {
-		logger.info("getting status.");
-		return "Alarm state: " + stateManager.getState();
+	@Path("/getState")
+	@Produces(MediaType.APPLICATION_JSON)
+	public SystemState getStatus() {
+		logger.info("getting state.");
+		logger.info("Alarm state: " + stateManager.getState());
+		return new SystemState(stateManager.getState());
 	}
 
 	@PUT
 	@Path("/arm_away")
-	@Produces("text/plain")
+	@Produces(MediaType.APPLICATION_JSON)
 	public void armAway() {
 		logger.info("arming away.");
 		Event event = new Event(AlarmManager.class.toString(), EventType.ARM_AWAY, "NOOP");
@@ -41,7 +42,7 @@ public class AlarmManager extends Application {
 
 	@PUT
 	@Path("/arm_home")
-	@Produces("text/plain")
+	@Produces(MediaType.APPLICATION_JSON)
 	public void armHome() {
 		logger.info("arming home.");
 		Event event = new Event(AlarmManager.class.toString(), EventType.ARM_HOME, "NOOP");
@@ -51,7 +52,7 @@ public class AlarmManager extends Application {
 
 	@PUT
 	@Path("/disarm")
-	@Produces("text/plain")
+	@Produces(MediaType.APPLICATION_JSON)
 	public void disarm() {
 		logger.info("disarming.");
 		Event event = new Event(AlarmManager.class.toString(), EventType.DISARM, "NOOP");
