@@ -1,5 +1,11 @@
 package com.bemach.aep.pisentry.vos;
 
-public class Zone {
+import java.util.Date;
 
+public class Zone {
+	private String id;
+	private String name;
+	private ZoneType type;
+	private String description;
+	private Date installedDate;
 }

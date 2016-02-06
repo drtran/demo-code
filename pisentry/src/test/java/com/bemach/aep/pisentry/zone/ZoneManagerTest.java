@@ -1,9 +1,11 @@
 package com.bemach.aep.pisentry.zone;
 
+import static org.junit.Assert.assertEquals;
+
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
 
 import com.bemach.aep.pisentry.vos.Zone;
 
@@ -14,4 +16,14 @@ public class ZoneManagerTest {
 		List<Zone> zoneList = target.getZoneList();
 		assertEquals(0, zoneList.size());
 	}
+	
+	@Test
+	public void shouldLoadAnEmptyZoneListFromInputStream() {
+		ZoneManager target = new ZoneManagerImpl();
+		target.load(new ByteArrayInputStream("".getBytes()));
+		List<Zone> zoneList = target.getZoneList();
+		assertEquals(0, zoneList.size());
+	}
+	
+
 }

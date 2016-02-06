@@ -1,11 +1,14 @@
 package com.bemach.aep.pisentry.zone;
 
+import java.io.InputStream;
 import java.util.List;
 
 import com.bemach.aep.pisentry.vos.Zone;
 
 public interface ZoneManager {
 
-	List<Zone> getZoneList();
+	public List<Zone> getZoneList();
+
+	public void load(InputStream inputStream);
 
 }
