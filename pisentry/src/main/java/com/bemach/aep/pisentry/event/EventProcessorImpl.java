@@ -16,14 +16,19 @@ public class EventProcessorImpl implements EventProcessor {
 
 	public void process(Event event) {
 		this.event = event;
-		if (event.getType() == EventType.FAULT || event.getType() == EventType.ARM_AWAY
-				|| event.getType() == EventType.ARM_HOME || event.getType() == EventType.DISARM) {
-			stateMgr.process(event);
-		} else if (event.getType() == EventType.NOTIFY) {
+		if (event.getType() == EventType.NOTIFY) {
 			System.out.println("UNSUPPORTED Event Type " + event.getType());
+		} else if (isStateRelatedEvent(event)) {
+			stateMgr.process(event);
 		} else {
 			System.out.println("UNSUPPORTED Event Type " + event.getType());
 		}
+	}
+
+	private boolean isStateRelatedEvent(Event event) {
+		return event.getType() == EventType.FAULT || event.getType() == EventType.NOFAULT
+				|| event.getType() == EventType.ARM_AWAY || event.getType() == EventType.ARM_HOME
+				|| event.getType() == EventType.DISARM;
 	}
 
 	public StateManager getStateManager() {
