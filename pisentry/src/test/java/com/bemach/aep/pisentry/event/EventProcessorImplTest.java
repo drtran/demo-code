@@ -69,4 +69,15 @@ public class EventProcessorImplTest {
 
 		Mockito.verify(notificationMgr, Mockito.times(1)).notify(event);
 	}
+
+	@Test
+	public void shouldNotCallAnyManager() {
+		Mockito.when(event.getType()).thenReturn(null);
+
+		target.process(event);
+
+		Mockito.verify(notificationMgr, Mockito.times(0)).notify(event);
+		Mockito.verify(zoneMgr, Mockito.times(0)).process(event);
+		Mockito.verify(stateMgr, Mockito.times(0)).process(event);
+	}
 }
