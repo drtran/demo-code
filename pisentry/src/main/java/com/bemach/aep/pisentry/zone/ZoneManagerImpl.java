@@ -15,7 +15,7 @@ import com.bemach.aep.pisentry.vos.Zone;
 public class ZoneManagerImpl implements ZoneManager {
 
 	private static Logger logger = Logger.getLogger(ZoneManagerImpl.class);
-	private static ZoneManagerImpl instance = null;
+	private static ZoneManager instance = null;
 	private List<Zone> zoneList = new ArrayList<Zone>();
 
 	private ZoneManagerImpl() {
