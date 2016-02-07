@@ -1,10 +1,12 @@
 package com.bemach.aep.pisentry.state;
 
+import org.apache.log4j.Logger;
+
 import com.bemach.aep.pisentry.vos.Event;
-import com.bemach.aep.pisentry.vos.Notification;
 import com.bemach.aep.pisentry.vos.State;
 
 public class StateManagerImpl implements StateManager {
+	private static Logger logger = Logger.getLogger(StateManagerImpl.class);
 
 	private static State state = State.UNARMED;
 	private static StateManagerImpl instance;
@@ -21,10 +23,12 @@ public class StateManagerImpl implements StateManager {
 		switch (event.getType()) {
 		case FAULT:
 			if (state == State.ARMED_AWAY) {
-				state = state.ALARMED;
+				logger.info("Away ALARMED!");
+				state = State.ALARMED;
 			} else if (state == State.ARMED_HOME) {
 				// for motion don't alarm
-				state = state.ALARMED;
+				logger.info("Home ALARMED!");
+				state = State.ALARMED;
 			}
 			notify(State.ARMED_AWAY, State.ALARMED);
 			break;

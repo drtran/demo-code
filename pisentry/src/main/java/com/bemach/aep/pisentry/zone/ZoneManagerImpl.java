@@ -29,13 +29,9 @@ public class ZoneManagerImpl implements ZoneManager {
 		BufferedReader br = new BufferedReader(new InputStreamReader(is));
 		try {
 			String inputZone = br.readLine();
-			if (inputZone == null)
+			if (inputZone == null || inputZone.trim().length() == 0)
 				return;
-			inputZone = inputZone.trim();
-			if (inputZone.length() == 0) {
-				return;
-			}
-			Zone zone = new Zone(inputZone);
+			Zone zone = new Zone(inputZone.trim());
 			zoneList.add(zone);
 		} catch (IOException e) {
 			logger.error("Load zones exception: " + e);

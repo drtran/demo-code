@@ -3,10 +3,14 @@ package com.bemach.aep.pisentry.event;
 import com.bemach.aep.pisentry.vos.Event;
 
 public class UdpEventSender implements EventSender {
+	private UdpSender sender;
+
+	public void setUdpSender(UdpSender sender) {
+		this.sender = sender;
+	}
 
 	public void sender(Event event) {
-		// TODO Auto-generated method stub
-		
+		sender.sendTo(event.toString());
 	}
 
 }
