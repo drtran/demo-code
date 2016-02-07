@@ -16,7 +16,7 @@ import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
 @RunWith(JUnitParamsRunner.class)
-public class ZoneManagerTest {
+public class ZoneManagerImplTest {
 
 	private ZoneManager target = ZoneManagerImpl.getInstance();
 
