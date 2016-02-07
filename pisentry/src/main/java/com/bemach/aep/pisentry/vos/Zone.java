@@ -1,9 +1,10 @@
 package com.bemach.aep.pisentry.vos;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
 import org.apache.log4j.Logger;
@@ -14,7 +15,10 @@ public class Zone {
 	private String name;
 	private ZoneType type;
 	private String description;
-	private String installedDate;
+	private ZoneState state;
+	private Event lastEvent;
+	private long lastUpdate;
+	private Date installedDate;
 
 	/**
 	 * "ID,NAME,TYPE,DESCRIIPTION,DD-MMM-YYYY"
@@ -30,11 +34,25 @@ public class Zone {
 		this.name = st.nextToken();
 		this.type = ZoneType.valueOf(st.nextToken());
 		this.description = st.nextToken();
-		this.installedDate = st.nextToken();
+		this.installedDate = getDate(st.nextToken());
+	}
+
+	private Date getDate(String dateStr) {
+		Date date = null;
+		DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		try {
+			date = formatter.parse(dateStr);
+		} catch (ParseException e) {
+			logger.error("ERROR: " + e);
+		}
+		return date;
 	}
 
 	public String toString() {
-		return String.format("%s,%s,%s,%s,%s", id, name, type, description, installedDate);
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(installedDate);
+		return String.format("%s,%s,%s,%s,%02d-%02d-%d", id, name, type, description, cal.get(Calendar.DAY_OF_MONTH),
+				cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR));
 	}
 
 	public String getId() {
@@ -53,7 +71,7 @@ public class Zone {
 		return description;
 	}
 
-	public String getInstalledDate() {
+	public Date getInstalledDate() {
 		return installedDate;
 	}
 

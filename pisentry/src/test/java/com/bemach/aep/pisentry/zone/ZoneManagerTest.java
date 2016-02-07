@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -16,16 +17,22 @@ import junitparams.Parameters;
 
 @RunWith(JUnitParamsRunner.class)
 public class ZoneManagerTest {
+
+	private ZoneManager target = ZoneManagerImpl.getInstance();
+
+	@Before
+	public void setUp() {
+		target.clear();
+	}
+
 	@Test
 	public void shouldBeEmptyWhenStarted() {
-		ZoneManager target = new ZoneManagerImpl();
 		List<Zone> zoneList = target.getZoneList();
 		assertEquals(0, zoneList.size());
 	}
 
 	@Test
 	public void shouldLoadAnEmptyZoneListFromInputStream() {
-		ZoneManager target = new ZoneManagerImpl();
 		target.load(new ByteArrayInputStream("".getBytes()));
 		List<Zone> zoneList = target.getZoneList();
 		assertEquals(0, zoneList.size());
@@ -34,7 +41,6 @@ public class ZoneManagerTest {
 	@Test
 	@Parameters(method = "inputValues")
 	public void shouldLoadOneItemZoneFromInputStream(String input) throws IOException {
-		ZoneManager target = new ZoneManagerImpl();
 		ByteArrayInputStream bais = new ByteArrayInputStream(input.getBytes());
 		target.load(bais);
 		bais.close();
@@ -44,7 +50,7 @@ public class ZoneManagerTest {
 	}
 
 	private Object[] inputValues() {
-		return new Object[] { new Object[] { "57,Garrage-Left,REED,Left Garage Door,06-FEB-2016" },
-				new Object[] { "58,Garrage-Right,REED,Left Garage Door,06-FEB-2016" } };
+		return new Object[] { new Object[] { "57,Garrage-Left,REED,Left Garage Door,06-12-2015" },
+				new Object[] { "58,Garrage-Right,REED,Left Garage Door,06-02-2016" } };
 	}
 }

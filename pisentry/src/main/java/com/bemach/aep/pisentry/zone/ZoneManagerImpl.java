@@ -9,12 +9,17 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.bemach.aep.pisentry.vos.Event;
 import com.bemach.aep.pisentry.vos.Zone;
 
 public class ZoneManagerImpl implements ZoneManager {
 
 	private static Logger logger = Logger.getLogger(ZoneManagerImpl.class);
+	private static ZoneManagerImpl instance = null;
 	private List<Zone> zoneList = new ArrayList<Zone>();
+
+	private ZoneManagerImpl() {
+	}
 
 	public List<Zone> getZoneList() {
 		return zoneList;
@@ -35,6 +40,22 @@ public class ZoneManagerImpl implements ZoneManager {
 		} catch (IOException e) {
 			logger.error("Load zones exception: " + e);
 		}
+	}
+
+	public void process(Event event) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public static ZoneManager getInstance() {
+		if (instance == null) {
+			instance = new ZoneManagerImpl();
+		}
+		return instance;
+	}
+
+	public void clear() {
+		zoneList.clear();
 	}
 
 }
