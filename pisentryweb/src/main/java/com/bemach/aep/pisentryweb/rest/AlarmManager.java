@@ -10,7 +10,6 @@ import javax.ws.rs.core.MediaType;
 import org.apache.log4j.Logger;
 
 import com.bemach.aep.pisentry.event.UdpEventSender;
-import com.bemach.aep.pisentry.event.UdpSender;
 import com.bemach.aep.pisentry.event.UdpSenderImpl;
 import com.bemach.aep.pisentry.state.StateManager;
 import com.bemach.aep.pisentry.state.StateManagerImpl;
