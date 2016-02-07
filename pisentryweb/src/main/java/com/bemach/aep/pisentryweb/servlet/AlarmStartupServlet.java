@@ -11,8 +11,10 @@ import org.apache.log4j.BasicConfigurator;
 
 import com.bemach.aep.pisentry.event.EventProcessorImpl;
 import com.bemach.aep.pisentry.event.UdpEventReceiver;
-import com.bemach.aep.pisentry.state.StateManager;
+import com.bemach.aep.pisentry.event.UdpReceiverImpl;
+import com.bemach.aep.pisentry.state.NotificationManagerImpl;
 import com.bemach.aep.pisentry.state.StateManagerImpl;
+import com.bemach.aep.pisentry.zone.ZoneManagerImpl;
 
 public class AlarmStartupServlet extends HttpServlet {
 	private Thread receiver = null;
@@ -21,10 +23,13 @@ public class AlarmStartupServlet extends HttpServlet {
 		BasicConfigurator.configure();
 		ReceiverThread receiverThread = new ReceiverThread();
 		EventProcessorImpl eventProcessor = new EventProcessorImpl();
-		StateManager stateManager = StateManagerImpl.getInstance();
+		UdpEventReceiver udpEventReceiver = new UdpEventReceiver();
+		udpEventReceiver.setUdpReceiver(new UdpReceiverImpl(9999));
 
-		eventProcessor.setStateMgr(stateManager);
-		receiverThread.setReceiver(new UdpEventReceiver());
+		eventProcessor.setStateMgr(StateManagerImpl.getInstance());
+		eventProcessor.setZoneMgr(ZoneManagerImpl.getInstance());
+		eventProcessor.setNotificationMgr(NotificationManagerImpl.getInstance());
+		receiverThread.setReceiver(udpEventReceiver);
 		receiverThread.setEventProcessor(eventProcessor);
 		receiver = new Thread(receiverThread, "MessageReceiver");
 		receiver.start();

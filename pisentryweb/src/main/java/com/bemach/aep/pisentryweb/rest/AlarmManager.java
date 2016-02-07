@@ -9,6 +9,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
 
+import com.bemach.aep.pisentry.event.UdpEventSender;
 import com.bemach.aep.pisentry.event.UdpSender;
 import com.bemach.aep.pisentry.event.UdpSenderImpl;
 import com.bemach.aep.pisentry.state.StateManager;
@@ -35,9 +36,7 @@ public class AlarmManager extends Application {
 	@Produces(MediaType.APPLICATION_JSON)
 	public void armAway() {
 		logger.info("arming away.");
-		Event event = new Event(AlarmManager.class.toString(), EventType.ARM_AWAY, "NOOP");
-		UdpSender sender = new UdpSenderImpl();
-		sender.sendTo(event, "localhost", 9999);
+		sendEvent(EventType.ARM_AWAY, "NOOP");
 	}
 
 	@PUT
@@ -45,9 +44,7 @@ public class AlarmManager extends Application {
 	@Produces(MediaType.APPLICATION_JSON)
 	public void armHome() {
 		logger.info("arming home.");
-		Event event = new Event(AlarmManager.class.toString(), EventType.ARM_HOME, "NOOP");
-		UdpSender sender = new UdpSenderImpl();
-		sender.sendTo(event, "localhost", 9999);
+		sendEvent(EventType.ARM_HOME, "NOOP");
 	}
 
 	@PUT
@@ -55,9 +52,20 @@ public class AlarmManager extends Application {
 	@Produces(MediaType.APPLICATION_JSON)
 	public void disarm() {
 		logger.info("disarming.");
-		Event event = new Event(AlarmManager.class.toString(), EventType.DISARM, "NOOP");
-		UdpSender sender = new UdpSenderImpl();
-		sender.sendTo(event, "localhost", 9999);
+		sendEvent(EventType.DISARM, "NOOP");
+	}
+
+	/**
+	 * Place an event in Queue.
+	 * 
+	 * @param type
+	 * @param data
+	 */
+	private void sendEvent(EventType type, String data) {
+		UdpEventSender eventSender = new UdpEventSender();
+		Event event = new Event(AlarmManager.class.toString(), type, data);
+		eventSender.setUdpSender(new UdpSenderImpl("localhost", 9999));
+		eventSender.sender(event);
 	}
 
 }

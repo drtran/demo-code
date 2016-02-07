@@ -17,22 +17,14 @@ public class ReceiverThread implements Runnable {
 	private EventReceiver receiver;
 
 	public void run() {
-		String previousAlarmMsg = "";
+		Event previousEvent = null;
+
 		logger.info("Starting up ...");
 		for (;;) {
-			try {
-				Event event = receiver.receive();
-				eventProcessor.process(event);
-				logger.info("Received: " + event);
-				logger.info("State Manager: " + StateManagerImpl.getInstance().getState());
-			} catch (SocketException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+			Event event = receiver.receive();
+			eventProcessor.process(event);
+			logger.info("Received: " + event);
+			logger.info("State Manager: " + StateManagerImpl.getInstance().getState());
 		}
 	}
 
