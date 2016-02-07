@@ -2,6 +2,8 @@ package com.bemach.aep.pisentry.vos;
 
 import java.util.StringTokenizer;
 
+import org.apache.log4j.Logger;
+
 /**
  * 
  * // ID:EVENT_TYPE:EVENT_DATA
@@ -10,6 +12,7 @@ import java.util.StringTokenizer;
  *
  */
 public class Event {
+	private static Logger logger = Logger.getLogger(Event.class);
 	private String id = null;
 	private EventType type = null;
 	private String data = null;
@@ -27,9 +30,18 @@ public class Event {
 		if (st.countTokens() == 3) {
 			this.setId(st.nextToken());
 			this.setType(EventType.valueOf(st.nextToken()));
-			this.setMessage(st.nextToken());
+			this.setData(st.nextToken());
 		} else {
+			logger.error("Event: Invalid message format");
 		}
+	}
+
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
 	}
 
 	public String getId() {
@@ -46,14 +58,6 @@ public class Event {
 
 	public void setType(EventType type) {
 		this.type = type;
-	}
-
-	public String getMessage() {
-		return data;
-	}
-
-	public void setMessage(String message) {
-		this.data = message;
 	}
 
 	public String toString() {
