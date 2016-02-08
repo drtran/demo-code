@@ -64,7 +64,7 @@ public class AlarmManager extends Application {
 		UdpEventSender eventSender = new UdpEventSender();
 		Event event = new Event(AlarmManager.class.toString(), type, data);
 		eventSender.setUdpSender(new UdpSenderImpl("localhost", 9999));
-		eventSender.sender(event);
+		eventSender.send(event);
 	}
 
 }

@@ -1,20 +1,17 @@
 package com.bemach.aep.pisentry.state;
 
+import com.bemach.aep.pisentry.event.EmailSender;
 import com.bemach.aep.pisentry.vos.Event;
 
 public class NotificationManagerImpl implements NotificationManager {
 
+	private EmailSender email;
+
+	public void setEmailSender(EmailSender email) {
+		this.email = email;
+	}
+
 	public void notify(Event event) {
-		// TODO Auto-generated method stub
-
+		email.send(event.getData());
 	}
-
-	private NotificationManagerImpl() {
-	}
-
-	public static NotificationManager getInstance() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

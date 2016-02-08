@@ -9,7 +9,7 @@ public class UdpEventSender implements EventSender {
 		this.sender = sender;
 	}
 
-	public void sender(Event event) {
+	public void send(Event event) {
 		sender.sendTo(event.toString());
 	}
 

@@ -9,9 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.BasicConfigurator;
 
+import com.bemach.aep.pisentry.event.EmailSender;
+import com.bemach.aep.pisentry.event.EmailSenderImpl;
 import com.bemach.aep.pisentry.event.EventProcessorImpl;
 import com.bemach.aep.pisentry.event.UdpEventReceiver;
 import com.bemach.aep.pisentry.event.UdpReceiverImpl;
+import com.bemach.aep.pisentry.state.NotificationManager;
 import com.bemach.aep.pisentry.state.NotificationManagerImpl;
 import com.bemach.aep.pisentry.state.StateManagerImpl;
 import com.bemach.aep.pisentry.zone.ZoneManagerImpl;
@@ -25,10 +28,15 @@ public class AlarmStartupServlet extends HttpServlet {
 		EventProcessorImpl eventProcessor = new EventProcessorImpl();
 		UdpEventReceiver udpEventReceiver = new UdpEventReceiver();
 		udpEventReceiver.setUdpReceiver(new UdpReceiverImpl(9999));
-
-		eventProcessor.setStateMgr(StateManagerImpl.getInstance());
-		eventProcessor.setZoneMgr(ZoneManagerImpl.getInstance());
-		eventProcessor.setNotificationMgr(NotificationManagerImpl.getInstance());
+		NotificationManagerImpl notificationMgr = new NotificationManagerImpl();
+		EmailSender email = new EmailSenderImpl();
+		notificationMgr.setEmailSender(email);
+		StateManagerImpl stateMgr = StateManagerImpl.getInstance();
+		stateMgr.setNotificationManager(notificationMgr);
+		ZoneManagerImpl zoneMgr = ZoneManagerImpl.getInstance();
+		
+		eventProcessor.setStateMgr(stateMgr);
+		eventProcessor.setZoneMgr(zoneMgr);
 		receiverThread.setReceiver(udpEventReceiver);
 		receiverThread.setEventProcessor(eventProcessor);
 		receiver = new Thread(receiverThread, "MessageReceiver");

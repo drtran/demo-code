@@ -19,17 +19,14 @@ public class EventProcessorImplTest {
 	private StateManager stateMgr;
 	private EventProcessorImpl target;
 	private Event event;
-	private NotificationManager notificationMgr;
 
 	@Before
 	public void setUp() {
 		zoneMgr = Mockito.mock(ZoneManager.class);
 		stateMgr = Mockito.mock(StateManager.class);
-		notificationMgr = Mockito.mock(NotificationManager.class);
 		target = new EventProcessorImpl();
 		target.setZoneMgr(zoneMgr);
 		target.setStateMgr(stateMgr);
-		target.setNotificationMgr(notificationMgr);
 
 		event = Mockito.mock(Event.class);
 	}
@@ -62,21 +59,11 @@ public class EventProcessorImplTest {
 	}
 
 	@Test
-	public void shouldCallNotificationManager() {
-		Mockito.when(event.getType()).thenReturn(EventType.NOTIFY);
-
-		target.process(event);
-
-		Mockito.verify(notificationMgr, Mockito.times(1)).notify(event);
-	}
-
-	@Test
 	public void shouldNotCallAnyManager() {
 		Mockito.when(event.getType()).thenReturn(null);
 
 		target.process(event);
 
-		Mockito.verify(notificationMgr, Mockito.times(0)).notify(event);
 		Mockito.verify(zoneMgr, Mockito.times(0)).process(event);
 		Mockito.verify(stateMgr, Mockito.times(0)).process(event);
 	}

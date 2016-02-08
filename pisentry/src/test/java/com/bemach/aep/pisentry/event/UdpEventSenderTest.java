@@ -8,22 +8,25 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import com.bemach.aep.pisentry.vos.Event;
+
 @RunWith(MockitoJUnitRunner.class)
-public class UdpEventReceiverTest {
+public class UdpEventSenderTest {
+
 	@BeforeClass
 	public static void setUp() {
 		Logger.getRootLogger().setLevel(Level.OFF);
 	}
 
 	@Test
-	public void shouldCallUdpReceiver() {
-		UdpReceiver udpReceiver = Mockito.mock(UdpReceiver.class);
-		UdpEventReceiver target = new UdpEventReceiver();
-		Mockito.when(udpReceiver.receive()).thenReturn("TESTID:FAULT:EVENT_DATA");
-		target.setUdpReceiver(udpReceiver);
+	public void shouldCallUdpSender() {
+		UdpSender udpSender = Mockito.mock(UdpSender.class);
+		Event event = Mockito.mock(Event.class);
+		UdpEventSender target = new UdpEventSender();
+		target.setUdpSender(udpSender);
 
-		target.receive();
+		target.send(event);
 
-		Mockito.verify(udpReceiver).receive();
+		Mockito.verify(udpSender).sendTo(Mockito.anyString());
 	}
 }

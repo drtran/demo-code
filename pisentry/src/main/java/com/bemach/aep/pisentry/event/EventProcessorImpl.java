@@ -12,7 +12,6 @@ public class EventProcessorImpl implements EventProcessor {
 	private static Logger logger = Logger.getLogger(EventProcessorImpl.class);
 	private StateManager stateMgr;
 	private ZoneManager zoneMgr;
-	private NotificationManager notificationMgr;
 
 	public void setZoneMgr(ZoneManager zoneMgr) {
 		this.zoneMgr = zoneMgr;
@@ -23,9 +22,7 @@ public class EventProcessorImpl implements EventProcessor {
 	}
 
 	public void process(Event event) {
-		if (event.getType() == EventType.NOTIFY) {
-			notificationMgr.notify(event);
-		} else if (isStateRelatedEvent(event.getType())) {
+		if (isStateRelatedEvent(event.getType())) {
 			if (isZoneRelatedEvent(event.getType())) {
 				zoneMgr.process(event);
 			}
@@ -44,7 +41,4 @@ public class EventProcessorImpl implements EventProcessor {
 				|| type == EventType.ARM_HOME || type == EventType.DISARM;
 	}
 
-	public void setNotificationMgr(NotificationManager notificationMgr) {
-		this.notificationMgr = notificationMgr;
-	}
 }

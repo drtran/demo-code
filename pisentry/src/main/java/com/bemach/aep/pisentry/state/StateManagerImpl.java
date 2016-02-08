@@ -2,7 +2,10 @@ package com.bemach.aep.pisentry.state;
 
 import org.apache.log4j.Logger;
 
+import com.bemach.aep.pisentry.event.EmailSender;
+import com.bemach.aep.pisentry.event.EmailSenderImpl;
 import com.bemach.aep.pisentry.vos.Event;
+import com.bemach.aep.pisentry.vos.EventType;
 import com.bemach.aep.pisentry.vos.State;
 
 public class StateManagerImpl implements StateManager {
@@ -10,60 +13,62 @@ public class StateManagerImpl implements StateManager {
 
 	private static State state = State.UNARMED;
 	private static StateManagerImpl instance;
-	private NotificationManager notificationManager;
+	private NotificationManager notificationMgr;
 
 	private StateManagerImpl() {
 	}
 
 	public void setNotificationManager(NotificationManager notificationManager) {
-		this.notificationManager = notificationManager;
+		this.notificationMgr = notificationManager;
 	}
 
 	public void process(Event event) {
+		State lastState = state;
+
 		switch (event.getType()) {
 		case FAULT:
 			if (state == State.ARMED_AWAY) {
-				logger.info("Away ALARMED!");
 				state = State.ALARMED;
 			} else if (state == State.ARMED_HOME) {
 				// for motion don't alarm
-				logger.info("Home ALARMED!");
 				state = State.ALARMED;
 			}
-			notify(State.ARMED_AWAY, State.ALARMED);
 			break;
 		case ARM_AWAY:
-			if (state != State.ARMED_AWAY) {
-				notify(state, State.ARMED_AWAY);
-			}
 			state = State.ARMED_AWAY;
 			break;
 		case ARM_HOME:
-			if (state != State.ARMED_HOME) {
-				notify(state, State.ARMED_HOME);
-			}
 			state = State.ARMED_HOME;
 			break;
 		case DISARM:
-			if (state != State.UNARMED) {
-				notify(state, State.UNARMED);
-			}
 			state = State.UNARMED;
 			break;
 		default:
 			break;
 		}
+
+		if (lastState != state) {
+			notify(lastState, state);
+		}
 	}
 
-	private void notify(State armedAway, State alarmed) {
-		// notificationManager.notify(new Notification());
+	private void notify(State currentState, State newState) {
+		String data = String.format("%s to %s", currentState, newState);
+		Event event = new Event("StateManagerImpl", EventType.NOTIFY, data);
+		notificationMgr.notify(event);
+		logger.info(String.format("Notifying %s", event.toString()));
 	}
 
 	public State getState() {
 		return state;
 	}
 
-	public static StateManager getInstance() {
+	/**
+	 * Srping Framwork would help here ...
+	 * 
+	 * @return
+	 */
+	public static StateManagerImpl getInstance() {
 		if (instance == null) {
 			instance = new StateManagerImpl();
 		}
