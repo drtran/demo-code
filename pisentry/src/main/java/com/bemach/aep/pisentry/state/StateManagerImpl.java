@@ -64,7 +64,7 @@ public class StateManagerImpl implements StateManager {
 	}
 
 	/**
-	 * Srping Framwork would help here ...
+	 * Spring Framework would help here ...
 	 * 
 	 * @return
 	 */

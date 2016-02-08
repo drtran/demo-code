@@ -1,8 +1,5 @@
 package com.bemach.aep.pisentryweb.servlet;
 
-import java.io.IOException;
-import java.net.SocketException;
-
 import org.apache.log4j.Logger;
 
 import com.bemach.aep.pisentry.event.EventProcessor;
