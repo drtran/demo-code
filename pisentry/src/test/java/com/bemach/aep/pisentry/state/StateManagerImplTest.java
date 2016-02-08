@@ -32,7 +32,6 @@ public class StateManagerImplTest {
 		target.process(event);
 
 		assertEquals(State.ARMED_HOME, target.getState());
-		Mockito.verify(notificationMgr).notify(Mockito.any(Event.class));
 	}
 
 	@Test
@@ -42,7 +41,47 @@ public class StateManagerImplTest {
 		target.process(event);
 
 		assertEquals(State.ARMED_AWAY, target.getState());
+	}
+
+	@Test
+	public void shouldBeDisarmed() {
+		Mockito.when(event.getType()).thenReturn(EventType.DISARM);
+
+		target.process(event);
+
+		assertEquals(State.UNARMED, target.getState());
+	}
+
+	@Test
+	public void shouldNotifyWhenStateChanges() {
+		Mockito.when(event.getType()).thenReturn(EventType.DISARM);
+		target.process(event);
+		Mockito.when(event.getType()).thenReturn(EventType.ARM_AWAY);
+
+		target.process(event);
+
 		Mockito.verify(notificationMgr).notify(Mockito.any(Event.class));
 	}
 
+	@Test
+	public void shouldBeAlarmedWithArmedHome() {
+		Mockito.when(event.getType()).thenReturn(EventType.ARM_HOME);
+		target.process(event);
+		Mockito.when(event.getType()).thenReturn(EventType.FAULT);
+
+		target.process(event);
+
+		assertEquals(State.ALARMED, target.getState());
+	}
+
+	@Test
+	public void shouldBeAlarmedWithArmedAway() {
+		Mockito.when(event.getType()).thenReturn(EventType.ARM_AWAY);
+		target.process(event);
+		Mockito.when(event.getType()).thenReturn(EventType.FAULT);
+
+		target.process(event);
+
+		assertEquals(State.ALARMED, target.getState());
+	}
 }
