@@ -12,6 +12,7 @@ target/
 *.swp
 *~.nib
 local.properties
+pisentryweb/src/main/resources/pisentry.properties
 .settings/
 .loadpath
 
