@@ -29,4 +29,9 @@ public class PuppyMainPage {
 		}
 	}
 
+	public String getNotice() {
+		WebElement notice = browser.getDriver().findElement(By.id("notice"));
+		return notice.getText();
+	}
+
 }

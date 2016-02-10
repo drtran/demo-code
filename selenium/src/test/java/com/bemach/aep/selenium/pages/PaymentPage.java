@@ -11,7 +11,7 @@ import com.bemach.aep.selenium.pages.Browser.DRIVER_TYPE;
 public class PaymentPage {
 	private Browser browser = new Browser(DRIVER_TYPE.valueOf(System.getProperty("webDriver")));
 
-	public void pay(String name, String address, String email, String payType) {
+	public void fillOutInfo(String name, String address, String email, String payType) {
 		WebElement orderName = browser.getDriver().findElement(By.xpath("//input[@id='order_name']"));
 		orderName.sendKeys(name);
 
@@ -31,6 +31,9 @@ public class PaymentPage {
 			}
 		}
 
+	}
+
+	public void placeOrder() {
 		WebElement commit = browser.getDriver().findElement(By.xpath("//input[@name='commit']"));
 		commit.click();
 	}

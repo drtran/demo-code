@@ -2,6 +2,7 @@ package com.bemach.aep.selenium;
 
 import org.junit.After;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import com.bemach.aep.selenium.pages.AdoptingPetsPage;
 import com.bemach.aep.selenium.pages.Browser;
@@ -43,7 +44,7 @@ public class AdoptingOnePetTest {
 	public void adoptingOnePetTest() {
 		given_I_am_at_Puppy_Adoption_Agency_website("http://puppies.herokuapp.com");
 		when_I_adopt_and_pay_for_a_pet("Brook");
-		then_I_should_see_a_thank_you_message();
+		then_I_should_see_a_thank_you_message("Thank you for adopting a puppy!");
 	}
 
 	private void given_I_am_at_Puppy_Adoption_Agency_website(String url) {
@@ -58,7 +59,9 @@ public class AdoptingOnePetTest {
 		I_click_on_place_order_button();
 	}
 
-	private void then_I_should_see_a_thank_you_message() {
+	private void then_I_should_see_a_thank_you_message(String expectedNotice) {
+		String actualNotice = mainPage.getNotice();
+		assertEquals(expectedNotice, actualNotice);
 	}
 
 	private void I_click_on_view_details_for_a_pet(String petName) {
@@ -70,16 +73,15 @@ public class AdoptingOnePetTest {
 	}
 
 	private void I_click_on_complete_the_adoption_button() {
-		adoptingPetsPage .completeAdoption();
+		adoptingPetsPage.completeAdoption();
 	}
 
 	private void I_fill_out_the_payment_detail(String name, String address, String email, String payType) {
-		paymentPage.pay(name, address, email, payType);
+		paymentPage.fillOutInfo(name, address, email, payType);
 	}
 
 	private void I_click_on_place_order_button() {
-		// TODO Auto-generated method stub
-
+		paymentPage.placeOrder();
 	}
 
 	@After
