@@ -8,6 +8,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+/**
+ * We want a 'single' driver at any giving time for testing.
+ * 
+ * @author ktran
+ *
+ */
 public class Browser {
 	public enum DRIVER_TYPE {
 		CHROME, FIREFOX

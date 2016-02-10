@@ -3,7 +3,10 @@ package com.bemach.aep.selenium;
 import org.junit.After;
 import org.junit.Test;
 
+import com.bemach.aep.selenium.pages.AdoptingPetsPage;
 import com.bemach.aep.selenium.pages.Browser;
+import com.bemach.aep.selenium.pages.DetailsPage;
+import com.bemach.aep.selenium.pages.PaymentPage;
 import com.bemach.aep.selenium.pages.PuppyMainPage;
 
 //  Given I am at Puppy Adoption Agency website “http://puppies.herokuapp.com/”
@@ -32,6 +35,9 @@ import com.bemach.aep.selenium.pages.PuppyMainPage;
 public class AdoptingOnePetTest {
 
 	private PuppyMainPage mainPage = new PuppyMainPage();
+	private DetailsPage detailsPage = new DetailsPage();
+	private AdoptingPetsPage adoptingPetsPage = new AdoptingPetsPage();
+	private PaymentPage paymentPage = new PaymentPage();
 
 	@Test
 	public void adoptingOnePetTest() {
@@ -46,7 +52,7 @@ public class AdoptingOnePetTest {
 
 	private void when_I_adopt_and_pay_for_a_pet(String petName) {
 		I_click_on_view_details_for_a_pet(petName);
-		I_click_on_place_order_button();
+		I_click_on_adopt_me_button();
 		I_click_on_complete_the_adoption_button();
 		I_fill_out_the_payment_detail("John Doe", "123 Main Street, New York, NY 10001", "jdoe@mail.com", "Check");
 		I_click_on_place_order_button();
@@ -59,14 +65,16 @@ public class AdoptingOnePetTest {
 		mainPage.viewDetails(petName);
 	}
 
-	private void I_click_on_complete_the_adoption_button() {
-		// TODO Auto-generated method stub
-
+	private void I_click_on_adopt_me_button() {
+		detailsPage.adoptMe();
 	}
 
-	private void I_fill_out_the_payment_detail(String string, String string2, String string3, String string4) {
-		// TODO Auto-generated method stub
+	private void I_click_on_complete_the_adoption_button() {
+		adoptingPetsPage .completeAdoption();
+	}
 
+	private void I_fill_out_the_payment_detail(String name, String address, String email, String payType) {
+		paymentPage.pay(name, address, email, payType);
 	}
 
 	private void I_click_on_place_order_button() {
