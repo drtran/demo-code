@@ -56,8 +56,7 @@ public class AdoptingOnePetTest {
 	}
 
 	private void I_click_on_view_details_for_a_pet(String petName) {
-		// TODO Auto-generated method stub
-
+		mainPage.viewDetails(petName);
 	}
 
 	private void I_click_on_complete_the_adoption_button() {
