@@ -16,8 +16,8 @@ public class PuppyMainPage {
 	}
 
 	public void viewDetails(String petName) {
-		List<WebElement> names = browser.getDriver().findElements(By.xpath("//div[@class='name']"));
-		List<WebElement> values = browser.getDriver().findElements(By.xpath("//input[@value='View Details']"));
+		List<WebElement> names = Browser.getDriver().findElements(By.xpath("//div[@class='name']"));
+		List<WebElement> values = Browser.getDriver().findElements(By.xpath("//input[@value='View Details']"));
 
 		int index = 0;
 		for (WebElement name : names) {

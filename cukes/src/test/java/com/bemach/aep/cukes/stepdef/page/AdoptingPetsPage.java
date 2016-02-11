@@ -15,6 +15,9 @@ public class AdoptingPetsPage {
 	@FindBy(how = How.XPATH, using = "//input[@value='Complete the Adoption']")
 	private WebElement completeTheAdoptionButtonElmt;
 
+	@FindBy(how = How.XPATH, using = "//input[@value='Adopt Another Puppy']")
+	private WebElement adoptAnotherPetButtonElmt;
+
 	public Iterable<? super String> getPrices() {
 		List<String> itemPrices = new ArrayList<String>();
 		for (WebElement itemPriceElmt : itemPriceElmts) {
@@ -26,6 +29,10 @@ public class AdoptingPetsPage {
 
 	public void complete_the_adoption() {
 		completeTheAdoptionButtonElmt.click();
+	}
+
+	public void adoptAnotherPet() {
+		adoptAnotherPetButtonElmt.click();
 	}
 
 }

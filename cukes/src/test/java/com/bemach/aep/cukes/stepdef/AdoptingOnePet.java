@@ -4,16 +4,14 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.concurrent.TimeUnit;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import com.bemach.aep.cukes.stepdef.page.AdoptingPetsPage;
 import com.bemach.aep.cukes.stepdef.page.HomePage;
 import com.bemach.aep.cukes.stepdef.page.PaymentPage;
 import com.bemach.aep.cukes.stepdef.page.ViewDetailsPage;
+import com.bemach.aep.cukes.stepdef.util.Browser;
+import com.bemach.aep.cukes.stepdef.util.Browser.DRIVER_TYPE;
 import com.bemach.aep.cukes.stepdef.util.PaymentInfo;
 
 import cucumber.api.java.After;
@@ -25,7 +23,7 @@ import cucumber.api.java.en.When;
 public class AdoptingOnePet {
 	private static final String PUPPIES_ADOPTION_SITE = "http://puppies.herokuapp.com";
 
-	private static WebDriver driver;
+	private Browser browser = new Browser(DRIVER_TYPE.valueOf(System.getProperty("webDriver")));
 	private HomePage homePage;
 	private ViewDetailsPage viewDetailsPage;
 	private AdoptingPetsPage adoptingPetsPage;
@@ -33,26 +31,26 @@ public class AdoptingOnePet {
 
 	@Given("^I am at Puppy Adoption Agency website \"([^\"]*)\"$")
 	public void i_am_at_Puppy_Adoption_Agency_website(String url) throws Throwable {
-		homePage = PageFactory.initElements(driver, HomePage.class);
+		homePage = PageFactory.initElements(Browser.getDriver(), HomePage.class);
 		homePage.visit(PUPPIES_ADOPTION_SITE);
 	}
 
 	@When("^I click on View Details button for a pet name \"([^\"]*)\"$")
 	public void i_click_on_View_Details_button_for_a_pet_name(String petName) throws Throwable {
 		homePage.select_a_pet(petName);
-		viewDetailsPage = PageFactory.initElements(driver, ViewDetailsPage.class);
+		viewDetailsPage = PageFactory.initElements(Browser.getDriver(), ViewDetailsPage.class);
 	}
 
 	@When("^I click on Adopt Me! button$")
 	public void i_click_on_Adopt_Me_button() throws Throwable {
 		viewDetailsPage.adopt_the_pet();
-		adoptingPetsPage = PageFactory.initElements(driver, AdoptingPetsPage.class);
+		adoptingPetsPage = PageFactory.initElements(Browser.getDriver(), AdoptingPetsPage.class);
 	}
 
 	@When("^I click on Complete the Adoption button$")
 	public void i_click_on_Complete_the_Adoption_button() throws Throwable {
 		adoptingPetsPage.complete_the_adoption();
-		paymentPage = PageFactory.initElements(driver, PaymentPage.class);
+		paymentPage = PageFactory.initElements(Browser.getDriver(), PaymentPage.class);
 	}
 
 	@When("^I fill out the payment details \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
@@ -76,14 +74,13 @@ public class AdoptingOnePet {
 
 	@Before
 	public void setUp() {
-		driver = new FirefoxDriver();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+		Browser.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		Browser.getDriver().manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 	}
 
 	@After
 	public void tearDown() {
-		driver.close();
+		browser.close();
 	}
 
 }

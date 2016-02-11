@@ -11,7 +11,7 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/resources/com/bemach/aep/cukes"
-		, tags = {"@adopting_one_pet"}
+//		, tags = {"@adopting_two_pets"}
 )
 public class RunCukesTest {
 
