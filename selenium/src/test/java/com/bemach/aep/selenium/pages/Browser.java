@@ -1,6 +1,7 @@
 package com.bemach.aep.selenium.pages;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -37,6 +38,7 @@ public class Browser {
 				driver = new ChromeDriver();
 			}
 			this.driverType = driverType;
+			driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 		}
 	}
 
