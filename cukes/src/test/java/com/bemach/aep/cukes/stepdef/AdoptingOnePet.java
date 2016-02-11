@@ -76,11 +76,9 @@ public class AdoptingOnePet {
 
 	@Before
 	public void setUp() {
-		if (driver == null) {
-			driver = new FirefoxDriver();
-			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-			driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-		}
+		driver = new FirefoxDriver();
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 	}
 
 	@After
