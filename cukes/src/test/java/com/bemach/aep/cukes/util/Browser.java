@@ -1,4 +1,4 @@
-package com.bemach.aep.cukes.stepdef.util;
+package com.bemach.aep.cukes.util;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;

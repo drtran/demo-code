@@ -1,4 +1,4 @@
-package com.bemach.aep.cukes.stepdef.util;
+package com.bemach.aep.cukes.util;
 
 public class PaymentInfo {
 

@@ -10,8 +10,8 @@ import cucumber.api.junit.Cucumber;
 //
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources/com/bemach/aep/cukes"
-//		, tags = {"@adopting_two_pets"}
+@CucumberOptions(features = "src/test/resources/features"
+// , tags = {"@adopting_two_pets"}
 )
 public class RunCukesTest {
 

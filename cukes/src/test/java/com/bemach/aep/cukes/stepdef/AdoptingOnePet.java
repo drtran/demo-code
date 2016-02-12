@@ -10,9 +10,9 @@ import com.bemach.aep.cukes.stepdef.page.AdoptingPetsPage;
 import com.bemach.aep.cukes.stepdef.page.HomePage;
 import com.bemach.aep.cukes.stepdef.page.PaymentPage;
 import com.bemach.aep.cukes.stepdef.page.ViewDetailsPage;
-import com.bemach.aep.cukes.stepdef.util.Browser;
-import com.bemach.aep.cukes.stepdef.util.Browser.DRIVER_TYPE;
-import com.bemach.aep.cukes.stepdef.util.PaymentInfo;
+import com.bemach.aep.cukes.util.Browser;
+import com.bemach.aep.cukes.util.PaymentInfo;
+import com.bemach.aep.cukes.util.Browser.DRIVER_TYPE;
 
 import cucumber.api.java.After;
 import cucumber.api.java.Before;

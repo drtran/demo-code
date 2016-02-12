@@ -10,7 +10,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.Select;
 
-import com.bemach.aep.cukes.stepdef.util.PaymentInfo;
+import com.bemach.aep.cukes.util.PaymentInfo;
 
 public class PaymentPage {
 	@FindBy (how = How.XPATH, using = "//*[@id='content']/div[2]/fieldset/legend")
