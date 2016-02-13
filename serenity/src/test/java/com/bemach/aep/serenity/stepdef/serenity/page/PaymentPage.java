@@ -1,5 +1,6 @@
 package com.bemach.aep.serenity.stepdef.serenity.page;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -27,6 +28,9 @@ public class PaymentPage extends PageObject {
 	@FindBy(xpath = "//input[@value='Place Order']")
 	WebElement placeOrder;
 
+	@FindBy(id = "error_explanation")
+	WebElement errorExplanation;
+
 	public void payForAdoption(PaymentInfo payment) {
 		orderName.sendKeys(payment.getName());
 		orderAddress.sendKeys(payment.getAddress());
@@ -39,6 +43,10 @@ public class PaymentPage extends PageObject {
 			}
 		}
 		placeOrder.click();
+	}
+
+	public String getErrorMsg() {
+		return errorExplanation.findElement(By.xpath("ul/li")).getText();
 	}
 
 }

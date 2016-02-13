@@ -12,7 +12,8 @@ import org.junit.runner.RunWith;
  */
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(features = "src/test/resources/features"
-//, tags = { "@adopting_one_pet" }
+//, tags = { "@not_accepting_with_blank_email, @not_accepting_with_blank_name" }
+, tags = { "@adopting_one_pet, @adopting_multiple_pets, @accepting_creditcard" }
 )
 public class RunSerenityTest {
 }

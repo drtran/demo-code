@@ -3,8 +3,9 @@ Feature: Adopting two pets from Puppy Adoption Agency
   I want to adopt two pets
   So that they can choose my furniture.
   
+
 @adopting_two_pets 
-Scenario: Adopting one pet successfully 
+Scenario: Adopting two pets 
 	Given I am at Puppy Adoption Agency website "http://puppies.herokuapp.com" 
 	When I click on View Details button for a pet name "Hanna" 
 	And I click on Adopt Me! button 

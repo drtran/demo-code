@@ -11,7 +11,7 @@ import net.serenitybdd.core.pages.PageObject;
 
 public class AdoptionPage extends PageObject {
 
-	private ViewDetailPage viewDetailPage;
+	private ViewDetailsPage viewDetailsPage;
 	private CompletingAdoptionPage completingAdoptionPage;
 	private PaymentPage paymentPage;
 
@@ -33,7 +33,7 @@ public class AdoptionPage extends PageObject {
 				if (puppyName.equals(pets.get(idx).getText())) {
 					System.out.println("Chosen: " + pets.get(idx).getText());
 					viewDetails.get(idx).click();
-					viewDetailPage.adoptPuppy();
+					viewDetailsPage.adoptPuppy();
 					return;
 				}
 			}

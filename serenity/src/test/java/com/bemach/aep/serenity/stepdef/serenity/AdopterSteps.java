@@ -13,6 +13,7 @@ public class AdopterSteps {
 	private HomePage homePage;
 	private AdoptionPage adoptionPage;
 
+	@Step
 	public void i_open_puppies_home_page(String url) {
 		homePage.openAt(url);
 	}

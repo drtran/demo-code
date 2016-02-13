@@ -1,13 +1,12 @@
 package com.bemach.aep.serenity.stepdef;
 
-import java.util.List;
+import static org.junit.Assert.assertEquals;
 
-import static org.junit.Assert.*;
+import java.util.List;
 
 import com.bemach.aep.serenity.stepdef.serenity.AdopterSteps;
 import com.bemach.aep.serenity.util.PaymentInfo;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

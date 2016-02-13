@@ -6,12 +6,12 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
 // You can run this test using maven command as follows:
-// mvn -Dtest=com.bemach.aep.cukes.RunCukesTest clean test 
+// mvn -DwebDriver=FIREFOX -Dtest=com.bemach.aep.cukes.RunCukesTest clean test 
 //
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/resources/features"
-// , tags = {"@adopting_two_pets"}
+ , tags = {"@adopting_one_pet"}
 )
 public class RunCukesTest {
 
