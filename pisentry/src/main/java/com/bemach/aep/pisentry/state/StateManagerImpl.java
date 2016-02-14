@@ -2,8 +2,6 @@ package com.bemach.aep.pisentry.state;
 
 import org.apache.log4j.Logger;
 
-import com.bemach.aep.pisentry.event.EmailSender;
-import com.bemach.aep.pisentry.event.EmailSenderImpl;
 import com.bemach.aep.pisentry.vos.Event;
 import com.bemach.aep.pisentry.vos.EventType;
 import com.bemach.aep.pisentry.vos.State;
