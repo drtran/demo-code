@@ -2,15 +2,14 @@ package com.bemach.aep.tdd;
 
 public class Dollar {
 
-	public int amount = 10;
+	public int amount;
 
 	public Dollar(int amount) {
-		// TODO Auto-generated constructor stub
+		this.amount = amount;
 	}
 
 	public void times(int multiplier) {
-		// TODO Auto-generated method stub
-		
+		amount *= multiplier;
 	}
 
 }
