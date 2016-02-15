@@ -12,5 +12,9 @@ public class Money {
 	public static Dollar dollar(int amount) {
 		return new Dollar(amount); 
 	}
+
+	public static Franc franc(int amount) {
+		return new Franc(amount);
+	}
  
 }
