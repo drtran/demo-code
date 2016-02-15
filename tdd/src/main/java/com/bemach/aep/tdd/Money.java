@@ -11,11 +11,11 @@ public abstract class Money {
 	}
 
 	public static Money dollar(int amount) {
-		return new Dollar(amount); 
+		return new Dollar(amount, "USD"); 
 	}
 
 	public static Money franc(int amount) {
-		return new Franc(amount);
+		return new Franc(amount, "CHF");
 	}
 
 	abstract public Money times(int multiplier);
