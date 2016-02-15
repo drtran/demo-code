@@ -1,6 +1,6 @@
 package com.bemach.aep.tdd;
 
-public class Dollar {
+public class Dollar extends Money {
 
 	private int amount;
 
