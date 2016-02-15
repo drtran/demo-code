@@ -1,6 +1,6 @@
 package com.bemach.aep.tdd;
 
-public class Money {
+public abstract class Money {
 
 	protected int amount;
 
@@ -16,5 +16,7 @@ public class Money {
 	public static Franc franc(int amount) {
 		return new Franc(amount);
 	}
+
+	abstract public Money times(int multiplier);
  
 }
