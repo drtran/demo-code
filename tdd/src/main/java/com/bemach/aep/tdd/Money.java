@@ -1,30 +1,37 @@
 package com.bemach.aep.tdd;
 
-public abstract class Money {
+public class Money {
 
 	protected int amount;
 	protected String currency;
 
 	public Money(int amount, String currency) {
 		this.amount = amount;
-		this.currency = currency;	
+		this.currency = currency;
 	}
-	
+
 	public boolean equals(Object object) {
 		Money money = (Money) object;
-		return amount == money.amount && getClass().equals(money.getClass());
+		return amount == money.amount && currency.equals(money.currency());
 	}
 
 	public static Money dollar(int amount) {
-		return new Dollar(amount, "USD"); 
+		return new Dollar(amount, "USD");
 	}
 
 	public static Money franc(int amount) {
 		return new Franc(amount, "CHF");
 	}
 
-	abstract public Money times(int multiplier);
 	public String currency() {
 		return currency;
+	}
+
+	public String toString() {
+		return amount + " " + currency;
+	}
+
+	public Money times(int multiplier) { 
+		return new Money(amount * multiplier, currency);
 	}
 }

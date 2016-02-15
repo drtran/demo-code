@@ -3,10 +3,6 @@ package com.bemach.aep.tdd;
 public class Franc extends Money {
 
 	public Franc(int amount, String currency) {
-		super(amount, currency);
+		super(amount, currency); 
 	}
-
-	public Money times(int multiplier) {
-		return new Franc(amount * multiplier, null);
-	}
-} 
+}  
