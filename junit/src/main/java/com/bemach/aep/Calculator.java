@@ -1,4 +1,4 @@
-package com.bemach.aep.junit;
+package com.bemach.aep;
 
 public class Calculator {
 

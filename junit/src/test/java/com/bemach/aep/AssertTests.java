@@ -1,4 +1,4 @@
-package com.bemach.aep.junit;
+package com.bemach.aep;
 
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.anyOf;

@@ -1,4 +1,4 @@
-package com.bemach.aep.junit;
+package com.bemach.aep;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

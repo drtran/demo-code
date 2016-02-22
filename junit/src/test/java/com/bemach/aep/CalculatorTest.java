@@ -1,4 +1,4 @@
-package com.bemach.aep.junit;
+package com.bemach.aep;
 
 import static org.junit.Assert.*;
 
@@ -11,6 +11,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+
+import com.bemach.aep.Calculator;
 
 
 @RunWith(value=Parameterized.class)
