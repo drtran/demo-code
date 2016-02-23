@@ -1,4 +1,4 @@
-package com.bemach.aep;
+package com.bemach.aep.junit;
 
 import java.util.ArrayList;
 

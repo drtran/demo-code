@@ -20,6 +20,7 @@ import com.bemach.aep.pisentry.vos.EventType;
 public class AlarmManager extends Application {
 	private static Logger logger = Logger.getLogger(AlarmManager.class);
 	private StateManager stateManager = StateManagerImpl.getInstance();
+	private UdpEventSender eventSender = null;
 
 	@GET
 	@Path("/getState")
@@ -61,10 +62,20 @@ public class AlarmManager extends Application {
 	 * @param data
 	 */
 	private void sendEvent(EventType type, String data) {
-		UdpEventSender eventSender = new UdpEventSender();
+		UdpEventSender eventSender = getUdpEventSender();
 		Event event = new Event(AlarmManager.class.toString(), type, data);
 		eventSender.setUdpSender(new UdpSenderImpl("localhost", 9999));
 		eventSender.send(event);
 	}
 
+	public UdpEventSender getUdpEventSender() {
+		if (eventSender == null) {
+			eventSender = new UdpEventSender();
+		}
+		return eventSender;
+	}
+
+	public void setEventSender(UdpEventSender eventSender) {
+		this.eventSender = eventSender;
+	}
 }

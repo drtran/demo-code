@@ -1,11 +1,11 @@
-package com.bemach.aep;
+package com.bemach.aep.junit;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.bemach.aep.Calculator;
+import com.bemach.aep.junit.Calculator;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;

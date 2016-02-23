@@ -60,6 +60,13 @@ public class Event {
 		this.type = type;
 	}
 
+	public boolean equals(Object object) {
+		Event target = (Event) object;
+		return data.equals(target.getData()) &&
+			   id.equals(target.getId()) && 
+			   type.equals(target.getType());
+	}
+	
 	public String toString() {
 		return String.format("%s:%s:%s", id, type, data);
 	}

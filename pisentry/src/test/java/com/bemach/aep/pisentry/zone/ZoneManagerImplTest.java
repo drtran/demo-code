@@ -43,14 +43,15 @@ public class ZoneManagerImplTest {
 	public void shouldLoadOneItemZoneFromInputStream(String input) throws IOException {
 		ByteArrayInputStream bais = new ByteArrayInputStream(input.getBytes());
 		target.load(bais);
-		bais.close();
+		bais.close(); 
 		List<Zone> zoneList = target.getZoneList();
 		assertEquals(1, zoneList.size());
 		assertEquals(input, zoneList.get(0).toString());
 	}
 
 	private Object[] inputValues() {
-		return new Object[] { new Object[] { "57,Garrage-Left,REED,Left Garage Door,06-12-2015" },
-				new Object[] { "58,Garrage-Right,REED,Left Garage Door,06-02-2016" } };
+		return new Object[] { 
+				new Object[] { "57,Garrage-Left,REED,Left Garage Door,06-12-2015" },
+				new Object[] { "58,Garrage-Right,REED,Right Garage Door,06-02-2016" } };
 	}
 }

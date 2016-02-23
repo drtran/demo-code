@@ -1,8 +1,12 @@
 package com.bemach.aep.selenium;
 
-import org.junit.After;
-import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import com.bemach.aep.selenium.pages.AdoptingPetsPage;
 import com.bemach.aep.selenium.pages.Browser;
@@ -84,8 +88,20 @@ public class AdoptingOnePetTest {
 		paymentPage.placeOrder();
 	}
 
+	@BeforeClass
+	public static void setUpClass() {
+	}
+	
+	@Before
+	public void setUp() {
+	}
+	
 	@After
 	public void tearDown() {
 		Browser.getDriver().close();
+	}
+	
+	@AfterClass
+	public static void tearDownClass() {
 	}
 }

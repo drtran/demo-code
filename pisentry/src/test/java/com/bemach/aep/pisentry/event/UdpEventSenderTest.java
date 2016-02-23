@@ -18,9 +18,14 @@ public class UdpEventSenderTest {
 		Logger.getRootLogger().setLevel(Level.OFF);
 	}
 
+	/**
+	 * Spying on the sender - verifying its behavior but not specific 
+	 * indrect output
+	 * 
+	 */
 	@Test
 	public void shouldCallUdpSender() {
-		UdpSender udpSender = Mockito.mock(UdpSender.class);
+		UdpSender udpSender = Mockito.spy(UdpSender.class);
 		Event event = Mockito.mock(Event.class);
 		UdpEventSender target = new UdpEventSender();
 		target.setUdpSender(udpSender);
@@ -29,4 +34,20 @@ public class UdpEventSenderTest {
 
 		Mockito.verify(udpSender).sendTo(Mockito.anyString());
 	}
+	
+	/**
+	 * Spying on the sender - verifying its behavior.
+	 */
+	@Test
+	public void shouldSendCorrectEvent() {
+		UdpSender udpSender = Mockito.spy(UdpSender.class);
+		Event event = new Event("TESTID:FAULT:EVENT_DATA");
+		UdpEventSender target = new UdpEventSender();
+		target.setUdpSender(udpSender);
+
+		target.send(event);
+
+		Mockito.verify(udpSender).sendTo("TESTID:FAULT:EVENT_DATA");
+	}
+	
 }
