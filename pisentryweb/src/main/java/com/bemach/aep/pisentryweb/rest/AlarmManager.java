@@ -18,6 +18,8 @@ import com.bemach.aep.pisentry.vos.EventType;
 
 @Path("/alarmManager")
 public class AlarmManager extends Application {
+	private static final String LOCALHOST = "localhost";
+	private static final String DATA_NOOP = "NOOP";
 	private static Logger logger = Logger.getLogger(AlarmManager.class);
 	private StateManager stateManager = StateManagerImpl.getInstance();
 	private UdpEventSender eventSender = null;
@@ -36,7 +38,7 @@ public class AlarmManager extends Application {
 	@Produces(MediaType.APPLICATION_JSON)
 	public void armAway() {
 		logger.info("arming away.");
-		sendEvent(EventType.ARM_AWAY, "NOOP");
+		sendEvent(EventType.ARM_AWAY, DATA_NOOP);
 	}
 
 	@PUT
@@ -44,7 +46,7 @@ public class AlarmManager extends Application {
 	@Produces(MediaType.APPLICATION_JSON)
 	public void armHome() {
 		logger.info("arming home.");
-		sendEvent(EventType.ARM_HOME, "NOOP");
+		sendEvent(EventType.ARM_HOME, DATA_NOOP);
 	}
 
 	@PUT
@@ -52,19 +54,19 @@ public class AlarmManager extends Application {
 	@Produces(MediaType.APPLICATION_JSON)
 	public void disarm() {
 		logger.info("disarming.");
-		sendEvent(EventType.DISARM, "NOOP");
+		sendEvent(EventType.DISARM, DATA_NOOP);
 	}
 
 	/**
 	 * Place an event in Queue.
 	 * 
 	 * @param type
-	 * @param data
+	 * @param data 
 	 */
 	private void sendEvent(EventType type, String data) {
 		UdpEventSender eventSender = getUdpEventSender();
 		Event event = new Event(AlarmManager.class.toString(), type, data);
-		eventSender.setUdpSender(new UdpSenderImpl("localhost", 9999));
+		eventSender.setUdpSender(new UdpSenderImpl(LOCALHOST, 9999));
 		eventSender.send(event);
 	}
 

@@ -1,0 +1,69 @@
+package com.bemach.aep.mockito;
+
+import java.util.StringTokenizer;
+
+/**
+ * 
+ * // ID:EVENT_TYPE:EVENT_DATA
+ * 
+ * @author ktran
+ *
+ */
+public class Event {
+	private String id = null;
+	private EventType type = null;
+	private String data = null;
+
+	public Event(String id, EventType type, String data) {
+		this.id = id;
+		this.type = type;
+		this.data = data;
+	}
+
+	public Event(String msg) {
+		StringTokenizer st = new StringTokenizer(msg, ":");
+
+		// ID:EVENT_TYPE:EVENT_DATA
+		if (st.countTokens() == 3) {
+			this.setId(st.nextToken());
+			this.setType(EventType.valueOf(st.nextToken()));
+			this.setData(st.nextToken());
+		} else {
+			System.out.println("Event: Invalid message format");
+		}
+	}
+
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public EventType getType() {
+		return type;
+	}
+
+	public void setType(EventType type) {
+		this.type = type;
+	}
+
+	public boolean equals(Object object) {
+		Event target = (Event) object;
+		return data.equals(target.getData()) && id.equals(target.getId()) && type.equals(target.getType());
+	}
+
+	public String toString() {
+		return String.format("%s:%s:%s", id, type, data);
+	}
+
+}

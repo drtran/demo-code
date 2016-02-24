@@ -1,4 +1,4 @@
-package com.bemach.aep.pisentryweb.rest;
+package com.bemach.aep.mockito;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -6,9 +6,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.bemach.aep.pisentry.event.UdpEventSender;
-import com.bemach.aep.pisentry.vos.Event;
-import com.bemach.aep.pisentry.vos.EventType;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
@@ -23,8 +20,8 @@ public class AlarmManagerTest {
 	public void shouldDisarmWithCorrectEvent() {
 		// Arrange
 		AlarmManager alarmMgr = new AlarmManager();
-		UdpEventSender mockEventSender = Mockito.mock(UdpEventSender.class);
-		alarmMgr.setEventSender(mockEventSender);
+		UdpEventSender theMock = Mockito.mock(UdpEventSender.class);
+		alarmMgr.setEventSender(theMock);
 		ArgumentCaptor<Event> argument = ArgumentCaptor.forClass(Event.class);
 		Event expected = new Event(AlarmManager.class.toString(), EventType.DISARM, "NOOP");
 
@@ -32,7 +29,8 @@ public class AlarmManagerTest {
 		alarmMgr.disarm();
 
 		// Assert
-		Mockito.verify(mockEventSender).send(argument.capture());
+		Mockito.verify(theMock, Mockito.times(1)).send(argument.capture());
+		Mockito.verify(theMock).send(argument.capture());
 		Event actual = argument.getValue();
 		assertThat(actual, equalTo(expected));
 	}

@@ -1,40 +1,30 @@
-package com.bemach.aep.pisentry.event;
+package com.bemach.aep.mockito;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import com.bemach.aep.pisentry.vos.Event;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UdpEventSenderTest {
 
 	private static final String EVENT_GENERIC = "TESTID:FAULT:EVENT_DATA";
 
-	@BeforeClass
-	public static void setUp() {
-		Logger.getRootLogger().setLevel(Level.OFF);
-	}
-
-	/**
-	 * Spying on the sender - verifying its behavior but not specific 
-	 * indrect output
+	/** 
+	 * Spying on the sender - verifying its behavior but not specific indrect
+	 * output
 	 * 
 	 */
 	@Test
 	public void shouldSendAnyString() {
-		UdpSender udpSender = Mockito.spy(UdpSender.class);
+		UdpSender theSpy = Mockito.spy(UdpSender.class);
 		Event event = Mockito.mock(Event.class);
 		UdpEventSender target = new UdpEventSender();
-		target.setUdpSender(udpSender);
+		target.setUdpSender(theSpy);
 
 		target.send(event);
 
-		Mockito.verify(udpSender).sendTo(Mockito.anyString());
+		Mockito.verify(theSpy).sendTo(Mockito.anyString());
 	}
 	
 	/**
