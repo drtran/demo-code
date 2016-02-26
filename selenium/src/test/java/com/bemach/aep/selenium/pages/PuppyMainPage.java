@@ -21,7 +21,7 @@ public class PuppyMainPage {
 
 		int index = 0;
 		for (WebElement name : names) {
-			if (name.getText().equals("Brook")) {
+			if (name.getText().equals(petName)) {
 				values.get(index).click();
 				break;
 			}

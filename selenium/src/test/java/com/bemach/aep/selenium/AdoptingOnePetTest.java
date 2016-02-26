@@ -14,14 +14,15 @@ import com.bemach.aep.selenium.pages.DetailsPage;
 import com.bemach.aep.selenium.pages.PaymentPage;
 import com.bemach.aep.selenium.pages.PuppyMainPage;
 
-//  Given I am at Puppy Adoption Agency website “http://puppies.herokuapp.com/”
-//  When I adopt and pay for a pet 
-//    I click on ‘View Details’ for a pet name ‘Brook’ 
-//    I click on ‘Adopt Me!’ button 
-//    I click on ‘Complete the Adoption’ button 
-//    I fill out the payment detail name, address, email, & payment method 
-//    I click on ‘Place Order’ button 
-//  Then I should see a message “Thank you for adopting a puppy!”
+// Scenario: Adopting one pet 
+//   Given I am at Puppy Adoption Agency website “http://puppies.herokuapp.com/” 
+//   When I adopt and pay for a pet 
+//   And I click on ‘View Details’ for a pet name ‘Brook’ 
+//   And I click on ‘Adopt Me!’ button 
+//   And I click on ‘Complete the Adoption’ button 
+//   And I fill out the payment detail name, address, email, & payment method 
+//   And I click on ‘Place Order’ button 
+//   Then I should see a message “Thank you for adopting a puppy!” 
 
 // To run this under JUnit test, make sure to include:
 // -DwebDriver=CHROME or FIREFOX
