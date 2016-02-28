@@ -4,7 +4,7 @@
 
 	<groupId>com.bemach.aep</groupId>
 	<artifactId>fitnesse-tests</artifactId>
-	<version>0.9</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>fitnesse</name>
@@ -51,7 +51,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-
+		<finalName>fitnesse-1.0.0</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>

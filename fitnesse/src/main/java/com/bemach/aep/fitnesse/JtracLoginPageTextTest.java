@@ -9,7 +9,7 @@ import fit.ColumnFixture;
 
 public class JtracLoginPageTextTest extends ColumnFixture {
 	public String websiteUrl;
-	
+
 	public String loginName() {
 		WebDriver webDriver = new FirefoxDriver();
 		webDriver.get(websiteUrl);
@@ -18,8 +18,8 @@ public class JtracLoginPageTextTest extends ColumnFixture {
 		webDriver.close();
 		return loginName;
 	}
-	
-	public String pageTitle () {
+
+	public String pageTitle() {
 		WebDriver webDriver = new FirefoxDriver();
 		webDriver.get(websiteUrl);
 		String title = webDriver.getTitle();
