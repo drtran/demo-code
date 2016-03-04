@@ -1,7 +1,7 @@
 Feature: Adopting one pet from Puppy Adoption Agency 
 	As a pet lover,
-  I want to adopt a pet
-  So that it can choose my furniture.
+    I want to adopt a pet
+    So that it can choose my furniture.
   
   
 @adopting_one_pet

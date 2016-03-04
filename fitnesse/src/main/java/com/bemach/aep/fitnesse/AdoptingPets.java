@@ -5,6 +5,7 @@ import com.bemach.aep.selenium.pages.Browser;
 import com.bemach.aep.selenium.pages.DetailsPage;
 import com.bemach.aep.selenium.pages.PaymentPage;
 import com.bemach.aep.selenium.pages.PuppyMainPage;
+import com.bemach.aep.selenium.pages.Browser.DRIVER_TYPE;
 
 import fit.ColumnFixture;
 
@@ -23,8 +24,9 @@ public class AdoptingPets extends ColumnFixture {
 	private String notice;
 	
 	public String adoptOnePet() {
+		Browser browser = new Browser(DRIVER_TYPE.valueOf(System.getenv("webDriver")));
 		adoptingOnePetTest();
-		Browser.getDriver().close();
+		browser.close();
 		return notice;
 	}
 
