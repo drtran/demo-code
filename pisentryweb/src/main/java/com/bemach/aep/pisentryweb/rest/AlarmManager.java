@@ -6,6 +6,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 
@@ -24,15 +25,21 @@ public class AlarmManager extends Application {
 	private StateManager stateManager = StateManagerImpl.getInstance();
 	private UdpEventSender eventSender = null;
 
+	// curl -X GET
+	// http://localhost:8080/pisentryweb/services/alarmManager/getState
 	@GET
 	@Path("/getState")
 	@Produces(MediaType.APPLICATION_JSON)
-	public SystemState getStatus() {
+	public Response getStatus() {
 		logger.info("getting state.");
 		logger.info("Alarm state: " + stateManager.getState());
-		return new SystemState(stateManager.getState());
+		SystemState ss = new SystemState(stateManager.getState());
+		// return new SystemState(stateManager.getState());
+		return Response.ok(ss, MediaType.APPLICATION_JSON).build();
 	}
 
+	// curl -X PUT
+	// http://localhost:8080/pisentryweb/services/alarmManager/arm_away
 	@PUT
 	@Path("/arm_away")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -41,6 +48,8 @@ public class AlarmManager extends Application {
 		sendEvent(EventType.ARM_AWAY, DATA_NOOP);
 	}
 
+	// curl -X PUT
+	// http://localhost:8080/pisentryweb/services/alarmManager/arm_home
 	@PUT
 	@Path("/arm_home")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -49,6 +58,8 @@ public class AlarmManager extends Application {
 		sendEvent(EventType.ARM_HOME, DATA_NOOP);
 	}
 
+	// curl -X PUT
+	// http://localhost:8080/pisentryweb/services/alarmManager/disarm
 	@PUT
 	@Path("/disarm")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -61,7 +72,7 @@ public class AlarmManager extends Application {
 	 * Place an event in Queue.
 	 * 
 	 * @param type
-	 * @param data 
+	 * @param data
 	 */
 	private void sendEvent(EventType type, String data) {
 		UdpEventSender eventSender = getUdpEventSender();
