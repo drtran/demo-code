@@ -7,7 +7,7 @@ import com.bemach.aep.pisentry.vos.EventType;
 import com.bemach.aep.pisentry.vos.State;
 
 public class StateManagerImpl implements StateManager {
-	private static Logger logger = Logger.getLogger(StateManagerImpl.class);
+	private static final Logger LOGGER = Logger.getLogger(StateManagerImpl.class);
 
 	private static State state = State.UNARMED;
 	private static StateManagerImpl instance;
@@ -20,17 +20,13 @@ public class StateManagerImpl implements StateManager {
 		this.notificationMgr = notificationManager;
 	}
 
+	@Override
 	public void process(Event event) {
 		State lastState = state;
 
 		switch (event.getType()) {
 		case FAULT:
-			if (state == State.ARMED_AWAY) {
-				state = State.ALARMED;
-			} else if (state == State.ARMED_HOME) {
-				// for motion don't alarm
-				state = State.ALARMED;
-			}
+			processFault();
 			break;
 		case ARM_AWAY:
 			state = State.ARMED_AWAY;
@@ -50,13 +46,23 @@ public class StateManagerImpl implements StateManager {
 		}
 	}
 
+	public void processFault() {
+		if (state == State.ARMED_AWAY) {
+			state = State.ALARMED;
+		} else if (state == State.ARMED_HOME) {
+			// for motion don't alarm
+			state = State.ALARMED;
+		}
+	}
+
 	private void notify(State currentState, State newState) {
 		String data = String.format("%s to %s", currentState, newState);
 		Event event = new Event("StateManagerImpl", EventType.NOTIFY, data);
 		notificationMgr.notify(event);
-		logger.info(String.format("Notifying %s", event.toString()));
+		LOGGER.info(String.format("Notifying %s", event.toString()));
 	}
 
+	@Override
 	public State getState() {
 		return state;
 	}
