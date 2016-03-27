@@ -59,7 +59,7 @@ public class EventProcessorImplTest {
 	}
 
 	@Ignore
-	@Test
+	@Test 
 	public void shouldNotCallAnyManager() {
 		Mockito.when(event.getType()).thenReturn(null);
 
@@ -67,5 +67,5 @@ public class EventProcessorImplTest {
 
 		Mockito.verify(zoneMgr, Mockito.times(0)).process(event);
 		Mockito.verify(stateMgr, Mockito.times(0)).process(event);
-	}
+	} 
 }
