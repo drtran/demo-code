@@ -11,7 +11,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.bemach.aep.pisentry.event.UdpEventSender;
 import com.bemach.aep.pisentry.vos.Event;
-import com.bemach.aep.pisentry.vos.EventType; 
+import com.bemach.aep.pisentry.vos.EventType;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AlarmManager2BRefactoredTest {
@@ -27,7 +27,7 @@ public class AlarmManager2BRefactoredTest {
 		UdpEventSender mockEventSender = Mockito.mock(UdpEventSender.class);
 		alarmMgr.setEventSender(mockEventSender);
 		ArgumentCaptor<Event> argument = ArgumentCaptor.forClass(Event.class);
-		Event expected = new Event(AlarmManager2BRefactoredTest.class.toString(), EventType.DISARM, "NOOP");
+		Event expected = new Event(AlarmManager2BRefactored.class.toString(), EventType.DISARM, "NOOP");
 
 		// Act
 		alarmMgr.disarm();
@@ -37,7 +37,7 @@ public class AlarmManager2BRefactoredTest {
 		Event actual = argument.getValue();
 		assertThat(actual, equalTo(expected));
 	}
-	
+
 	@Test
 	public void shouldArmAwayCorrectEvent() {
 		// Arrange
@@ -45,7 +45,7 @@ public class AlarmManager2BRefactoredTest {
 		UdpEventSender mockEventSender = Mockito.mock(UdpEventSender.class);
 		alarmMgr.setEventSender(mockEventSender);
 		ArgumentCaptor<Event> argument = ArgumentCaptor.forClass(Event.class);
-		Event expected = new Event(AlarmManager2BRefactoredTest.class.toString(), EventType.ARM_AWAY, "NOOP");
+		Event expected = new Event(AlarmManager2BRefactored.class.toString(), EventType.ARM_AWAY, "NOOP");
 
 		// Act
 		alarmMgr.armAway();
@@ -63,7 +63,7 @@ public class AlarmManager2BRefactoredTest {
 		UdpEventSender mockEventSender = Mockito.mock(UdpEventSender.class);
 		alarmMgr.setEventSender(mockEventSender);
 		ArgumentCaptor<Event> argument = ArgumentCaptor.forClass(Event.class);
-		Event expected = new Event(AlarmManager2BRefactoredTest.class.toString(), EventType.ARM_HOME, "NOOP");
+		Event expected = new Event(AlarmManager2BRefactored.class.toString(), EventType.ARM_HOME, "NOOP");
 
 		// Act
 		alarmMgr.armHome();

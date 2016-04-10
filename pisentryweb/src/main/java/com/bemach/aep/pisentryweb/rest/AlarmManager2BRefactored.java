@@ -21,7 +21,7 @@ import com.bemach.aep.pisentry.vos.EventType;
 public class AlarmManager2BRefactored extends Application {
 	private static final String LOCALHOST = "localhost";
 	private static final String DATA_NOOP = "NOOP";
-	private static Logger logger = Logger.getLogger(AlarmManager2BRefactoredTest.class);
+	private static Logger logger = Logger.getLogger(AlarmManager2BRefactored.class);
 	private StateManager stateManager = StateManagerImpl.getInstance();
 	private UdpEventSender eventSender = null;
 
@@ -45,12 +45,8 @@ public class AlarmManager2BRefactored extends Application {
 	@Produces(MediaType.APPLICATION_JSON)
 	public void armAway() {
 		logger.info("arming away.");
-		sendEvent(EventType.ARM_AWAY, DATA_NOOP);
-	}
-
-	private void sendEvent(EventType eventType, String eventData) {
 		UdpEventSender eventSender = getUdpEventSender();
-		Event event = new Event(AlarmManager2BRefactoredTest.class.toString(), eventType, eventData);
+		Event event = new Event(AlarmManager2BRefactored.class.toString(), EventType.ARM_AWAY, DATA_NOOP);
 		eventSender.setUdpSender(new UdpSenderImpl(LOCALHOST, 9999));
 		eventSender.send(event);
 	}
@@ -62,7 +58,10 @@ public class AlarmManager2BRefactored extends Application {
 	@Produces(MediaType.APPLICATION_JSON)
 	public void armHome() {
 		logger.info("arming home.");
-		sendEvent(EventType.ARM_HOME, DATA_NOOP);
+		UdpEventSender eventSender = getUdpEventSender();
+		Event event = new Event(AlarmManager2BRefactored.class.toString(), EventType.ARM_HOME, DATA_NOOP);
+		eventSender.setUdpSender(new UdpSenderImpl(LOCALHOST, 9999));
+		eventSender.send(event);
 	}
 
 	// curl -X PUT
@@ -72,7 +71,10 @@ public class AlarmManager2BRefactored extends Application {
 	@Produces(MediaType.APPLICATION_JSON)
 	public void disarm() {
 		logger.info("disarming.");
-		sendEvent(EventType.DISARM, DATA_NOOP);
+		UdpEventSender eventSender = getUdpEventSender();
+		Event event = new Event(AlarmManager2BRefactored.class.toString(), EventType.DISARM, DATA_NOOP);
+		eventSender.setUdpSender(new UdpSenderImpl(LOCALHOST, 9999));
+		eventSender.send(event);
 	}
 
 	public UdpEventSender getUdpEventSender() {
