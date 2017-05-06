@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Using Module code</title>
+<link href="css/Styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+	window.onload = function() {
+		var calc = new Calculator('Output');
+		calc.add(2, 2);
+		alert(calc.eqCtl.innerHTML);
+	}
+</script>
+<script src="js/module-code.js"></script>
+</head>
+<body>
+	<div>
+		<div id="Output"></div>
+	</div>
+</body>
+</html>

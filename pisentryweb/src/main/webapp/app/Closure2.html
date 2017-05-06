@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Using Closure 2 code</title>
+<link href="css/Styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+	window.onload = function() {
+		var output = document.getElementById('Output');
+		var closure = new Closure2();
+		output.innerHTML = 'time-0: ' + closure.func();
+		window.setTimeout(function() {
+			output.innerHTML += '<br/>time-1: ' + closure.func();	
+		}, 500);
+	}
+	
+</script>
+<script src="js/closure2-code.js"></script>
+</head>
+<body>
+	<div>
+		<h1>A simple demo of using a closure</h1>
+		<br /> <br />
+		<div id="Output"></div>
+	</div>
+</body>
+</html>
