@@ -1,4 +1,4 @@
-package com.bemach.aep.cdi_unit;
+package com.bemach.aep.cdiunit;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -12,6 +12,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+
+import com.bemach.aep.cdiunit.AuthenticateServiceImpl;
+import com.bemach.aep.cdiunit.Login;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives(FakeAuthenticateServiceImpl.class)

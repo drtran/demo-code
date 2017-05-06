@@ -1,4 +1,4 @@
-package com.bemach.aep.cdi_unit;
+package com.bemach.aep.cdiunit;
 
 import java.util.Set;
 
