@@ -1,4 +1,4 @@
-package com.bemach.aep.solid.srp.refactor;
+package com.bemach.aep.solid.srp.refactored;
 
 public class AreaImpl implements Area {
 	public AreaImpl() {
