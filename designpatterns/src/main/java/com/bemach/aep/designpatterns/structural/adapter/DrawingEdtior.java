@@ -5,6 +5,7 @@ public class DrawingEdtior {
 		Shape line = ShapeFactory.makeLine();
 		line.boundingBox();
 		line.createManipulator();
+		
 		Shape textShape = ShapeFactory.makeTextShape();
 		textShape.boundingBox();
 		textShape.createManipulator();
