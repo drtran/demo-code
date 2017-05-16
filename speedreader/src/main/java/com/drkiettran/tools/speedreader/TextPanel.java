@@ -28,7 +28,6 @@ public class TextPanel extends JPanel {
 	private String readingText = null;
 	private String[] readingTextInWordList;
 	private boolean doneReading;
-	private String lastWord;
 	private JLabel infoLabel;
 	private int addingWordsForDelay;
 
@@ -68,63 +67,46 @@ public class TextPanel extends JPanel {
 		}
 
 		if (readingText == null) {
-			readingText = spacingText(textArea.getText());
-			currentReadingIndex = 0;
-
-			StringTokenizer st = new StringTokenizer(readingText, " ");
-			readingTextInWordList = new String[st.countTokens()];
-
-			while (st.hasMoreTokens()) {
-				readingTextInWordList[currentReadingIndex++] = st.nextToken();
-			}
-
+			readingText = textArea.getText();
+			readingTextInWordList = new ReadingTextManager(readingText).getReadingWordList();
 			currentReadingIndex = 0;
 		}
 
-		if (currentReadingIndex < readingTextInWordList.length) {
-			lastWord = readingTextInWordList[currentReadingIndex++];
+		if (thereIsMoreToRead()) {
+			String wordToRead = getNextWord();
 
-			char c = lastWord.charAt(lastWord.length() - 1);
-			switch (c) {
-			case ',':
-				addingWordsForDelay = 1;
-				break;
+			char lastChar = wordToRead.charAt(wordToRead.length() - 1);
 
-			case ';':
-			case '!':
-			case '.':
-				addingWordsForDelay = 2;
-				break;
-			}
-			System.out.println(lastWord);
-			displayingText.setText(lastWord);
-			infoLabel.setText(String.format("%d of %d words (%d%%)", currentReadingIndex, readingTextInWordList.length,
-					(100 * currentReadingIndex) / readingTextInWordList.length));
+			addingWordsForDelay = settingDelayInWords(lastChar);
+			displayingText.setText(wordToRead);
+			displayReadingInformation();
 			repaint();
 		}
 	}
 
-	private String spacingText(String text) {
+	private int settingDelayInWords(char lastChar) {
+		switch (lastChar) {
+		case ',':
+			return 1;
 
-		StringBuilder sb = new StringBuilder();
-		for (char c : text.toCharArray()) {
-			sb.append(c);
-			if (isSeparator(c)) {
-				sb.append(' ');
-			}
+		case ';':
+		case '!':
+		case '.':
+			return 2;
 		}
-		return sb.toString();
+		return 0;
 	}
 
-	private static final char[] SEPARATORS = new char[] { '.', ',', ';', '!', '\n', '\r' };
-
-	private boolean isSeparator(char c) {
-		for (char separator : SEPARATORS) {
-			if (c == separator) {
-				return true;
-			}
-		}
-		return false;
+	private void displayReadingInformation() {
+		infoLabel.setText(String.format("%d of %d words (%d%%)", currentReadingIndex, readingTextInWordList.length,
+				(100 * currentReadingIndex) / readingTextInWordList.length));
 	}
 
+	private String getNextWord() {
+		return readingTextInWordList[currentReadingIndex++];
+	}
+
+	private boolean thereIsMoreToRead() {
+		return currentReadingIndex < readingTextInWordList.length;
+	}
 }
