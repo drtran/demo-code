@@ -29,7 +29,7 @@ import com.bemach.aep.selenium.pages.PuppyMainPage;
 // 
 // You can also run this test specifically at the command prompt as follows:
 //
-// mvn -Dtest=com.bemach.aep.selenium.AdoptingOnePetTest -DwebDriver=CHROME clean test
+// mvn -Dtest=com.bemach.aep.selenium.AdoptingOnePetTest -DwebDriver=CHROME -Dwebdriver.chrome.driver=C:\drkiettran\bin\misc\chromedriver.exe clean test
 // mvn -Dtest=com.bemach.aep.selenium.AdoptingOnePetTest -DwebDriver=FIREFOX clean test
 
 /**
@@ -92,16 +92,16 @@ public class AdoptingOnePetTest {
 	@BeforeClass
 	public static void setUpClass() {
 	}
-	
+
 	@Before
 	public void setUp() {
 	}
-	
+
 	@After
 	public void tearDown() {
 		Browser.getDriver().close();
 	}
-	
+
 	@AfterClass
 	public static void tearDownClass() {
 	}
