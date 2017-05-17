@@ -46,7 +46,7 @@ public class FormPanel extends JPanel {
 		});
 
 		loadButton.addActionListener((ActionEvent actionEvent) -> {
-
+			
 		});
 
 		Border innerBorder = BorderFactory.createTitledBorder("Configuration");

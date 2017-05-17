@@ -15,12 +15,10 @@
 		<junit.version>4.12</junit.version>
 		<maven-failsafe-plugin.version>2.18</maven-failsafe-plugin.version>
 		<slf4j-simple.version>1.6.1</slf4j-simple.version>
-		<serenity-core.version>1.1.13</serenity-core.version>
-		<serenity-cucumber.version>1.1.3</serenity-cucumber.version>
-		<selenium-firefox-driver.version>2.51.0</selenium-firefox-driver.version>
-		<serenity.version>1.0.47</serenity.version>
-		<serenity.maven.version>1.0.47</serenity.maven.version>
-		<webdriver.driver>firefox</webdriver.driver>
+		<serenity-core.version>1.4.0</serenity-core.version>
+		<serenity-cucumber.version>1.1.34</serenity-cucumber.version>
+		<selenium-firefox-driver.version>3.4.0</selenium-firefox-driver.version>
+		<webdriver.driver>chrome</webdriver.driver>
 	</properties>
 
 	<dependencies>
@@ -72,12 +70,12 @@
 			<plugin>
 				<groupId>net.serenity-bdd.maven.plugins</groupId>
 				<artifactId>serenity-maven-plugin</artifactId>
-				<version>${serenity.maven.version}</version>
+				<version>${serenity-core.version}</version>
 				<dependencies>
 					<dependency>
 						<groupId>net.serenity-bdd</groupId>
 						<artifactId>core</artifactId>
-						<version>${serenity.version}</version>
+						<version>${serenity-core.version}</version>
 					</dependency>
 				</dependencies>
 				<executions>

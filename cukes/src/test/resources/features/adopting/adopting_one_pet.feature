@@ -6,7 +6,7 @@ Feature: Adopting one pet from Puppy Adoption Agency
   
 @adopting_one_pet
 Scenario: Adopting one pet successfully 
-	Given I am at Puppy Adoption Agency website "http://localhost:3000" 
+	Given I am at Puppy Adoption Agency website "http://puppies.herokuapp.com" 
 	When I click on View Details button for a pet name "Brook" 
 	And I click on Adopt Me! button 
 	And I click on Complete the Adoption button 

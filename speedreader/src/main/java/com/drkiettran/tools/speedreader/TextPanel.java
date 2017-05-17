@@ -1,6 +1,7 @@
 package com.drkiettran.tools.speedreader;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.util.Arrays;
 import java.util.StringTokenizer;
@@ -17,17 +18,16 @@ public class TextPanel extends JPanel {
 	private static final long serialVersionUID = -825536523977292110L;
 	private final String INSTRUCTION = "Help: \n"
 			+ "\nMethod 1:\n- Cut and paste text into the text box on the right.\n- Click on the Read button.\n"
-			+ "\nMethod 2 (NOT IMPLEMENTED YET):\n- Enter File Name on the left.\n- Click the Load button.\n- Click on the Read button."
+			+ "\nMethod 2 (NOT IMPLEMENTED YET):\n- Enter File Name on the left.\n- Click the Load button.\n- Click on the Read button.\n"
 			+ "\nSpeed:\n- Enter the speed (word per minute).\n- Click the Set button.\n"
 			+ "\nPause:\n- Click the Stop button.\n" + "\nUnpause:\n- Click the Read button.\n"
-			+ "\nReset:\n- Click the Reset button to clear out the text area.\n";
+			+ "\nReset:\n- Click the Reset button to clear out the text area.\n" + "\nAuthor: Kiet T. Tran, 2017.\n";
 
 	private JTextArea textArea;
 	private JLabel displayingText;
 	private int currentReadingIndex = 0;
 	private String readingText = null;
 	private String[] readingTextInWordList;
-	private boolean doneReading;
 	private JLabel infoLabel;
 	private int addingWordsForDelay;
 
@@ -38,6 +38,7 @@ public class TextPanel extends JPanel {
 
 		textArea = new JTextArea(INSTRUCTION);
 		textArea.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		textArea.setForeground(Color.BLUE);
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 
@@ -55,7 +56,7 @@ public class TextPanel extends JPanel {
 	public void reset() {
 		readingText = null;
 		currentReadingIndex = 0;
-		textArea.setText("");
+		textArea.setText(INSTRUCTION);
 		displayingText.setText("");
 		infoLabel.setText("");
 		repaint();
