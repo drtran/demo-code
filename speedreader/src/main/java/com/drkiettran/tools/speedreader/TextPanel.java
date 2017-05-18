@@ -30,15 +30,17 @@ public class TextPanel extends JPanel {
 	private String[] readingTextInWordList;
 	private JLabel infoLabel;
 	private int addingWordsForDelay;
+	private JLabel titleLabel;
 
 	public TextPanel() {
 		displayingText = new JLabel("");
 		displayingText.setFont(new Font("Candara", Font.PLAIN, 60));
 		infoLabel = new JLabel("");
+		titleLabel = new JLabel("Title:");
 
 		textArea = new JTextArea(INSTRUCTION);
-		textArea.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		textArea.setForeground(Color.BLUE);
+		textArea.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 
@@ -49,6 +51,7 @@ public class TextPanel extends JPanel {
 		setLayout(new BorderLayout());
 		add(displayingText, BorderLayout.NORTH);
 		add(new JScrollPane(textArea), BorderLayout.CENTER);
+		add(titleLabel, BorderLayout.SOUTH);
 		add(infoLabel, BorderLayout.SOUTH);
 
 	}
@@ -76,26 +79,38 @@ public class TextPanel extends JPanel {
 		if (thereIsMoreToRead()) {
 			String wordToRead = getNextWord();
 
-			char lastChar = wordToRead.charAt(wordToRead.length() - 1);
-
-			addingWordsForDelay = settingDelayInWords(lastChar);
+			addingWordsForDelay = settingDelayInWords(wordToRead);
 			displayingText.setText(wordToRead);
 			displayReadingInformation();
 			repaint();
 		}
 	}
 
-	private int settingDelayInWords(char lastChar) {
-		switch (lastChar) {
+	private int settingDelayInWords(String wordToRead) {
+		switch (wordToRead.charAt(wordToRead.length() - 1)) {
 		case ',':
 			return 1;
 
 		case ';':
 		case '!':
 		case '.':
-			return 2;
+			if (notInExcludedList(wordToRead)) {
+				return 2;
+			}
+
 		}
 		return 0;
+	}
+
+	private final String EXCLUDED_LIST_FOR_DELAY[] = { "mr.", "ms.", "fr.", "sr.", "jr.", "etc.", "i.e." };
+
+	private boolean notInExcludedList(String wordToRead) {
+		for (String excluded : EXCLUDED_LIST_FOR_DELAY) {
+			if (excluded.equalsIgnoreCase(wordToRead)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	private void displayReadingInformation() {
