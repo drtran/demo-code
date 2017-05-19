@@ -19,6 +19,8 @@ import org.junit.runner.RunWith;
 @CucumberOptions(features = "src/test/resources/features"
 // , tags = { "@not_accepting_with_blank_email, @not_accepting_with_blank_name"
 // }
-		, tags = { "@adopting_one_pet, @adopting_multiple_pets, @accepting_creditcard" })
+// , tags = { "@adopting_one_pet, @adopting_multiple_pets,
+// @accepting_creditcard" })
+		, tags = { "@tomcat-0-more-app-names" })
 public class RunSerenityTest {
 }
