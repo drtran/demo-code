@@ -35,15 +35,15 @@ public class TestUtils {
 		new Thread(() -> {
 			threadWait(1000);
 
-			Robot keyboardRobot = makeKeyboardRobot();
+			KeyboardRobot keyboardRobot = makeKeyboardRobot();
 
-			enterTextField(userId, keyboardRobot);
-			enterTabKey(keyboardRobot);
+			keyboardRobot.enterTextField(userId);
+			keyboardRobot.enterTabKey();
 
 			threadWait(1000);
 
-			enterTextField(password, keyboardRobot);
-			enterEnterKey(keyboardRobot);
+			keyboardRobot.enterTextField(password);
+			keyboardRobot.enterEnterKey();
 
 			threadWait(1000);
 
@@ -51,31 +51,11 @@ public class TestUtils {
 
 	}
 
-	private Robot makeKeyboardRobot() {
+	private KeyboardRobot makeKeyboardRobot() {
 		try {
-			return new Robot();
+			return new KeyboardRobot();
 		} catch (AWTException e) {
 			return null;
 		}
 	}
-
-	private void enterEnterKey(Robot robot) {
-		robot.keyPress(KeyEvent.VK_ENTER);
-		robot.keyRelease(KeyEvent.VK_ENTER);
-	}
-
-	private void enterTabKey(Robot robot) {
-		robot.keyPress(KeyEvent.VK_TAB);
-		robot.keyRelease(KeyEvent.VK_TAB);
-	}
-
-	private void enterTextField(String text, Robot robot) {
-		StringSelection ssText = new StringSelection(text);
-		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ssText, null);
-		robot.keyPress(KeyEvent.VK_CONTROL);
-		robot.keyPress(KeyEvent.VK_V);
-		robot.keyRelease(KeyEvent.VK_V);
-		robot.keyRelease(KeyEvent.VK_CONTROL);
-	}
-
 }
