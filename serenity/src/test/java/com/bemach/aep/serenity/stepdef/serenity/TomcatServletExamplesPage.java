@@ -8,10 +8,13 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 
 public class TomcatServletExamplesPage extends PageObject {
-	@FindBy(xpath = "//td[contains(text(),'Hello World')]/../td[3]/a[2]")
+	private static final String HELLO_WORLD = "Hello World";
+	private static final String REQUEST_INFO = "Request Info";
+
+	@FindBy(xpath = "//td[contains(text(),'" + HELLO_WORLD + "')]/../td[3]/a[2]")
 	private WebElement helloExampleLink;
 
-	@FindBy(xpath = "//td[contains(text(),'Request Info')]/../td[3]/a[2]")
+	@FindBy(xpath = "//td[contains(text(),'" + REQUEST_INFO + "')]/../td[3]/a[2]")
 	private WebElement requestInfoExampleLink;
 
 	@FindBy(xpath = "//body")
@@ -19,10 +22,10 @@ public class TomcatServletExamplesPage extends PageObject {
 
 	public void clickOnSourceFor(String exampleName) {
 		switch (exampleName) {
-		case "Hello World":
+		case HELLO_WORLD:
 			helloExampleLink.click();
 			break;
-		case "Request Info":
+		case REQUEST_INFO:
 			requestInfoExampleLink.click();
 			break;
 		}
