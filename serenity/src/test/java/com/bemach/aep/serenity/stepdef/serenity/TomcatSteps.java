@@ -1,8 +1,12 @@
-package com.bemach.aep.serenity.stepdef;
+package com.bemach.aep.serenity.stepdef.serenity;
 
 import net.thucydides.core.annotations.Step;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.Assert.assertThat;
+
+import com.bemach.aep.serenity.stepdef.serenity.page.TomcatApplicationManagerPage;
+import com.bemach.aep.serenity.stepdef.serenity.page.TomcatHomePage;
+import com.bemach.aep.serenity.stepdef.serenity.page.TomcatServerStatusPage;
 
 public class TomcatSteps {
 

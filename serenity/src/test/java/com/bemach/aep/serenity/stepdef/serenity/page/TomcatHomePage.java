@@ -1,4 +1,4 @@
-package com.bemach.aep.serenity.stepdef;
+package com.bemach.aep.serenity.stepdef.serenity.page;
 
 import org.openqa.selenium.WebElement;
 
