@@ -1,6 +1,5 @@
 package com.bemach.aep.serenity.stepdef;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -21,9 +20,9 @@ public class TomcatSystemStatus {
 	}
 
 	@Then("^I should see (\\d+) or more application names displayed$")
-	public void i_should_see_or_more_application_names_displayed(int arg1) throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		throw new PendingException();
+	public void i_should_see_or_more_application_names_displayed(int numOfRows) throws Throwable {
+		tomcatSteps.i_click_on_list_applications_link();
+		tomcatSteps.i_verify_that_applications_table_has_at_least(numOfRows);
 	}
 
 }

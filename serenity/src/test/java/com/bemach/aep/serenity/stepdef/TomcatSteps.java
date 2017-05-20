@@ -1,10 +1,14 @@
 package com.bemach.aep.serenity.stepdef;
 
 import net.thucydides.core.annotations.Step;
+import static org.hamcrest.Matchers.lessThanOrEqualTo;
+import static org.junit.Assert.assertThat;
 
 public class TomcatSteps {
 
 	private TomcatHomePage tomcatHomePage;
+	private TomcatServerStatusPage serverStatusPage;
+	private TomcatApplicationManagerPage appManagerPage;
 
 	@Step
 	public void i_visit_Tomcat_main_page(String url) {
@@ -12,7 +16,16 @@ public class TomcatSteps {
 	}
 
 	public void i_click_on_Server_Status_button(String userId, String password) {
-		tomcatHomePage.i_select_server_status(userId, password);
+		tomcatHomePage.clickOnServerStatusButton(userId, password);
+	}
+
+	public void i_click_on_list_applications_link() {
+		serverStatusPage.clickOnApplicationsLink();
+	}
+
+	public void i_verify_that_applications_table_has_at_least(Integer expectedNumberOfApps) {
+		assertThat("Number of application is less than expected!", expectedNumberOfApps,
+				lessThanOrEqualTo(appManagerPage.getNumberOfApps()));
 	}
 
 }
