@@ -11,6 +11,9 @@ public class TomcatApplicationManagerPage extends PageObject {
 	@FindBy(xpath = "//td[@class='title' and contains(text(),'Applications')]/../../tr")
 	private List<WebElement> applicationsListIncludingTitles;
 
+	@FindBy(xpath = "//a[@href='/examples/']")
+	private WebElement examplesLink;
+
 	/**
 	 * Tomcat display two title rows: Applications & Path. List of applications
 	 * starts at row 3. Each application takes up 2 rows.
@@ -19,6 +22,10 @@ public class TomcatApplicationManagerPage extends PageObject {
 	 */
 	public Integer getNumberOfApps() {
 		return (applicationsListIncludingTitles.size() - 2) / 2;
+	}
+
+	public void clickOnExamplesLink() {
+		examplesLink.click();
 	}
 
 }

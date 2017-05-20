@@ -21,6 +21,6 @@ import org.junit.runner.RunWith;
 // }
 // , tags = { "@adopting_one_pet, @adopting_multiple_pets,
 // @accepting_creditcard" })
-		, tags = { "@tomcat-0-more-app-names" })
+		, tags = { "@tomcat-verify-example-code" })
 public class RunSerenityTest {
 }

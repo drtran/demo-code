@@ -12,10 +12,19 @@ public class TomcatHomePage extends PageObject {
 	@FindBy(xpath = "//a[@href='/manager/status']")
 	private WebElement serverStatusButton;
 
+	@FindBy(xpath = "//a[@href='/manager/html']")
+	private WebElement managerAppButton;
+
 	public void clickOnServerStatusButton(String userId, String password) {
 		TestUtils testUtils = new TestUtils();
 		testUtils.popup_authentication_thread(userId, password);
 		serverStatusButton.click();
+	}
+
+	public void clickOnManagerAppButton(String userId, String password) {
+		TestUtils testUtils = new TestUtils();
+		testUtils.popup_authentication_thread(userId, password);
+		managerAppButton.click();
 	}
 
 }
