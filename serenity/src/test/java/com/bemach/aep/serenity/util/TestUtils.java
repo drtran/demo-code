@@ -7,6 +7,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 
 public class TestUtils {
+
 	public static void threadWait(long millis) {
 
 		try {
@@ -31,29 +32,31 @@ public class TestUtils {
 	 */
 	public void popup_authentication_thread(String userId, String password) {
 
-		Thread thread = new Thread(() -> {
+		new Thread(() -> {
 			threadWait(1000);
 
-			try {
-				Robot robot = new Robot();
+			Robot keyboardRobot = makeKeyboardRobot();
 
-				enterTextField(userId, robot);
-				enterTabKey(robot);
+			enterTextField(userId, keyboardRobot);
+			enterTabKey(keyboardRobot);
 
-				threadWait(1000);
+			threadWait(1000);
 
-				enterTextField(password, robot);
-				enterEnterKey(robot);
+			enterTextField(password, keyboardRobot);
+			enterEnterKey(keyboardRobot);
 
-				threadWait(1000);
+			threadWait(1000);
 
-			} catch (AWTException e) {
-				System.out.println("ERROR: " + e);
-			}
-		});
+		}).start();
 
-		thread.start();
+	}
 
+	private Robot makeKeyboardRobot() {
+		try {
+			return new Robot();
+		} catch (AWTException e) {
+			return null;
+		}
 	}
 
 	private void enterEnterKey(Robot robot) {
@@ -66,9 +69,9 @@ public class TestUtils {
 		robot.keyRelease(KeyEvent.VK_TAB);
 	}
 
-	private void enterTextField(String userId, Robot robot) {
-		StringSelection ssId = new StringSelection(userId);
-		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ssId, null);
+	private void enterTextField(String text, Robot robot) {
+		StringSelection ssText = new StringSelection(text);
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ssText, null);
 		robot.keyPress(KeyEvent.VK_CONTROL);
 		robot.keyPress(KeyEvent.VK_V);
 		robot.keyRelease(KeyEvent.VK_V);
