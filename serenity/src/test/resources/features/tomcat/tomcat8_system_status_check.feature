@@ -23,6 +23,7 @@ Scenario Outline: Verifying example code - using substitute table
 	When I search source code for "<exampleName>" as a "<exampleType>" 
 	Then I should see the following line of code "<expectedSourceCode>" 
 	Examples: 
-		| exampleName | exampleType       | expectedSourceCode                    |
-		| Hello World | Servlets examples |  class HelloWorld extends HttpServlet |
-	 	 
+		| exampleName  | exampleType       | expectedSourceCode                           |
+		| Hello World  | Servlets examples | class HelloWorld extends HttpServlet  |
+		| Request Info | Servlets examples | class RequestInfo extends HttpServlet |
+	 	

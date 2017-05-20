@@ -11,6 +11,9 @@ public class TomcatServletExamplesPage extends PageObject {
 	@FindBy(xpath = "//td[contains(text(),'Hello World')]/../td[3]/a[2]")
 	private WebElement helloExampleLink;
 
+	@FindBy(xpath = "//td[contains(text(),'Request Info')]/../td[3]/a[2]")
+	private WebElement requestInfoExampleLink;
+
 	@FindBy(xpath = "//body")
 	private WebElement body;
 
@@ -18,6 +21,9 @@ public class TomcatServletExamplesPage extends PageObject {
 		switch (exampleName) {
 		case "Hello World":
 			helloExampleLink.click();
+			break;
+		case "Request Info":
+			requestInfoExampleLink.click();
 			break;
 		}
 	}
