@@ -35,7 +35,7 @@ public class ReadingTextManager {
 		return sb.toString();
 	}
 
-	private static final char[] SEPARATORS = new char[] { '.', ',', ';', '!', '\n', '\r' };
+	private static final char[] SEPARATORS = new char[] { '?', '.', ',', ';', '!', '\n', '\r' };
 
 	private boolean isSeparator(char c) {
 		for (char separator : SEPARATORS) {
