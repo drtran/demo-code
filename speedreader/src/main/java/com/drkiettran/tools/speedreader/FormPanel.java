@@ -46,7 +46,7 @@ public class FormPanel extends JPanel {
 		});
 
 		loadButton.addActionListener((ActionEvent actionEvent) -> {
-			
+
 		});
 
 		Border innerBorder = BorderFactory.createTitledBorder("Configuration");
@@ -81,7 +81,7 @@ public class FormPanel extends JPanel {
 		//// next row /////////////
 		gc.gridy++;
 		gc.weightx = 1;
-		gc.weighty = 2;
+		gc.weighty = .2;
 
 		gc.gridx = 1;
 		gc.insets = new Insets(0, 0, 0, 0);
@@ -94,7 +94,7 @@ public class FormPanel extends JPanel {
 		gc.weighty = 0.1;
 
 		gc.gridx = 0;
-		gc.anchor = GridBagConstraints.FIRST_LINE_END;
+		gc.anchor = GridBagConstraints.LINE_END;
 		gc.insets = new Insets(0, 0, 0, 5);
 		add(fileNameLabel, gc);
 
@@ -106,7 +106,7 @@ public class FormPanel extends JPanel {
 		//// next row /////////////
 		gc.gridy++;
 		gc.weightx = 1;
-		gc.weighty = 2;
+		gc.weighty = 4;
 
 		gc.gridx = 1;
 		gc.insets = new Insets(0, 0, 0, 0);

@@ -69,7 +69,7 @@ public class AssertTests {
 	public void shouldAssertSame() {
 		Integer expected = Integer.valueOf(768);
 		Integer actual = Integer.valueOf(768);
-		assertSame(expected, expected);
+		assertSame(expected, actual);
 	}
 	
 	@Test

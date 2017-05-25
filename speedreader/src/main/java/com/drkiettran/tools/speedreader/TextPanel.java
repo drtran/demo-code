@@ -1,10 +1,7 @@
 package com.drkiettran.tools.speedreader;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Font;
-import java.util.Arrays;
-import java.util.StringTokenizer;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -12,6 +9,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import com.drkiettran.tools.speedreader.ReaderListener.Command;
 
 public class TextPanel extends JPanel {
 
@@ -31,6 +32,8 @@ public class TextPanel extends JPanel {
 	private JLabel infoLabel;
 	private int addingWordsForDelay;
 	private JLabel titleLabel;
+	private final String EXCLUDED_LIST_FOR_DELAY[] = { "mr.", "ms.", "fr.", "sr.", "jr.", "etc.", "i.e." };
+	private ReaderListener readerListener;
 
 	public TextPanel() {
 		displayingText = new JLabel("");
@@ -43,6 +46,24 @@ public class TextPanel extends JPanel {
 
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
+		textArea.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				readerListener.invoke(Command.RESTART);
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				readerListener.invoke(Command.RESTART);
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				readerListener.invoke(Command.RESTART);
+			}
+
+		});
 
 		Border innerBorder = BorderFactory.createTitledBorder("Reading");
 		Border outterBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
@@ -56,9 +77,13 @@ public class TextPanel extends JPanel {
 
 	}
 
-	public void reset() {
+	public void restart() {
 		readingText = null;
 		currentReadingIndex = 0;
+	}
+	
+	public void reset() {
+		restart();
 		textArea.setText(INSTRUCTION);
 		displayingText.setText("");
 		infoLabel.setText("");
@@ -102,8 +127,6 @@ public class TextPanel extends JPanel {
 		return 0;
 	}
 
-	private final String EXCLUDED_LIST_FOR_DELAY[] = { "mr.", "ms.", "fr.", "sr.", "jr.", "etc.", "i.e." };
-
 	private boolean notInExcludedList(String wordToRead) {
 		for (String excluded : EXCLUDED_LIST_FOR_DELAY) {
 			if (excluded.equalsIgnoreCase(wordToRead)) {
@@ -124,5 +147,9 @@ public class TextPanel extends JPanel {
 
 	private boolean thereIsMoreToRead() {
 		return currentReadingIndex < readingTextInWordList.length;
+	}
+
+	public void setReaderListener(ReaderListener readerListener) {
+		this.readerListener = readerListener;
 	}
 }
