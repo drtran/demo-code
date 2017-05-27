@@ -81,7 +81,7 @@ public class TextPanel extends JPanel {
 		readingText = null;
 		currentReadingIndex = 0;
 	}
-	
+
 	public void reset() {
 		restart();
 		textArea.setText(INSTRUCTION);
@@ -151,5 +151,13 @@ public class TextPanel extends JPanel {
 
 	public void setReaderListener(ReaderListener readerListener) {
 		this.readerListener = readerListener;
+	}
+
+	public void load(String text) {
+		restart();
+		textArea.setText(text);
+		displayingText.setText("");
+		infoLabel.setText("");
+		repaint();
 	}
 }
