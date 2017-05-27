@@ -11,6 +11,7 @@ import java.io.InputStream;
 import org.apache.tika.exception.TikaException;
 import org.junit.Before;
 import org.junit.Test;
+import org.xml.sax.SAXException;
 
 public class TextAppTest {
 
@@ -25,7 +26,7 @@ public class TextAppTest {
 	}
 
 	@Test
-	public void given_a_pdf_content_i_should_get_a_main_text() throws IOException, TikaException {
+	public void given_a_pdf_content_i_should_get_a_main_text() throws IOException, TikaException, SAXException {
 		String text = null;
 
 		try (InputStream is = TextApp.class.getResourceAsStream(TIKA_EXAMPLES_PDF)) {
@@ -37,7 +38,7 @@ public class TextAppTest {
 	}
 
 	@Test
-	public void given_a_worddocx_content_i_should_get_a_main_text() throws IOException, TikaException {
+	public void given_a_worddocx_content_i_should_get_a_main_text() throws IOException, TikaException, SAXException {
 		String text = null;
 
 		try (InputStream is = TextApp.class.getResourceAsStream(TIKA_EXAMPLES_DOCX)) {

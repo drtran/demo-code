@@ -5,6 +5,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -13,6 +16,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import org.apache.tika.exception.TikaException;
+import org.xml.sax.SAXException;
+
+import com.drkiettran.tika.text.TextApp;
+import com.drkiettran.tools.speedreader.ReaderListener.Command;
+
+/**
+ * D:\Ebooks\Computer Science\The Lean Startup .pdf
+ * 
+ * @author ktran
+ *
+ */
 public class FormPanel extends JPanel {
 	private static final long serialVersionUID = 3506596135223108382L;
 	private JLabel fileNameLabel;
@@ -22,6 +37,14 @@ public class FormPanel extends JPanel {
 	private JTextField speedField;
 	private JButton setButton;
 	private Integer speedWpm = 200;
+	private String fileName;
+	private String text;
+
+	public String getText() {
+		return text;
+	}
+
+	private ReaderListener readerListener;
 
 	public Integer getSpeedWpm() {
 		return speedWpm;
@@ -46,7 +69,24 @@ public class FormPanel extends JPanel {
 		});
 
 		loadButton.addActionListener((ActionEvent actionEvent) -> {
+			fileName = fileNameField.getText();
+			TextApp textApp = new TextApp();
+			try (InputStream is = new FileInputStream(fileName)) {
+				System.out.println(fileName);
+				System.out.println("is:" + is);
+				text = textApp.parseToString(is);
 
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (TikaException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			readerListener.invoke(Command.LOAD);
 		});
 
 		Border innerBorder = BorderFactory.createTitledBorder("Configuration");
@@ -54,6 +94,10 @@ public class FormPanel extends JPanel {
 		setBorder(BorderFactory.createCompoundBorder(outterBorder, innerBorder));
 
 		layoutComponents();
+	}
+
+	public String getFileName() {
+		return fileName;
 	}
 
 	private void layoutComponents() {
@@ -112,5 +156,9 @@ public class FormPanel extends JPanel {
 		gc.insets = new Insets(0, 0, 0, 0);
 		gc.anchor = GridBagConstraints.FIRST_LINE_START;
 		add(loadButton, gc);
+	}
+
+	public void setReaderListener(ReaderListener readerListener) {
+		this.readerListener = readerListener;
 	}
 }

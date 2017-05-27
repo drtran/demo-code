@@ -24,6 +24,14 @@ public class MainFrame extends JFrame {
 		textPanel = new TextPanel();
 		formPanel = new FormPanel();
 
+		formPanel.setReaderListener((Command cmd) -> {
+			switch (cmd) {
+			case LOAD:
+				textPanel.load(formPanel.getText());
+				break;
+			}
+		});
+
 		textPanel.setReaderListener((Command cmd) -> {
 			switch (cmd) {
 			case RESET:

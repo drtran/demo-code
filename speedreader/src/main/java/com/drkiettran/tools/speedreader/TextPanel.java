@@ -1,6 +1,7 @@
 package com.drkiettran.tools.speedreader;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
@@ -11,6 +12,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.Caret;
 
 import com.drkiettran.tools.speedreader.ReaderListener.Command;
 
@@ -34,6 +36,7 @@ public class TextPanel extends JPanel {
 	private JLabel titleLabel;
 	private final String EXCLUDED_LIST_FOR_DELAY[] = { "mr.", "ms.", "fr.", "sr.", "jr.", "etc.", "i.e." };
 	private ReaderListener readerListener;
+	private ReadingTextManager readingTextManager;
 
 	public TextPanel() {
 		displayingText = new JLabel("");
@@ -42,7 +45,8 @@ public class TextPanel extends JPanel {
 		titleLabel = new JLabel("Title:");
 
 		textArea = new JTextArea(INSTRUCTION);
-		textArea.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		textArea.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		textArea.setCaret(new FancyCaret());
 
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
@@ -81,10 +85,12 @@ public class TextPanel extends JPanel {
 		readingText = null;
 		currentReadingIndex = 0;
 	}
-	
+
 	public void reset() {
 		restart();
 		textArea.setText(INSTRUCTION);
+		textArea.setCaretPosition(23);
+		textArea.requestFocus();
 		displayingText.setText("");
 		infoLabel.setText("");
 		repaint();
@@ -97,7 +103,10 @@ public class TextPanel extends JPanel {
 
 		if (readingText == null) {
 			readingText = textArea.getText();
-			readingTextInWordList = new ReadingTextManager(readingText).getReadingWordList();
+			textArea.setText(readingText);
+			readingTextManager = new ReadingTextManager(readingText);
+			readingTextInWordList = readingTextManager.getReadingWordList();
+			textArea.setText(readingTextManager.getReadingText());
 			currentReadingIndex = 0;
 		}
 
@@ -105,6 +114,10 @@ public class TextPanel extends JPanel {
 			String wordToRead = getNextWord();
 
 			addingWordsForDelay = settingDelayInWords(wordToRead);
+			textArea.setCaretPosition(readingTextManager.getCurrentCaret());
+			textArea.setCaretColor(Color.red);
+			textArea.getCaret().setBlinkRate(0);
+			textArea.requestFocus();
 			displayingText.setText(wordToRead);
 			displayReadingInformation();
 			repaint();
@@ -112,6 +125,10 @@ public class TextPanel extends JPanel {
 	}
 
 	private int settingDelayInWords(String wordToRead) {
+		if (wordToRead.isEmpty()) {
+			return 0;
+		}
+
 		switch (wordToRead.charAt(wordToRead.length() - 1)) {
 		case ',':
 			return 1;
@@ -142,7 +159,8 @@ public class TextPanel extends JPanel {
 	}
 
 	private String getNextWord() {
-		return readingTextInWordList[currentReadingIndex++];
+		currentReadingIndex++;
+		return readingTextManager.getNextWord();
 	}
 
 	private boolean thereIsMoreToRead() {
@@ -151,5 +169,14 @@ public class TextPanel extends JPanel {
 
 	public void setReaderListener(ReaderListener readerListener) {
 		this.readerListener = readerListener;
+	}
+
+	public void load(String text) {
+		restart();
+		textArea.setText(text);
+
+		displayingText.setText("");
+		infoLabel.setText("");
+		repaint();
 	}
 }
