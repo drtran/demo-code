@@ -1,4 +1,4 @@
-package com.drkiettran.tools.speedreader;
+package com.drkiettran.tika.text;
 
 public class ReadingTextManager {
 

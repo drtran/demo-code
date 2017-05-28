@@ -16,6 +16,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.DefaultCaret;
 
+import com.drkiettran.tika.text.ReadingTextManager;
 import com.drkiettran.tika.text.TextApp;
 import com.drkiettran.tools.speedreader.ReaderListener.Command;
 
