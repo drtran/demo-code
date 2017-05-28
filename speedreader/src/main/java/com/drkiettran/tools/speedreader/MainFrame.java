@@ -1,10 +1,13 @@
 package com.drkiettran.tools.speedreader;
 
 import java.awt.BorderLayout;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Timer;
 
 import javax.swing.JFrame;
 
+import com.drkiettran.tika.text.TextApp;
 import com.drkiettran.tools.speedreader.ReaderListener.Command;
 
 public class MainFrame extends JFrame {
@@ -16,7 +19,7 @@ public class MainFrame extends JFrame {
 	private TextTimerTask textTimerTask = null;
 	private Timer timer = null;
 
-	public MainFrame() {
+	public MainFrame() throws IOException {
 		super("Simple Speed Reader Program");
 
 		setLayout(new BorderLayout());
@@ -27,7 +30,7 @@ public class MainFrame extends JFrame {
 		formPanel.setReaderListener((Command cmd) -> {
 			switch (cmd) {
 			case LOAD:
-				textPanel.load(formPanel.getText());
+				textPanel.loadTextFromFile(formPanel.getText());
 				break;
 			}
 		});
@@ -35,7 +38,7 @@ public class MainFrame extends JFrame {
 		textPanel.setReaderListener((Command cmd) -> {
 			switch (cmd) {
 			case RESET:
-				textPanel.restart();
+				textPanel.resetReading();
 				break;
 			default:
 				break;
@@ -51,17 +54,19 @@ public class MainFrame extends JFrame {
 					timer = new Timer();
 					int speedWpm = formPanel.getSpeedWpm();
 					timer.schedule(textTimerTask, 0, (60 * 1000) / speedWpm);
+					textPanel.startReading();
 				}
 				break;
 
 			case RESET:
-				textPanel.reset();
+				textPanel.resetReading();
 				// let it fall ...
 			case STOP:
 				if (textTimerTask != null) {
 					timer.cancel();
 					textTimerTask = null;
 					timer = null;
+					textPanel.stopReading();
 				}
 				break;
 
@@ -79,4 +84,5 @@ public class MainFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
+
 }

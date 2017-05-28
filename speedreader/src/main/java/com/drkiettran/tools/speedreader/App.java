@@ -1,5 +1,7 @@
 package com.drkiettran.tools.speedreader;
 
+import java.io.IOException;
+
 import javax.swing.SwingUtilities;
 
 /**
@@ -10,7 +12,11 @@ public class App {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				MainFrame mainFrame = new MainFrame();
+				try {
+					MainFrame mainFrame = new MainFrame();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 	}

@@ -1,0 +1,26 @@
+Help for the Speed Reader Program:
+
+Method 1:
+  - Cut and paste text into the text box on the right.
+  - Click on the Read button.
+
+Method 2:
+  - Enter File Name on the left.
+  - Click the Load button.
+  - Click on the Read button.
+
+Speed:
+  - Enter the speed (word per minute).
+  - Click the Set button.
+
+Pause:
+  - Click the Stop button.
+
+Unpause:
+  - Click the Read button.
+			
+Reset:
+  - Click the Reset button to clear out the text area.
+
+Author: 
+  - Kiet T. Tran, 2017.

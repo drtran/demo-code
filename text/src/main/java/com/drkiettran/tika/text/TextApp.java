@@ -16,7 +16,6 @@ public class TextApp {
 		BodyContentHandler handler = new BodyContentHandler(-1);
 		AutoDetectParser parser = new AutoDetectParser();
 		Metadata metadata = new Metadata();
-		Tika tika = new Tika();
 		parser.parse(is, handler, metadata);
 		return handler.toString();
 	}

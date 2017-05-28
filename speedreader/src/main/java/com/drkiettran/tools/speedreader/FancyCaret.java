@@ -7,6 +7,13 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.JTextComponent;
 
+/**
+ * Copied from the internet here:
+ * http://www.java2s.com/Code/Java/Swing-JFC/Fanciercustomcaretclass.htm
+ * 
+ * @author ktran
+ *
+ */
 public class FancyCaret extends DefaultCaret {
 
 	protected synchronized void damage(Rectangle r) {

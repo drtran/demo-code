@@ -3,6 +3,8 @@ package com.drkiettran.tools.speedreader;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.io.IOException;
+import java.io.InputStream;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -12,20 +14,15 @@ import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.Caret;
+import javax.swing.text.DefaultCaret;
 
+import com.drkiettran.tika.text.TextApp;
 import com.drkiettran.tools.speedreader.ReaderListener.Command;
 
 public class TextPanel extends JPanel {
 
 	private static final long serialVersionUID = -825536523977292110L;
-	private final String INSTRUCTION = "Help: \n"
-			+ "\nMethod 1:\n- Cut and paste text into the text box on the right.\n- Click on the Read button.\n"
-			+ "\nMethod 2 (NOT IMPLEMENTED YET):\n- Enter File Name on the left.\n- Click the Load button.\n- Click on the Read button.\n"
-			+ "\nSpeed:\n- Enter the speed (word per minute).\n- Click the Set button.\n"
-			+ "\nPause:\n- Click the Stop button.\n" + "\nUnpause:\n- Click the Read button.\n"
-			+ "\nReset:\n- Click the Reset button to clear out the text area.\n" + "\nAuthor: Kiet T. Tran, 2017.\n";
-
+	private String helpText = loadHelpText();
 	private JTextArea textArea;
 	private JLabel displayingText;
 	private int currentReadingIndex = 0;
@@ -38,18 +35,50 @@ public class TextPanel extends JPanel {
 	private ReaderListener readerListener;
 	private ReadingTextManager readingTextManager;
 
+	private String displayingFontName = "Candara";
+	private int displayingFontSize = 60;
+	private String textAreaFontName = "Times New Roman";
+	private int textAreaFontSize = 18;
+	private int defaultBlinkRate = 0;
+
 	public TextPanel() {
+		arrangeFixedComponents();
+		makeTextArea();
+		setBorder();
+		arrangeLayout();
+	}
+
+	private void arrangeFixedComponents() {
 		displayingText = new JLabel("");
-		displayingText.setFont(new Font("Candara", Font.PLAIN, 60));
+		displayingText.setFont(new Font(displayingFontName, Font.PLAIN, displayingFontSize));
 		infoLabel = new JLabel("");
 		titleLabel = new JLabel("Title:");
+	}
 
-		textArea = new JTextArea(INSTRUCTION);
-		textArea.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+	private void arrangeLayout() {
+		setLayout(new BorderLayout());
+		add(displayingText, BorderLayout.NORTH);
+		add(new JScrollPane(textArea), BorderLayout.CENTER);
+		add(titleLabel, BorderLayout.SOUTH);
+		add(infoLabel, BorderLayout.SOUTH);
+	}
+
+	private void setBorder() {
+		Border innerBorder = BorderFactory.createTitledBorder("Reading");
+		Border outterBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+		setBorder(BorderFactory.createCompoundBorder(outterBorder, innerBorder));
+	}
+
+	private void makeTextArea() {
+		textArea = new JTextArea(helpText);
+		defaultBlinkRate = textArea.getCaret().getBlinkRate();
+		textArea.setCaretPosition(0);
 		textArea.setCaret(new FancyCaret());
-
+		textArea.setCaretColor(Color.red);
+		textArea.setFont(new Font(textAreaFontName, Font.PLAIN, textAreaFontSize));
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
+
 		textArea.getDocument().addDocumentListener(new DocumentListener() {
 
 			@Override
@@ -68,28 +97,22 @@ public class TextPanel extends JPanel {
 			}
 
 		});
-
-		Border innerBorder = BorderFactory.createTitledBorder("Reading");
-		Border outterBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
-		setBorder(BorderFactory.createCompoundBorder(outterBorder, innerBorder));
-
-		setLayout(new BorderLayout());
-		add(displayingText, BorderLayout.NORTH);
-		add(new JScrollPane(textArea), BorderLayout.CENTER);
-		add(titleLabel, BorderLayout.SOUTH);
-		add(infoLabel, BorderLayout.SOUTH);
-
 	}
 
-	public void restart() {
+	public void setHelpText(String helpText) {
+		this.helpText = helpText;
+	}
+
+	private void restart() {
 		readingText = null;
 		currentReadingIndex = 0;
 	}
 
-	public void reset() {
+	public void resetReading() {
 		restart();
-		textArea.setText(INSTRUCTION);
-		textArea.setCaretPosition(23);
+		textArea.setText(helpText);
+		textArea.setCaret(new DefaultCaret());
+		textArea.setCaretPosition(0);
 		textArea.requestFocus();
 		displayingText.setText("");
 		infoLabel.setText("");
@@ -115,8 +138,6 @@ public class TextPanel extends JPanel {
 
 			addingWordsForDelay = settingDelayInWords(wordToRead);
 			textArea.setCaretPosition(readingTextManager.getCurrentCaret());
-			textArea.setCaretColor(Color.red);
-			textArea.getCaret().setBlinkRate(0);
 			textArea.requestFocus();
 			displayingText.setText(wordToRead);
 			displayReadingInformation();
@@ -171,12 +192,47 @@ public class TextPanel extends JPanel {
 		this.readerListener = readerListener;
 	}
 
-	public void load(String text) {
+	public void loadTextFromFile(String text) {
 		restart();
 		textArea.setText(text);
 
 		displayingText.setText("");
 		infoLabel.setText("");
 		repaint();
+	}
+
+	private String loadHelpText() {
+		try (InputStream is = TextApp.class.getResourceAsStream("/Helpfile.txt")) {
+			StringBuilder sb = new StringBuilder();
+
+			for (;;) {
+				int c = is.read();
+				if (c < 0) {
+					break;
+				}
+				sb.append((char) c);
+			}
+			return sb.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public void stopReading() {
+		textArea.setCaret(new DefaultCaret());
+		textArea.getCaret().setBlinkRate(defaultBlinkRate);
+		textArea.setCaretPosition(readingTextManager.getCurrentCaret());
+		textArea.requestFocus();
+	}
+
+	public void startReading() {
+		textArea.setCaret(new FancyCaret());
+		if (readingTextManager != null) {
+			textArea.setCaretPosition(readingTextManager.getCurrentCaret());
+		} else {
+			textArea.setCaretPosition(0);
+		}
+		textArea.requestFocus();
 	}
 }
