@@ -25,9 +25,7 @@ public class TextPanel extends JPanel {
 	private String helpText = loadHelpText();
 	private JTextArea textArea;
 	private JLabel displayingText;
-	private int currentReadingIndex = 0;
 	private String readingText = null;
-	private String[] readingTextInWordList;
 	private JLabel infoLabel;
 	private int addingWordsForDelay;
 	private JLabel titleLabel;
@@ -104,12 +102,12 @@ public class TextPanel extends JPanel {
 	}
 
 	private void restart() {
-		readingText = null;
-		currentReadingIndex = 0;
+		readingTextManager = new ReadingTextManager(helpText);
 	}
 
 	public void resetReading() {
 		restart();
+		readingText = null;
 		textArea.setText(helpText);
 		textArea.setCaret(new DefaultCaret());
 		textArea.setCaretPosition(0);
@@ -120,6 +118,7 @@ public class TextPanel extends JPanel {
 	}
 
 	public void next() {
+
 		if (addingWordsForDelay-- > 0) {
 			return;
 		}
@@ -128,14 +127,12 @@ public class TextPanel extends JPanel {
 			readingText = textArea.getText();
 			textArea.setText(readingText);
 			readingTextManager = new ReadingTextManager(readingText);
-			readingTextInWordList = readingTextManager.getReadingWordList();
 			textArea.setText(readingTextManager.getReadingText());
-			currentReadingIndex = 0;
 		}
 
-		if (thereIsMoreToRead()) {
-			String wordToRead = getNextWord();
+		String wordToRead = getNextWord();
 
+		if (wordToRead != null) {
 			addingWordsForDelay = settingDelayInWords(wordToRead);
 			textArea.setCaretPosition(readingTextManager.getCurrentCaret());
 			textArea.requestFocus();
@@ -175,17 +172,16 @@ public class TextPanel extends JPanel {
 	}
 
 	private void displayReadingInformation() {
-		infoLabel.setText(String.format("%d of %d words (%d%%)", currentReadingIndex, readingTextInWordList.length,
-				(100 * currentReadingIndex) / readingTextInWordList.length));
+		int wordsFromBeginning = readingTextManager.getWordsFromBeginning();
+		int totalWords = readingTextManager.getTotalWords();
+		int readingPercentage = (100 * wordsFromBeginning) / totalWords;
+
+		infoLabel.setText(String.format("%d of %d words (%d%%)", wordsFromBeginning, totalWords, readingPercentage));
+		infoLabel.setForeground(Color.BLUE);
 	}
 
 	private String getNextWord() {
-		currentReadingIndex++;
 		return readingTextManager.getNextWord();
-	}
-
-	private boolean thereIsMoreToRead() {
-		return currentReadingIndex < readingTextInWordList.length;
 	}
 
 	public void setReaderListener(ReaderListener readerListener) {
@@ -194,6 +190,7 @@ public class TextPanel extends JPanel {
 
 	public void loadTextFromFile(String text) {
 		restart();
+		readingText = null;
 		textArea.setText(text);
 
 		displayingText.setText("");
@@ -234,5 +231,11 @@ public class TextPanel extends JPanel {
 			textArea.setCaretPosition(0);
 		}
 		textArea.requestFocus();
+	}
+
+	public void setCurrentCaretAt() {
+		if (readingTextManager != null) {
+			readingTextManager.setCurrentCaret(textArea.getCaretPosition());
+		}
 	}
 }

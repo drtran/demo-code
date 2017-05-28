@@ -47,6 +47,9 @@ public class MainFrame extends JFrame {
 
 		toolbar.setReaderListener((Command cmd) -> {
 			switch (cmd) {
+			case START_AT:
+				textPanel.setCurrentCaretAt();
+				// let it fall through ...
 			case START:
 				if (textTimerTask == null) {
 					textTimerTask = new TextTimerTask();

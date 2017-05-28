@@ -1,15 +1,31 @@
 package com.drkiettran.tools.speedreader;
 
-import java.util.StringTokenizer;
-
 public class ReadingTextManager {
 
 	private String readingText;
-	private int currentCaret;
+	private int currentCaret = 0;
+	private int wordsFromBeginning = 0;
+	private int totalWords = 0;
+
+	public int getWordsFromBeginning() {
+		return wordsFromBeginning;
+	}
+
+	public int getTotalWords() {
+		return totalWords;
+	}
 
 	public ReadingTextManager(String readingText) {
 		this.readingText = spacingText(readingText);
+		countTotalWords();
 		currentCaret = 0;
+		wordsFromBeginning = 0;
+	}
+
+	private void countTotalWords() {
+		while (getNextWord() != null) {
+			totalWords++;
+		}
 	}
 
 	public int getCurrentCaret() {
@@ -18,19 +34,6 @@ public class ReadingTextManager {
 
 	public String getReadingText() {
 		return readingText;
-	}
-
-	public String[] getReadingWordList() {
-		int index = 0;
-
-		StringTokenizer st = new StringTokenizer(readingText, " ");
-		String[] readingTextInWordList = new String[st.countTokens()];
-
-		while (st.hasMoreTokens()) {
-			readingTextInWordList[index++] = st.nextToken();
-		}
-
-		return readingTextInWordList;
 	}
 
 	private String spacingText(String text) {
@@ -72,6 +75,7 @@ public class ReadingTextManager {
 		}
 		moveCaretToNextSpace();
 		moveCaretToNextNonSpace();
+		wordsFromBeginning++;
 		return extractNextWord();
 
 	}
@@ -101,4 +105,16 @@ public class ReadingTextManager {
 			currentCaret++;
 		}
 	}
+
+	public void setCurrentCaret(int newCaretPosition) {
+		wordsFromBeginning = 0;
+		currentCaret = 0;
+
+		while (getNextWord() != null) {
+			if (newCaretPosition <= currentCaret) {
+				break;
+			}
+		}
+	}
+
 }
