@@ -31,7 +31,7 @@ public class TextPanel extends JPanel {
 	private static final long serialVersionUID = -825536523977292110L;
 	private String helpText = loadHelpText();
 	private JTextArea textArea;
-	private JLabel displayingText;
+	private JLabel displayingWordLabel;
 	private String readingText = null;
 	private JLabel infoLabel;
 	private int addingWordsForDelay;
@@ -41,7 +41,7 @@ public class TextPanel extends JPanel {
 	private ReadingTextManager readingTextManager;
 
 	private String displayingFontName = "Candara";
-	private int displayingFontSize = DEFAULT_DISPLAYING_FONT_SIZE;
+	private int displayingWordFontSize = DEFAULT_DISPLAYING_FONT_SIZE;
 	private String textAreaFontName = "Times New Roman";
 	private int textAreaFontSize = DEFAULT_TEXT_AREA_FONT_SIZE;
 	private int defaultBlinkRate = 0;
@@ -59,15 +59,15 @@ public class TextPanel extends JPanel {
 	}
 
 	private void arrangeFixedComponents() {
-		displayingText = new JLabel("");
-		displayingText.setFont(new Font(displayingFontName, Font.PLAIN, displayingFontSize));
+		displayingWordLabel = new JLabel("");
+		displayingWordLabel.setFont(new Font(displayingFontName, Font.PLAIN, displayingWordFontSize));
 		infoLabel = new JLabel("");
 		titleLabel = new JLabel("Title:");
 	}
 
 	private void arrangeLayout() {
 		setLayout(new BorderLayout());
-		add(displayingText, BorderLayout.NORTH);
+		add(displayingWordLabel, BorderLayout.NORTH);
 		add(new JScrollPane(textArea), BorderLayout.CENTER);
 		add(titleLabel, BorderLayout.SOUTH);
 		add(infoLabel, BorderLayout.SOUTH);
@@ -128,7 +128,7 @@ public class TextPanel extends JPanel {
 		textArea.setCaret(new DefaultCaret());
 		textArea.setCaretPosition(0);
 		textArea.requestFocus();
-		displayingText.setText("");
+		displayingWordLabel.setText("");
 		infoLabel.setText("");
 		repaint();
 	}
@@ -153,7 +153,7 @@ public class TextPanel extends JPanel {
 			addingWordsForDelay = settingDelayInWords(wordToRead);
 			textArea.setCaretPosition(readingTextManager.getCurrentCaret());
 			textArea.requestFocus();
-			displayingText.setText(wordToRead);
+			displayingWordLabel.setText(wordToRead);
 			displayReadingInformation();
 		} else {
 			displayReadingInformation();
@@ -212,7 +212,7 @@ public class TextPanel extends JPanel {
 		restart();
 		readingText = null;
 		textArea.setText(text);
-		displayingText.setText("");
+		displayingWordLabel.setText("");
 		infoLabel.setText("");
 		repaint();
 	}
@@ -258,7 +258,7 @@ public class TextPanel extends JPanel {
 		}
 	}
 
-	public void setLargerFont() {
+	public void setLargerTextFont() {
 		if (textAreaFontSize < LARGEST_TEXT_AREA_FONT_SIZE) {
 			this.textAreaFontSize++;
 		}
@@ -266,11 +266,27 @@ public class TextPanel extends JPanel {
 		repaint();
 	}
 
-	public void setSmallerFont() {
+	public void setSmallerTextFont() {
 		if (textAreaFontSize > SMALLEST_TEXT_AREA_FONT_SIZE) {
 			this.textAreaFontSize--;
 		}
 		textArea.setFont(new Font(textAreaFontName, Font.PLAIN, textAreaFontSize));
+		repaint();
+	}
+
+	public void setLargerWordFont() {
+		if (displayingWordFontSize < LARGEST_DISPLAYING_FONT_SIZE) {
+			this.displayingWordFontSize++;
+		}
+		displayingWordLabel.setFont(new Font(displayingFontName, Font.PLAIN, displayingWordFontSize));
+		repaint();
+	}
+
+	public void setSmallerWordFont() {
+		if (displayingWordFontSize > SMALLEST_DISPLAYING_FONT_SIZE) {
+			this.displayingWordFontSize--;
+		}
+		displayingWordLabel.setFont(new Font(displayingFontName, Font.PLAIN, displayingWordFontSize));
 		repaint();
 	}
 }

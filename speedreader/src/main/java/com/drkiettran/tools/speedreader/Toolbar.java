@@ -1,10 +1,14 @@
 package com.drkiettran.tools.speedreader;
 
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -18,32 +22,72 @@ public class Toolbar extends JPanel implements ActionListener {
 	private ReaderListener readerListener;
 	private JButton resetButton;
 	private JButton readAtButton;
-	private JButton largerFontButton;
-	private JButton smallerFontButton;
+	private JButton largerTextFontButton;
+	private JButton smallerTextFontButton;
+	private JButton largerWordFontButton;
+	private JButton smallerWordFontButton;
+
+	private ImageIcon createIcon(String path) {
+		URL url = getClass().getResource(path);
+
+		if (url == null) {
+			System.err.println("Unable to load image: " + path);
+		}
+		return new ImageIcon(url);
+	}
 
 	public Toolbar() {
 		setBorder(BorderFactory.createEtchedBorder());
-		readButton = new JButton("Read");
-		stopButton = new JButton("Stop");
-		resetButton = new JButton("Reset");
-		readAtButton = new JButton("Read At");
-		largerFontButton = new JButton("Larger Font");
-		smallerFontButton = new JButton("Smaller Font");
+		readButton = new JButton();
+		readButton.setIcon(createIcon("/icons/Play16.gif"));
+		readButton.setToolTipText("Read");
+
+		stopButton = new JButton();
+		stopButton.setIcon(createIcon("/icons/Pause16.gif"));
+		stopButton.setToolTipText("Stop");
+
+		resetButton = new JButton();
+		resetButton.setIcon(createIcon("/icons/Stop16.gif"));
+		resetButton.setToolTipText("Reset");
+
+		readAtButton = new JButton();
+		readAtButton.setIcon(createIcon("/icons/StepForward16.gif"));
+		readAtButton.setToolTipText("Read At");
+
+		largerTextFontButton = new JButton();
+		largerTextFontButton.setIcon(createIcon("/icons/Up16.gif"));
+		largerTextFontButton.setToolTipText("Larger text size");
+
+		smallerTextFontButton = new JButton();
+		smallerTextFontButton.setIcon(createIcon("/icons/Down16.gif"));
+		smallerTextFontButton.setToolTipText("Smaller text size");
+
+		largerWordFontButton = new JButton();
+		largerWordFontButton.setIcon(createIcon("/icons/ZoomIn16.gif"));
+		largerWordFontButton.setToolTipText("Larger displaying word size");
+
+		smallerWordFontButton = new JButton();
+		smallerWordFontButton.setIcon(createIcon("/icons/ZoomOut16.gif"));
+		smallerWordFontButton.setToolTipText("Smaller display word size");
 
 		readButton.addActionListener(this);
 		stopButton.addActionListener(this);
 		resetButton.addActionListener(this);
 		readAtButton.addActionListener(this);
-		largerFontButton.addActionListener(this);
-		smallerFontButton.addActionListener(this);
+		largerTextFontButton.addActionListener(this);
+		smallerTextFontButton.addActionListener(this);
+		largerWordFontButton.addActionListener(this);
+		smallerWordFontButton.addActionListener(this);
 
 		setLayout(new FlowLayout(FlowLayout.LEFT));
 		add(readButton);
 		add(readAtButton);
 		add(stopButton);
 		add(resetButton);
-		add(largerFontButton);
-		add(smallerFontButton);
+		add(largerTextFontButton);
+		add(smallerTextFontButton);
+		add(largerWordFontButton);
+		add(smallerWordFontButton);
 	}
 
 	public void setReaderListener(ReaderListener readerListener) {
@@ -61,10 +105,14 @@ public class Toolbar extends JPanel implements ActionListener {
 				readerListener.invoke(Command.RESET);
 			} else if (clicked == readAtButton) {
 				readerListener.invoke(Command.START_AT);
-			} else if (clicked == largerFontButton) {
-				readerListener.invoke(Command.LARGER_FONT);
-			} else if (clicked == smallerFontButton) {
-				readerListener.invoke(Command.SMALLER_FONT);
+			} else if (clicked == largerTextFontButton) {
+				readerListener.invoke(Command.LARGER_TEXT_FONT);
+			} else if (clicked == smallerTextFontButton) {
+				readerListener.invoke(Command.SMALLER_TEXT_FONT);
+			} else if (clicked == largerWordFontButton) {
+				readerListener.invoke(Command.LARGER_WORD_FONT);
+			} else if (clicked == smallerWordFontButton) {
+				readerListener.invoke(Command.SMALLER_WORD_FONT);
 			}
 		}
 	}
