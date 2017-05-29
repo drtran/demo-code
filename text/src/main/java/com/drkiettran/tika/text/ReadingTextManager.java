@@ -6,6 +6,7 @@ public class ReadingTextManager {
 	private int currentCaret = 0;
 	private int wordsFromBeginning = 0;
 	private int totalWords = 0;
+	private boolean firstWordRetrieved;
 
 	public int getWordsFromBeginning() {
 		return wordsFromBeginning;
@@ -20,6 +21,7 @@ public class ReadingTextManager {
 		countTotalWords();
 		currentCaret = 0;
 		wordsFromBeginning = 0;
+		firstWordRetrieved = false;
 	}
 
 	private void countTotalWords() {
@@ -70,14 +72,29 @@ public class ReadingTextManager {
 	}
 
 	public String getNextWord() {
-		if (currentCaret >= readingText.length()) {
-			return null;
-		}
-		moveCaretToNextSpace();
-		moveCaretToNextNonSpace();
-		wordsFromBeginning++;
-		return extractNextWord();
+		String nextWord = "";
 
+		for (;;) {
+			if (currentCaret >= readingText.length()) {
+				break;
+			}
+
+			if (!firstWordRetrieved) {
+				firstWordRetrieved = true;
+			} else {
+				moveCaretToNextSpace();
+				moveCaretToNextNonSpace();
+			}
+
+			nextWord = extractNextWord();
+
+			if (!nextWord.isEmpty()) {
+				wordsFromBeginning++;
+				break;
+			}
+		}
+
+		return nextWord.isEmpty() ? null : nextWord;
 	}
 
 	private String extractNextWord() {
@@ -85,7 +102,7 @@ public class ReadingTextManager {
 		moveCaretToNextSpace();
 		int newCurrentCaret = currentCaret;
 		currentCaret = saveCurrentCaret;
-		return readingText.substring(currentCaret, newCurrentCaret);
+		return readingText.substring(currentCaret, newCurrentCaret).trim();
 	}
 
 	private void moveCaretToNextNonSpace() {
@@ -109,11 +126,14 @@ public class ReadingTextManager {
 	public void setCurrentCaret(int newCaretPosition) {
 		wordsFromBeginning = 0;
 		currentCaret = 0;
+		int lastCaret = 0;
 
 		while (getNextWord() != null) {
-			if (newCaretPosition <= currentCaret) {
+			if (newCaretPosition < currentCaret) {
+				currentCaret = lastCaret;
 				break;
 			}
+			lastCaret = currentCaret;
 		}
 	}
 

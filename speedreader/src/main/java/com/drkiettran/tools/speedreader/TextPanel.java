@@ -39,6 +39,11 @@ public class TextPanel extends JPanel {
 	private String textAreaFontName = "Times New Roman";
 	private int textAreaFontSize = 18;
 	private int defaultBlinkRate = 0;
+	private boolean doneReading = false;
+
+	public boolean isDoneReading() {
+		return doneReading;
+	}
 
 	public TextPanel() {
 		arrangeFixedComponents();
@@ -125,6 +130,7 @@ public class TextPanel extends JPanel {
 		}
 
 		if (readingText == null) {
+			doneReading = false;
 			readingText = textArea.getText();
 			textArea.setText(readingText);
 			readingTextManager = new ReadingTextManager(readingText);
@@ -139,8 +145,11 @@ public class TextPanel extends JPanel {
 			textArea.requestFocus();
 			displayingText.setText(wordToRead);
 			displayReadingInformation();
-			repaint();
+		} else {
+			displayReadingInformation();
+			doneReading = true;
 		}
+		repaint();
 	}
 
 	private int settingDelayInWords(String wordToRead) {

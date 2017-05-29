@@ -13,6 +13,9 @@ public class TextTimerTask extends TimerTask {
 	@Override
 	public void run() {
 		textPanel.next();
+		if (textPanel.isDoneReading()) {
+			cancel();
+		}
 	}
 
 }
