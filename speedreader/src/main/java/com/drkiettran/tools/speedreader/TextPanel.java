@@ -202,7 +202,6 @@ public class TextPanel extends JPanel {
 		restart();
 		readingText = null;
 		textArea.setText(text);
-
 		displayingText.setText("");
 		infoLabel.setText("");
 		repaint();
