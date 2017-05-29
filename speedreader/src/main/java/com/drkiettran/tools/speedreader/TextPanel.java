@@ -74,7 +74,7 @@ public class TextPanel extends JPanel {
 	}
 
 	private void makeTextArea() {
-		textArea = new JTextArea(helpText);
+		displayHelpText();
 		defaultBlinkRate = textArea.getCaret().getBlinkRate();
 		textArea.setCaretPosition(0);
 		textArea.setCaret(new FancyCaret());
@@ -101,6 +101,10 @@ public class TextPanel extends JPanel {
 			}
 
 		});
+	}
+
+	private void displayHelpText() {
+		textArea = new JTextArea(helpText);
 	}
 
 	public void setHelpText(String helpText) {

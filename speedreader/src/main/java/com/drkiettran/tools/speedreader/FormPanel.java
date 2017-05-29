@@ -23,7 +23,6 @@ import com.drkiettran.tika.text.TextApp;
 import com.drkiettran.tools.speedreader.ReaderListener.Command;
 
 /**
- * D:\Ebooks\Computer Science\The Lean Startup .pdf
  * 
  * @author ktran
  *

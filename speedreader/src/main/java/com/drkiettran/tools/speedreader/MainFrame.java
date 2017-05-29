@@ -2,12 +2,10 @@ package com.drkiettran.tools.speedreader;
 
 import java.awt.BorderLayout;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Timer;
 
 import javax.swing.JFrame;
 
-import com.drkiettran.tika.text.TextApp;
 import com.drkiettran.tools.speedreader.ReaderListener.Command;
 
 public class MainFrame extends JFrame {
