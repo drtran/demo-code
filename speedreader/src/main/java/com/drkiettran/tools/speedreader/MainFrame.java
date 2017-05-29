@@ -14,6 +14,7 @@ public class MainFrame extends JFrame {
 	private TextPanel textPanel;
 	private Toolbar toolbar;
 	private FormPanel formPanel;
+	private HelpPictureDialog helpPictureDialog;
 	private TextTimerTask textTimerTask = null;
 	private Timer timer = null;
 
@@ -24,6 +25,7 @@ public class MainFrame extends JFrame {
 		toolbar = new Toolbar();
 		textPanel = new TextPanel();
 		formPanel = new FormPanel();
+		helpPictureDialog = new HelpPictureDialog(this);
 
 		formPanel.setReaderListener((Command cmd) -> {
 			switch (cmd) {
@@ -86,6 +88,11 @@ public class MainFrame extends JFrame {
 			case SMALLER_WORD_FONT:
 				textPanel.setSmallerWordFont();
 				break;
+
+			case HELP_PICTURE:
+				helpPictureDialog.setVisible(!helpPictureDialog.isVisible());
+				break;
+
 			default:
 				break;
 			}

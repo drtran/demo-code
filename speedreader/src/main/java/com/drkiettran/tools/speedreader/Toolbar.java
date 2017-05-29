@@ -26,6 +26,7 @@ public class Toolbar extends JPanel implements ActionListener {
 	private JButton smallerTextFontButton;
 	private JButton largerWordFontButton;
 	private JButton smallerWordFontButton;
+	private JButton helpPictureButton;
 
 	private ImageIcon createIcon(String path) {
 		URL url = getClass().getResource(path);
@@ -70,6 +71,10 @@ public class Toolbar extends JPanel implements ActionListener {
 		smallerWordFontButton.setIcon(createIcon("/icons/ZoomOut16.gif"));
 		smallerWordFontButton.setToolTipText("Smaller display word size");
 
+		helpPictureButton = new JButton();
+		helpPictureButton.setIcon(createIcon("/icons/Help16.gif"));
+		helpPictureButton.setToolTipText("Navigation Help");
+
 		readButton.addActionListener(this);
 		stopButton.addActionListener(this);
 		resetButton.addActionListener(this);
@@ -78,6 +83,7 @@ public class Toolbar extends JPanel implements ActionListener {
 		smallerTextFontButton.addActionListener(this);
 		largerWordFontButton.addActionListener(this);
 		smallerWordFontButton.addActionListener(this);
+		helpPictureButton.addActionListener(this);
 
 		setLayout(new FlowLayout(FlowLayout.LEFT));
 		add(readButton);
@@ -88,6 +94,7 @@ public class Toolbar extends JPanel implements ActionListener {
 		add(smallerTextFontButton);
 		add(largerWordFontButton);
 		add(smallerWordFontButton);
+		add(helpPictureButton);
 	}
 
 	public void setReaderListener(ReaderListener readerListener) {
@@ -113,6 +120,8 @@ public class Toolbar extends JPanel implements ActionListener {
 				readerListener.invoke(Command.LARGER_WORD_FONT);
 			} else if (clicked == smallerWordFontButton) {
 				readerListener.invoke(Command.SMALLER_WORD_FONT);
+			} else if (clicked == helpPictureButton) {
+				readerListener.invoke(Command.HELP_PICTURE);
 			}
 		}
 	}
