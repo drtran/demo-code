@@ -18,6 +18,8 @@ public class Toolbar extends JPanel implements ActionListener {
 	private ReaderListener readerListener;
 	private JButton resetButton;
 	private JButton readAtButton;
+	private JButton largerFontButton;
+	private JButton smallerFontButton;
 
 	public Toolbar() {
 		setBorder(BorderFactory.createEtchedBorder());
@@ -25,17 +27,23 @@ public class Toolbar extends JPanel implements ActionListener {
 		stopButton = new JButton("Stop");
 		resetButton = new JButton("Reset");
 		readAtButton = new JButton("Read At");
+		largerFontButton = new JButton("Larger Font");
+		smallerFontButton = new JButton("Smaller Font");
 
 		readButton.addActionListener(this);
 		stopButton.addActionListener(this);
 		resetButton.addActionListener(this);
 		readAtButton.addActionListener(this);
+		largerFontButton.addActionListener(this);
+		smallerFontButton.addActionListener(this);
 
 		setLayout(new FlowLayout(FlowLayout.LEFT));
 		add(readButton);
 		add(readAtButton);
 		add(stopButton);
 		add(resetButton);
+		add(largerFontButton);
+		add(smallerFontButton);
 	}
 
 	public void setReaderListener(ReaderListener readerListener) {
@@ -53,6 +61,10 @@ public class Toolbar extends JPanel implements ActionListener {
 				readerListener.invoke(Command.RESET);
 			} else if (clicked == readAtButton) {
 				readerListener.invoke(Command.START_AT);
+			} else if (clicked == largerFontButton) {
+				readerListener.invoke(Command.LARGER_FONT);
+			} else if (clicked == smallerFontButton) {
+				readerListener.invoke(Command.SMALLER_FONT);
 			}
 		}
 	}

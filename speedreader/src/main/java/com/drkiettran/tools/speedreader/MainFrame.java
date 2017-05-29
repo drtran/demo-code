@@ -71,6 +71,14 @@ public class MainFrame extends JFrame {
 				}
 				break;
 
+			case LARGER_FONT:
+				textPanel.setLargerFont();
+				break;
+				
+			case SMALLER_FONT:
+				textPanel.setSmallerFont();
+				break;
+				
 			default:
 				break;
 			}

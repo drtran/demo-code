@@ -22,6 +22,12 @@ import com.drkiettran.tools.speedreader.ReaderListener.Command;
 
 public class TextPanel extends JPanel {
 
+	private static final int DEFAULT_DISPLAYING_FONT_SIZE = 60;
+	private static final int DEFAULT_TEXT_AREA_FONT_SIZE = 18;
+	private static final int SMALLEST_DISPLAYING_FONT_SIZE = 20;
+	private static final int SMALLEST_TEXT_AREA_FONT_SIZE = 10;
+	private static final int LARGEST_DISPLAYING_FONT_SIZE = 100;
+	private static final int LARGEST_TEXT_AREA_FONT_SIZE = 32;
 	private static final long serialVersionUID = -825536523977292110L;
 	private String helpText = loadHelpText();
 	private JTextArea textArea;
@@ -35,9 +41,9 @@ public class TextPanel extends JPanel {
 	private ReadingTextManager readingTextManager;
 
 	private String displayingFontName = "Candara";
-	private int displayingFontSize = 60;
+	private int displayingFontSize = DEFAULT_DISPLAYING_FONT_SIZE;
 	private String textAreaFontName = "Times New Roman";
-	private int textAreaFontSize = 18;
+	private int textAreaFontSize = DEFAULT_TEXT_AREA_FONT_SIZE;
 	private int defaultBlinkRate = 0;
 	private boolean doneReading = false;
 
@@ -250,5 +256,21 @@ public class TextPanel extends JPanel {
 		if (readingTextManager != null) {
 			readingTextManager.setCurrentCaret(textArea.getCaretPosition());
 		}
+	}
+
+	public void setLargerFont() {
+		if (textAreaFontSize < LARGEST_TEXT_AREA_FONT_SIZE) {
+			this.textAreaFontSize++;
+		}
+		textArea.setFont(new Font(textAreaFontName, Font.PLAIN, textAreaFontSize));
+		repaint();
+	}
+
+	public void setSmallerFont() {
+		if (textAreaFontSize > SMALLEST_TEXT_AREA_FONT_SIZE) {
+			this.textAreaFontSize--;
+		}
+		textArea.setFont(new Font(textAreaFontName, Font.PLAIN, textAreaFontSize));
+		repaint();
 	}
 }
