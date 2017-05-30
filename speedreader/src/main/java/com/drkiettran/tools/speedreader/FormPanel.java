@@ -11,6 +11,7 @@ import java.io.InputStream;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -32,6 +33,7 @@ public class FormPanel extends JPanel {
 	private JLabel fileNameLabel;
 	private JTextField fileNameField;
 	private JButton loadButton;
+	private JButton browserButton;
 	private JLabel speedLabel;
 	private JTextField speedField;
 	private JButton setButton;
@@ -62,6 +64,7 @@ public class FormPanel extends JPanel {
 
 		setButton = new JButton("Set");
 		loadButton = new JButton("Load");
+		browserButton = new JButton("Browse");
 
 		setButton.addActionListener((ActionEvent actionEvent) -> {
 			speedWpm = Integer.valueOf(speedField.getText());
@@ -71,10 +74,7 @@ public class FormPanel extends JPanel {
 			fileName = fileNameField.getText();
 			TextApp textApp = new TextApp();
 			try (InputStream is = new FileInputStream(fileName)) {
-				System.out.println(fileName);
-				System.out.println("is:" + is);
 				text = textApp.parseToString(is);
-
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -86,6 +86,10 @@ public class FormPanel extends JPanel {
 				e.printStackTrace();
 			}
 			readerListener.invoke(Command.LOAD);
+		});
+
+		browserButton.addActionListener((ActionEvent actionEvent) -> {
+			readerListener.invoke(Command.BROWSE);
 		});
 
 		Border innerBorder = BorderFactory.createTitledBorder("Configuration");
@@ -155,9 +159,23 @@ public class FormPanel extends JPanel {
 		gc.insets = new Insets(0, 0, 0, 0);
 		gc.anchor = GridBagConstraints.FIRST_LINE_START;
 		add(loadButton, gc);
+
+		//// next row /////////////
+		gc.gridy++;
+		gc.weightx = 1;
+		gc.weighty = 4;
+
+		gc.gridx = 1;
+		gc.insets = new Insets(0, 0, 0, 0);
+		gc.anchor = GridBagConstraints.FIRST_LINE_START;
+		add(browserButton, gc);
 	}
 
 	public void setReaderListener(ReaderListener readerListener) {
 		this.readerListener = readerListener;
+	}
+
+	public void setFileName(String selectedFile) {
+		fileNameField.setText(selectedFile);
 	}
 }

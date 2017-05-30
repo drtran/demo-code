@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.io.IOException;
 import java.util.Timer;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
 import com.drkiettran.tools.speedreader.ReaderListener.Command;
@@ -15,6 +16,7 @@ public class MainFrame extends JFrame {
 	private Toolbar toolbar;
 	private FormPanel formPanel;
 	private HelpPictureDialog helpPictureDialog;
+	private JFileChooser fileChooser;
 	private TextTimerTask textTimerTask = null;
 	private Timer timer = null;
 
@@ -25,6 +27,8 @@ public class MainFrame extends JFrame {
 		toolbar = new Toolbar();
 		textPanel = new TextPanel();
 		formPanel = new FormPanel();
+		fileChooser = new JFileChooser();
+
 		helpPictureDialog = new HelpPictureDialog(this);
 
 		formPanel.setReaderListener((Command cmd) -> {
@@ -32,6 +36,10 @@ public class MainFrame extends JFrame {
 			case LOAD:
 				textPanel.loadTextFromFile(formPanel.getText());
 				break;
+			case BROWSE:
+				if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
+					formPanel.setFileName(fileChooser.getSelectedFile().getAbsolutePath());
+				}
 			}
 		});
 
