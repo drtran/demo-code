@@ -11,7 +11,6 @@ import java.io.InputStream;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -36,6 +35,9 @@ public class FormPanel extends JPanel {
 	private JButton browserButton;
 	private JLabel speedLabel;
 	private JTextField speedField;
+	private JLabel searchTextLabel;
+	private JTextField searchTextField;
+	private JButton searchButton;
 	private JButton setButton;
 	private Integer speedWpm = 200;
 	private String fileName;
@@ -60,11 +62,14 @@ public class FormPanel extends JPanel {
 		fileNameField = new JTextField(10);
 		speedLabel = new JLabel("Speed (wpm): ");
 		speedField = new JTextField(10);
+		searchTextLabel = new JLabel("Text");
+		searchTextField = new JTextField(10);
 		speedField.setText("" + speedWpm);
 
 		setButton = new JButton("Set");
 		loadButton = new JButton("Load");
 		browserButton = new JButton("Browse");
+		searchButton = new JButton("Search");
 
 		setButton.addActionListener((ActionEvent actionEvent) -> {
 			speedWpm = Integer.valueOf(speedField.getText());
@@ -92,6 +97,10 @@ public class FormPanel extends JPanel {
 			readerListener.invoke(Command.BROWSE);
 		});
 
+		searchButton.addActionListener((ActionEvent actionEvent) -> {
+			readerListener.invoke(Command.SEARCH);
+		});
+
 		Border innerBorder = BorderFactory.createTitledBorder("Configuration");
 		Border outterBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 		setBorder(BorderFactory.createCompoundBorder(outterBorder, innerBorder));
@@ -111,6 +120,7 @@ public class FormPanel extends JPanel {
 		gc.gridy = 0;
 
 		// Always do the following to avoid future confusion :)
+		// Speed
 		gc.weightx = 1;
 		gc.weighty = 0.1;
 
@@ -136,6 +146,7 @@ public class FormPanel extends JPanel {
 		add(setButton, gc);
 
 		// Always do the following to avoid future confusion :)
+		// File Name
 		gc.gridy++;
 		gc.weightx = 1;
 		gc.weighty = 0.1;
@@ -153,7 +164,7 @@ public class FormPanel extends JPanel {
 		//// next row /////////////
 		gc.gridy++;
 		gc.weightx = 1;
-		gc.weighty = 4;
+		gc.weighty = .2;
 
 		gc.gridx = 1;
 		gc.insets = new Insets(0, 0, 0, 0);
@@ -163,12 +174,38 @@ public class FormPanel extends JPanel {
 		//// next row /////////////
 		gc.gridy++;
 		gc.weightx = 1;
-		gc.weighty = 4;
+		gc.weighty = .2;
 
 		gc.gridx = 1;
 		gc.insets = new Insets(0, 0, 0, 0);
 		gc.anchor = GridBagConstraints.FIRST_LINE_START;
 		add(browserButton, gc);
+
+		// Always do the following to avoid future confusion :)
+		gc.gridy++;
+		gc.weightx = 1;
+		gc.weighty = 0.1;
+
+		gc.gridx = 0;
+		gc.anchor = GridBagConstraints.LINE_END;
+		gc.insets = new Insets(0, 0, 0, 5);
+		add(searchTextLabel, gc);
+
+		gc.gridx = 1;
+		gc.insets = new Insets(0, 0, 0, 0);
+		gc.anchor = GridBagConstraints.LINE_START;
+		add(searchTextField, gc);
+
+		//// next row /////////////
+		gc.gridy++;
+		gc.weightx = 1;
+		gc.weighty = 5;
+
+		gc.gridx = 1;
+		gc.insets = new Insets(0, 0, 0, 0);
+		gc.anchor = GridBagConstraints.FIRST_LINE_START;
+		add(searchButton, gc);
+
 	}
 
 	public void setReaderListener(ReaderListener readerListener) {
@@ -177,5 +214,9 @@ public class FormPanel extends JPanel {
 
 	public void setFileName(String selectedFile) {
 		fileNameField.setText(selectedFile);
+	}
+
+	public String getSearchText() {
+		return searchTextField.getText();
 	}
 }

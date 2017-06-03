@@ -40,6 +40,10 @@ public class MainFrame extends JFrame {
 				if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
 					formPanel.setFileName(fileChooser.getSelectedFile().getAbsolutePath());
 				}
+				break;
+			case SEARCH:
+				searchText(formPanel.getSearchText());
+				break;
 			}
 		});
 
@@ -114,6 +118,14 @@ public class MainFrame extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
+	}
+
+	private void searchText(String searchText) {
+		if (textPanel.search(searchText) < 0) {
+			textPanel.setInfo(searchText + " not found!");
+		} else {
+			textPanel.setInfo(searchText + " found!");
+		}
 	}
 
 }

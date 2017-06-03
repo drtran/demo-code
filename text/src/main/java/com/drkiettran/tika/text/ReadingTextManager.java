@@ -137,4 +137,14 @@ public class ReadingTextManager {
 		}
 	}
 
+	public int search(String searchText) {
+		int newCaret = readingText.toLowerCase().indexOf(searchText.toLowerCase(), currentCaret + 1);
+
+		if (newCaret > 0) {
+			setCurrentCaret(newCaret);
+		}
+
+		return newCaret;
+	}
+
 }

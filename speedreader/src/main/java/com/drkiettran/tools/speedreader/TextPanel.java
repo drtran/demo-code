@@ -289,4 +289,24 @@ public class TextPanel extends JPanel {
 		displayingWordLabel.setFont(new Font(displayingFontName, Font.PLAIN, displayingWordFontSize));
 		repaint();
 	}
+
+	public int search(String searchText) {
+		if (readingTextManager != null) {
+			return readingTextManager.search(searchText);
+		}
+		return -1;
+	}
+
+	public void setInfo(String info) {
+		if (readingTextManager != null) {
+			infoLabel.setText(info);
+			infoLabel.setForeground(Color.BLUE);
+			textArea.setCaretPosition(readingTextManager.getCurrentCaret());
+			textArea.requestFocus();
+		} else {
+			infoLabel.setText("Start reading first!");
+			infoLabel.setForeground(Color.RED);
+		}
+		repaint();
+	}
 }
