@@ -12,7 +12,7 @@ public class JtracLoginUnitTest {
 	
 	@Test
 	public void shouldGetCorrectPageTitleWhenAtHomePage() {
-		target.websiteUrl = "http://pidev4:8080/jtrac/app";
+		target.websiteUrl = "http://localhost:8080/jtrac/app";
 		
 		assertEquals("JTrac", target.pageTitle());
 	}
