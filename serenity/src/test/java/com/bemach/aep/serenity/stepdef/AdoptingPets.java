@@ -42,4 +42,9 @@ public class AdoptingPets {
 	public void i_should_see_a_message(String expectedNotice) throws Throwable {
 		assertEquals(expectedNotice, adopter.i_get_a_notice());
 	}
+
+	@Then("^I should see an error message \"([^\"]*)\" on the payment page$")
+	public void i_should_see_an_error_message_on_the_payment_page(String expectedErrorMsg) throws Throwable {
+		assertEquals(expectedErrorMsg, adopter.i_get_error_message());
+	}
 }

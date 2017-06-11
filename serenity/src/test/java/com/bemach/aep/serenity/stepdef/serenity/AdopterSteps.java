@@ -2,6 +2,7 @@ package com.bemach.aep.serenity.stepdef.serenity;
 
 import com.bemach.aep.serenity.stepdef.serenity.page.AdoptionPage;
 import com.bemach.aep.serenity.stepdef.serenity.page.HomePage;
+import com.bemach.aep.serenity.stepdef.serenity.page.PaymentPage;
 import com.bemach.aep.serenity.util.PaymentInfo;
 
 import net.thucydides.core.annotations.Step;
@@ -10,12 +11,13 @@ public class AdopterSteps {
 
 	private HomePage homePage;
 	private AdoptionPage adoptionPage;
+	private PaymentPage paymentPage;
 
 	@Step
 	public void i_open_puppies_home_page(String url) {
 		homePage.openAt(url);
 	}
- 
+
 	@Step
 	public void i_adopt_the_puppy(String puppyName) {
 		String websiteUrl = homePage.getWebsiteUrl();
@@ -41,5 +43,11 @@ public class AdopterSteps {
 	@Step
 	public String i_get_a_notice() {
 		return homePage.getNotice();
+	}
+
+	@Step
+	public String i_get_error_message() {
+		return paymentPage.getErrorMsg();
+
 	}
 }
