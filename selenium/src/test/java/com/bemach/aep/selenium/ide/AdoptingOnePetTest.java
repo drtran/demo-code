@@ -4,13 +4,17 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import com.thoughtworks.selenium.Selenium;
 import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium;
 
 /**
  * This code is generated using Selenium IDE
+ * 
+ * Make sure to run with the following settings:
+ *  
+ *  -Dwebdriver.chrome.driver=C:\dev\bin\misc\chromedriver.exe
  * 
  * @author ktran
  *
@@ -20,7 +24,7 @@ public class AdoptingOnePetTest {
 
 	@Before
 	public void setUp() throws Exception {
-		WebDriver driver = new FirefoxDriver();
+		WebDriver driver = new ChromeDriver();
 		String baseUrl = "http://puppies.herokuapp.com/";
 		selenium = new WebDriverBackedSelenium(driver, baseUrl);
 	}
