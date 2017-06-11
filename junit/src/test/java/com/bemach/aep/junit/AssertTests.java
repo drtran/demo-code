@@ -33,16 +33,16 @@ public class AssertTests {
 
 	@Test
 	public void shouldAssertArrayOfStrings() {
-		String[] expected = {"String 1", "String 2"};
-		String[] actual = {"String 1", "String 2"};
+		String[] expected = { "String 1", "String 2" };
+		String[] actual = { "String 1", "String 2" };
 		assertArrayEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testAssertTrue() {
 		org.junit.Assert.assertTrue(true);
 	}
-	
+
 	@Test
 	public void shouldAssertFalse() {
 		assertFalse(false);
@@ -68,29 +68,30 @@ public class AssertTests {
 	@Test
 	public void shouldAssertSame() {
 		Integer expected = Integer.valueOf(768);
-		Integer actual = Integer.valueOf(768);
+		Integer actual = expected;
 		assertSame(expected, actual);
 	}
-	
+
 	@Test
 	public void shouldAssertNotSame() {
 		Integer expected = Integer.valueOf(768);
 		Integer actual = Integer.valueOf(768);
 		assertNotSame(expected, actual);
 	}
-	
+
 	// JUnit Matchers assertThat
 	@Test
 	public void shouldAssertThatBothContainsString() {
 		String actual = "an element";
-		Assert.assertThat(actual, CoreMatchers.both(CoreMatchers.containsString("an"))
-												 .and(CoreMatchers.containsString("ment")));
+		Assert.assertThat(actual,
+				CoreMatchers.both(CoreMatchers.containsString("an")).and(CoreMatchers.containsString("ment")));
 	}
 
 	@Test
 	public void shouldAssertThathasItemsContainsString() {
-		List<String> actual = Arrays.asList(new String[] {"String 1", "String 2", "String 3", "String 4"});;
-		String[] expected = {"String 2", "String 4"};
+		List<String> actual = Arrays.asList(new String[] { "String 1", "String 2", "String 3", "String 4" });
+		;
+		String[] expected = { "String 2", "String 4" };
 		Assert.assertThat(actual, CoreMatchers.hasItems(expected));
 	}
 
@@ -106,7 +107,7 @@ public class AssertTests {
 		assertThat(actual, allOf(equalTo("Good Morning!"), startsWith("Good")));
 		assertThat(actual, not(allOf(equalTo("bad"), equalTo("Good"))));
 		assertThat(actual, anyOf(equalTo("bad"), endsWith("Morning!")));
-		
+
 		String actualString = new String("My String");
 		String expected = new String("My String");
 		assertThat(actualString, not(sameInstance(expected)));
@@ -115,8 +116,7 @@ public class AssertTests {
 	@Test
 	public void shouldAssertCoreMatchersIntegers() {
 		Integer actual = Integer.valueOf(7);
-		assertThat(actual, not(CombinableMatcher.<Integer> either(equalTo(3)).or(equalTo(4))));
+		assertThat(actual, not(CombinableMatcher.<Integer>either(equalTo(3)).or(equalTo(4))));
 	}
-	
-	
+
 }
