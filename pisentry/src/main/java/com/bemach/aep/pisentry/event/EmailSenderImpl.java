@@ -22,6 +22,9 @@ public class EmailSenderImpl implements EmailSender {
 	private static Properties props = new Properties();
 
 	public void send(String msg) {
+		if (true) {
+			return;
+		}
 		loadProperties();
 		/*
 		 * In this code, I use ENV variables to get email addr/psw/target email

@@ -1,5 +1,6 @@
 package com.bemach.aep.pisentryweb.rest;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -29,6 +30,7 @@ public class AlarmManager extends Application {
 	// http://localhost:8080/pisentryweb/services/alarmManager/getState
 	@GET
 	@Path("/getState")
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getStatus() {
 		logger.info("getting state.");
@@ -42,6 +44,7 @@ public class AlarmManager extends Application {
 	// http://localhost:8080/pisentryweb/services/alarmManager/arm_away
 	@PUT
 	@Path("/arm_away")
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public void armAway() {
 		logger.info("arming away.");
@@ -52,6 +55,7 @@ public class AlarmManager extends Application {
 	// http://localhost:8080/pisentryweb/services/alarmManager/arm_home
 	@PUT
 	@Path("/arm_home")
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public void armHome() {
 		logger.info("arming home.");
@@ -62,6 +66,7 @@ public class AlarmManager extends Application {
 	// http://localhost:8080/pisentryweb/services/alarmManager/disarm
 	@PUT
 	@Path("/disarm")
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public void disarm() {
 		logger.info("disarming.");
