@@ -14,7 +14,7 @@ Scenario: Login to a Tomcat 8 Server
 Scenario: Verifying example code 
 	Given I am at the default tomcat website "http://localhost:8080" 
 	And I access Manager App with user "tomcat" and password "Tomcat!@#" 
-	When I search source code for "Hello Word" as a "Servlets examples" 
+	When I search source code for "Hello World" as a "Servlets examples" 
 	Then I should see the following line of code "class HelloWorld extends HttpServlet" 
 	
 @tomcat-verify-example-code-substitute 

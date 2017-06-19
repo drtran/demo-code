@@ -1,3 +1,4 @@
+@accepting-credit-cards
 Feature: Accepting credit card 
 	As a pet lover,
     I want to adopt a pet using my credit card

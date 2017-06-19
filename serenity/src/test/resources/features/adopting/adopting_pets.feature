@@ -1,3 +1,4 @@
+@adopting-pets
 Feature: Adopting pets from Puppy Adoption Agency 
 	As a pet lover,
     I want to adopt one or more pet
