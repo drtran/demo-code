@@ -47,7 +47,7 @@ public class AlarmManager2BRefactored extends Application {
 		logger.info("arming away.");
 		UdpEventSender eventSender = getUdpEventSender();
 		Event event = new Event(AlarmManager2BRefactored.class.toString(), EventType.ARM_AWAY, DATA_NOOP);
-		eventSender.setUdpSender(new UdpSenderImpl(LOCALHOST, 9999));
+		eventSender.setUdpSender(new UdpSenderImpl(LOCALHOST, 9123));
 		eventSender.send(event);
 	}
 
@@ -60,7 +60,7 @@ public class AlarmManager2BRefactored extends Application {
 		logger.info("arming home.");
 		UdpEventSender eventSender = getUdpEventSender();
 		Event event = new Event(AlarmManager2BRefactored.class.toString(), EventType.ARM_HOME, DATA_NOOP);
-		eventSender.setUdpSender(new UdpSenderImpl(LOCALHOST, 9999));
+		eventSender.setUdpSender(new UdpSenderImpl(LOCALHOST, 9123));
 		eventSender.send(event);
 	}
 
@@ -73,7 +73,7 @@ public class AlarmManager2BRefactored extends Application {
 		logger.info("disarming.");
 		UdpEventSender eventSender = getUdpEventSender();
 		Event event = new Event(AlarmManager2BRefactored.class.toString(), EventType.DISARM, DATA_NOOP);
-		eventSender.setUdpSender(new UdpSenderImpl(LOCALHOST, 9999));
+		eventSender.setUdpSender(new UdpSenderImpl(LOCALHOST, 9123));
 		eventSender.send(event);
 	}
 

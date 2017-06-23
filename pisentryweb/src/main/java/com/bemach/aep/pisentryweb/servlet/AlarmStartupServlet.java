@@ -29,7 +29,7 @@ public class AlarmStartupServlet extends HttpServlet {
 		ReceiverThread receiverThread = new ReceiverThread();
 		EventProcessorImpl eventProcessor = new EventProcessorImpl();
 		UdpEventReceiver udpEventReceiver = new UdpEventReceiver();
-		udpEventReceiver.setUdpReceiver(new UdpReceiverImpl(9999));
+		udpEventReceiver.setUdpReceiver(new UdpReceiverImpl(9123));
 		NotificationManagerImpl notificationMgr = new NotificationManagerImpl();
 		EmailSender email = new EmailSenderImpl();
 		notificationMgr.setEmailSender(email);

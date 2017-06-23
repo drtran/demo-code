@@ -12,8 +12,7 @@ import org.junit.runner.RunWith;
  * 
  * tomcat/conf/tomcat-users.xml:
  * 
- * <user username="tomcat" password="Tomcat!@#" roles=
-"manager-gui,manager-script,manager-jmx,manager-status"/>
+ * <user username="tomcat" password="Tomcat!@#" roles="manager-gui,manager-script,manager-jmx,manager-status"/>
  * 
  * </code>
  * 
@@ -25,7 +24,7 @@ import org.junit.runner.RunWith;
 
 // , tags = { "@not_accepting_with_blank_email, @not_accepting_with_blank_name"}
 // , tags = { "@adopting_one_pet, @adopting_multiple_pets, @accepting_creditcard" }
-// , tags = { "@tomcat-verify-example-code-substitute" }
+ , tags = { "@tomcat-0-more-app-names" }
 
 )
 public class RunSerenityTest {

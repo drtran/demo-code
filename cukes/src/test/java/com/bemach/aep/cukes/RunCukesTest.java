@@ -12,7 +12,7 @@ import cucumber.api.junit.Cucumber;
 //   
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources/features", tags = { "@adopting_two_pets, @adopting_one_pet" })
+@CucumberOptions(features = "src/test/resources/features", tags = { "@adopting_one_pet" })
 public class RunCukesTest {
 
 }

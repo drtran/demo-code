@@ -3,6 +3,7 @@ package com.bemach.aep.selenium.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import com.bemach.aep.selenium.pages.Browser;
 import com.bemach.aep.selenium.pages.Browser.DRIVER_TYPE;
 
 public class AdoptingPetsPage {

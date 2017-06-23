@@ -29,7 +29,7 @@ public class AlarmManagerTest {
 		alarmMgr.disarm();
 
 		// Assert
-		Mockito.verify(theMock, Mockito.times(1)).send(argument.capture());
+//		Mockito.verify(theMock, Mockito.times(1)).send(argument.capture());
 		Mockito.verify(theMock).send(argument.capture());
 		Event actual = argument.getValue();
 		assertThat(actual, equalTo(expected));

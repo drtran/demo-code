@@ -17,7 +17,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
  */
 public class Browser {
 	public enum DRIVER_TYPE {
-		CHROME, FIREFOX
+		CHROME, FIREFOX, REMOTE
 	};
 
 	private static WebDriver driver = null;
@@ -32,11 +32,15 @@ public class Browser {
 
 	public Browser(DRIVER_TYPE driverType) {
 		if (driver == null) {
+
 			if (driverType == DRIVER_TYPE.FIREFOX) {
 				driver = new FirefoxDriver();
 			} else if (driverType == DRIVER_TYPE.CHROME) {
 				driver = new ChromeDriver();
+			} else if (driverType == DRIVER_TYPE.REMOTE) {
+				driver = DriverUtil.getDriver(DriverUtil.DRIVER_TYPE.REMOTE);
 			}
+			
 			this.driverType = driverType;
 			driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 		}

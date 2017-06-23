@@ -19,8 +19,7 @@ public class UdpEventReceiverTest {
 	public void shouldCallReceiveMethod() {
 		// Arrange
 		UdpReceiver theStub = Mockito.mock(UdpReceiver.class);
-		when(theStub.receive()).
-		thenReturn("TESTID:FAULT:EVENT_DATA");
+		when(theStub.receive()).thenReturn("TESTID:FAULT:EVENT_DATA");
 		UdpEventReceiver target = new UdpEventReceiver();
 		target.setUdpReceiver(theStub);
 
@@ -30,7 +29,7 @@ public class UdpEventReceiverTest {
 		// Assert
 		verify(theStub).receive();
 	}
-	
+
 	/**
 	 * Stubbing the DOC - injecting indirect input to SUT
 	 */
@@ -38,8 +37,7 @@ public class UdpEventReceiverTest {
 	public void shouldReceiveOneCorrectEvent() {
 		// Arrange
 		UdpReceiver theStub = Mockito.mock(UdpReceiver.class);
-		when(theStub.receive()).
-		thenReturn("TESTID:FAULT:EVENT_DATA");
+		when(theStub.receive()).thenReturn("TESTID:FAULT:EVENT_DATA");
 		UdpEventReceiver target = new UdpEventReceiver();
 		target.setUdpReceiver(theStub);
 		Event expected = new Event("TESTID:FAULT:EVENT_DATA");

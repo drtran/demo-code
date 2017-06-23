@@ -24,35 +24,43 @@ public class TomcatSteps {
 		tomcatHomePage.openAt(url);
 	}
 
+	@Step
 	public void i_click_on_Server_Status_button(String userId, String password) {
 		tomcatHomePage.clickOnServerStatusButton(userId, password);
 	}
 
+	@Step
 	public void i_click_on_list_applications_link() {
 		serverStatusPage.clickOnApplicationsLink();
 	}
 
+	@Step
 	public void i_verify_that_applications_table_has_at_least(Integer expectedNumberOfApps) {
 		assertThat("Number of application is less than expected!", expectedNumberOfApps,
 				lessThanOrEqualTo(appManagerPage.getNumberOfApps()));
 	}
 
+	@Step
 	public void i_click_on_ManagerApp_button(String userId, String password) {
 		tomcatHomePage.clickOnManagerAppButton(userId, password);
 	}
 
+	@Step
 	public void i_click_on_exmaples_link() {
 		appManagerPage.clickOnExamplesLink();
 	}
 
+	@Step
 	public void i_click_on_examples_type(String examplesType) {
 		examplesPage.clickOnExamples(examplesType);
 	}
 
+	@Step
 	public void i_click_on_the_source_link_of(String exampleName) {
 		servletExamplesPage.clickOnSourceFor(exampleName);
 	}
 
+	@Step
 	public void i_verify_that_example_code_has_this_text(String expectedSourceCode) {
 		assertThat("Incorrect example source code", servletExamplesPage.getSourceCode(expectedSourceCode),
 				equalTo(expectedSourceCode));
