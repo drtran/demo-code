@@ -48,6 +48,7 @@ public class AdoptingOnePetTest {
 
 	@After
 	public void tearDown() throws Exception {
-		selenium.stop();
+//		selenium.stop();
+		selenium.close();
 	}
 }
