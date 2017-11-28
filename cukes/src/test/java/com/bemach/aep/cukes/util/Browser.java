@@ -45,7 +45,7 @@ public class Browser {
 	public void close() {
 		if (driver != null) {
 			driver.close();
-			driver.quit();
+//			driver.quit();
 			driver = null;
 		}
 	}
